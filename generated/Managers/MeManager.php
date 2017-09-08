@@ -85,6 +85,7 @@ class MeManager
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
+		die(print_r($requestBody, true) . "\n");
 
 		$response = new ProjectListResponse(
 			$this->apiClient, 
