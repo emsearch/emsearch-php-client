@@ -6007,7 +6007,9 @@
             "ProjectListResponse": {
                 "properties": {
                     "data": {
-                        "$ref": "#\/components\/schemas\/Project"
+                        "allOf": {
+                            "$ref": "#\/components\/schemas\/Project"
+                        }
                     },
                     "meta": {
                         "$ref": "#\/components\/schemas\/Meta"

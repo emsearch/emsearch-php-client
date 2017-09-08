@@ -5,7 +5,6 @@ namespace emsearch\Api\Managers;
 use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\ApiException;
 use emsearch\Api\Resources\ProjectListResponse;
-use emsearch\Api\Resources\Project;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
@@ -89,15 +88,7 @@ class MeManager
 
 		$response = new ProjectListResponse(
 			$this->apiClient, 
-			new Project(
-				$this->apiClient, 
-				$requestBody['data']['id'], 
-				$requestBody['data']['search_engine_id'], 
-				$requestBody['data']['data_stream_id'], 
-				$requestBody['data']['name'], 
-				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
-			), 
+			$requestBody['data'], 
 			new Meta(
 				$this->apiClient, 
 				new Pagination(
