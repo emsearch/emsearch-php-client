@@ -70,7 +70,7 @@ class Pagination
 	 * @param int $total_pages Format: int32.
 	 * @param mixed $links
 	 */
-	public function __constructor(ApiClient $apiClient, $total = null, $count = null, $per_page = null, $current_page = null, $total_pages = null, $links = null)
+	public function __construct(ApiClient $apiClient, $total = null, $count = null, $per_page = null, $current_page = null, $total_pages = null, $links = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->total = $total;

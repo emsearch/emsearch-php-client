@@ -292,7 +292,7 @@
             "source": {
                 "type": "git",
                 "url": "/home/dev/rygilles/openapi-php-client-generator",
-                "reference": "fa8efa3f296493d8a5e4c390fa193913ddf70352"
+                "reference": "51554942a3bcbac8ad0af5fbf062486336df083b"
             },
             "require": {
                 "php": ">=5.5.0",
@@ -333,7 +333,7 @@
                 "PHP",
                 "Schema"
             ],
-            "time": "2017-09-08T15:01:47+00:00"
+            "time": "2017-09-08T15:16:07+00:00"
         },
         {
             "name": "symfony/console",

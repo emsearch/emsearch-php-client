@@ -31,7 +31,7 @@ class Meta
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 * @param Pagination $pagination
 	 */
-	public function __constructor(ApiClient $apiClient, $pagination = null)
+	public function __construct(ApiClient $apiClient, $pagination = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->pagination = $pagination;

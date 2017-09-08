@@ -31,7 +31,7 @@ class ProjectResponse
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 * @param Project $data
 	 */
-	public function __constructor(ApiClient $apiClient, $data = null)
+	public function __construct(ApiClient $apiClient, $data = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->data = $data;

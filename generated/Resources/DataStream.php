@@ -70,7 +70,7 @@ class DataStream
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
 	 */
-	public function __constructor(ApiClient $apiClient, $id = null, $data_stream_decoder_id = null, $name = null, $feed_url = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $id = null, $data_stream_decoder_id = null, $name = null, $feed_url = null, $created_at = null, $updated_at = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;

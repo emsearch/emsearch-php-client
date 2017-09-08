@@ -38,7 +38,7 @@ class ProjectListResponse
 	 * @param Project[] $data
 	 * @param Meta $meta
 	 */
-	public function __constructor(ApiClient $apiClient, $data = null, $meta = null)
+	public function __construct(ApiClient $apiClient, $data = null, $meta = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->data = $data;
