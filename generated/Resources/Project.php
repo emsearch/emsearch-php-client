@@ -102,7 +102,7 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->request('patch', $url);
+		$request = $this->apiClient->getHttpClient()->request('patch', $url);
 
 		return $request;
 	}
@@ -127,7 +127,7 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->request('delete', $url);
+		$request = $this->apiClient->getHttpClient()->request('delete', $url);
 
 		return $request;
 	}
@@ -149,7 +149,7 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->request('get', $url);
+		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
 		return $request;
 	}
@@ -175,7 +175,7 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->request('patch', $url);
+		$request = $this->apiClient->getHttpClient()->request('patch', $url);
 
 		return $request;
 	}
@@ -203,7 +203,7 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->request('post', $url);
+		$request = $this->apiClient->getHttpClient()->request('post', $url);
 
 		return $request;
 	}
@@ -223,7 +223,7 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->request('delete', $url);
+		$request = $this->apiClient->getHttpClient()->request('delete', $url);
 
 		return $request;
 	}

@@ -48,7 +48,7 @@ class MeManager
 	{
 		$url = '/api/me';
 
-		$request = $this->apiClient->request('get', $url);
+		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
 		return $request;
 	}
@@ -68,7 +68,7 @@ class MeManager
 	{
 		$url = '/api/me/project';
 
-		$request = $this->apiClient->request('get', $url);
+		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
 		return $request;
 	}
