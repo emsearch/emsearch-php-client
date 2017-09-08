@@ -1,0 +1,3854 @@
+---
+openapi: 3.0.0
+info:
+  title: emsearch API
+  version: '1.0'
+servers:
+- url: https://emsearch.ryan.ems-dev.net
+paths:
+  "/api/searchUseCase/{searchUseCaseId}/search":
+    get:
+      summary: Perform search with the specified search use case
+      operationId: search
+      parameters:
+      - name: query_string
+        in: query
+        required: true
+        schema:
+          minLength: 1
+          type: string
+      - name: i18n_lang_id
+        in: query
+        required: false
+        schema:
+          maxLength: 30
+          type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+      responses:
+        '200':
+          description: ''
+  "/api/me":
+    get:
+      summary: Get current user
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/MeIndexExampleResponse"
+  "/api/me/project":
+    get:
+      summary: Current user project list
+      description: You can specify a GET parameter `user_role_id` to filter results.
+      operationId: index
+      parameters:
+      - name: user_role_id
+        in: query
+        required: false
+        schema:
+          enum:
+          - Owner
+          - Administrator
+          type: string
+      responses:
+        '200':
+          description: A Project list
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectListResponse"
+              example:
+                "$ref": "#/components/examples/MeProjectIndexExampleResponse"
+  "/api/me/notification":
+    get:
+      summary: Current user notification list
+      description: You can specify a GET parameter `read_status` to filter results.
+      operationId: index
+      parameters:
+      - name: read_status
+        in: query
+        required: false
+        schema:
+          enum:
+          - read
+          - unread
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/MeNotificationIndexExampleResponse"
+  "/api/me/notification/{notificationId}/read":
+    post:
+      summary: Mark the specified user notification as read
+      operationId: updateRead
+      responses:
+        '201':
+          description: ''
+  "/api/me/notification/{notificationId}/unread":
+    post:
+      summary: Mark the specified user notification as unread
+      operationId: updateUnread
+      responses:
+        '201':
+          description: ''
+  "/api/userGroup":
+    get:
+      summary: Show User group list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/UserGroupIndexExampleResponse"
+  "/api/userGroup/{userGroupId}":
+    get:
+      summary: Get specified User group
+      operationId: show
+      responses:
+        '200':
+          description: ''
+  "/api/user":
+    get:
+      summary: User list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/UserIndexExampleResponse"
+    post:
+      summary: Create and store new user
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - user_group_id
+              - name
+              - email
+              - password
+              properties:
+                user_group_id:
+                  enum:
+                  - Developer
+                  - Support
+                  - End-User
+                  type: string
+                name:
+                  maxLength: 100
+                  type: string
+                email:
+                  maxLength: 150
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '201':
+          description: ''
+  "/api/user/{userId}":
+    get:
+      summary: Get specified user
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a specified user
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - user_group_id
+              - name
+              - email
+              - password
+              properties:
+                user_group_id:
+                  enum:
+                  - Developer
+                  - Support
+                  - End-User
+                  type: string
+                name:
+                  maxLength: 100
+                  type: string
+                email:
+                  maxLength: 150
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified user
+      description: |-
+        All relationships between the user and his projects will be automatically deleted too.<br />
+        All projects owned by the user will be automatically deleted too.
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified user
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - user_group_id
+              - name
+              - email
+              - password
+              properties:
+                user_group_id:
+                  enum:
+                  - Developer
+                  - Support
+                  - End-User
+                  type: string
+                name:
+                  maxLength: 100
+                  type: string
+                email:
+                  maxLength: 150
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '201':
+          description: ''
+  "/api/userGroup/{userGroupId}/user":
+    get:
+      summary: User group user list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/user/{userId}/userHasProject":
+    get:
+      summary: User relationship between users and projects list
+      description: You can specify a GET parameter `user_role_id` to filter results.
+      operationId: index
+      parameters:
+      - name: user_role_id
+        in: query
+        required: false
+        schema:
+          enum:
+          - Owner
+          - Administrator
+          type: string
+      responses:
+        '200':
+          description: ''
+  "/api/project/{projectId}/userHasProject":
+    get:
+      summary: Project relationship between users and projects list
+      description: You can specify a GET parameter `user_role_id` to filter results.
+      operationId: index
+      parameters:
+      - name: user_role_id
+        in: query
+        required: false
+        schema:
+          enum:
+          - Owner
+          - Administrator
+          type: string
+      responses:
+        '200':
+          description: ''
+  "/api/user/{userId}/project":
+    get:
+      summary: User project list
+      description: You can specify a GET parameter `user_role_id` to filter results.
+      operationId: index
+      parameters:
+      - name: user_role_id
+        in: query
+        required: false
+        schema:
+          enum:
+          - Owner
+          - Administrator
+          type: string
+      responses:
+        '200':
+          description: A Project list
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectListResponse"
+  "/api/project":
+    get:
+      tags:
+      - Manager:Project
+      summary: Project list
+      operationId: all
+      responses:
+        '200':
+          description: A Project list
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectListResponse"
+              example:
+                "$ref": "#/components/examples/ProjectIndexExampleResponse"
+    post:
+      tags:
+      - Manager:Project
+      summary: Create and store new project
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_engine_id
+              - name
+              properties:
+                search_engine_id:
+                  type: string
+                  format: uuid
+                data_stream_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 100
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: The created Project
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectResponse"
+  "/api/project/{projectId}":
+    get:
+      tags:
+      - Manager:Project
+      summary: Get specified project
+      operationId: get
+      responses:
+        '200':
+          description: A Project
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectResponse"
+              example:
+                "$ref": "#/components/examples/ProjectShowExampleResponse"
+    put:
+      tags:
+      - Manager:Project
+      summary: Update a specified project
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_engine_id
+              - name
+              properties:
+                search_engine_id:
+                  type: string
+                  format: uuid
+                data_stream_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 100
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: The updated Project
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectResponse"
+    delete:
+      tags:
+      - Manager:Project
+      - Resource:Project
+      summary: Delete specified project
+      description: |-
+        All relationships between the project and his users will be automatically deleted too.<br />
+        The project sync items will be automatically deleted too.<br />
+        The project data stream will be automatically deleted too, if exists.
+        <aside class="notice">Only <code>Owner</code> of project is allowed to delete it.</aside>
+      operationId: delete
+      responses:
+        '204':
+          description: Empty response
+    patch:
+      tags:
+      - Manager:Project
+      summary: Update a specified project
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_engine_id
+              - name
+              properties:
+                search_engine_id:
+                  type: string
+                  format: uuid
+                data_stream_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 100
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: The updated Project
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectResponse"
+  "/api/syncItem":
+    get:
+      summary: Sync item list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncItemIndexExampleResponse"
+    post:
+      summary: Create and store new sync item
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - item_id
+              - project_id
+              properties:
+                item_id:
+                  maxLength: 191
+                  type: string
+                project_id:
+                  type: string
+                  format: uuid
+                item_signature:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncItem/{syncItemId},{projectId}":
+    get:
+      summary: Get specified sync item
+      operationId: show
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncItemShowExampleResponse"
+    put:
+      summary: Update a specified sync item
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - item_id
+              - project_id
+              properties:
+                item_id:
+                  maxLength: 191
+                  type: string
+                project_id:
+                  type: string
+                  format: uuid
+                item_signature:
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified sync item
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified sync item
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - item_id
+              - project_id
+              properties:
+                item_id:
+                  maxLength: 191
+                  type: string
+                project_id:
+                  type: string
+                  format: uuid
+                item_signature:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/project/{projectId}/syncItem":
+    get:
+      summary: Project sync item list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/syncTask":
+    get:
+      summary: Sync task list
+      description: |-
+        You can specify a GET parameter `root` (return only root tasks if true, children only if false) to filter results.<br />
+        Filter results with `sync_task_status_id` GET parameter.
+      operationId: index
+      parameters:
+      - name: root
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: sync_task_status_id
+        in: query
+        required: false
+        schema:
+          enum:
+          - Planned
+          - InProgress
+          - Complete
+          type: string
+      - name: planned_before
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Must be a valid date according to the strtotime PHP function.
+      - name: planned_after
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Must be a valid date according to the strtotime PHP function.
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncTaskIndexExampleResponse"
+    post:
+      summary: Create and store new sync task
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_type_id
+              - sync_task_status_id
+              - created_by_user_id
+              - project_id
+              properties:
+                sync_task_id:
+                  type: string
+                  format: uuid
+                sync_task_type_id:
+                  maxLength: 50
+                  type: string
+                sync_task_status_id:
+                  maxLength: 50
+                  type: string
+                created_by_user_id:
+                  type: string
+                  format: uuid
+                project_id:
+                  type: string
+                  format: uuid
+                planned_at:
+                  type: string
+                  description: Must be a valid date according to the strtotime PHP
+                    function.
+      responses:
+        '201':
+          description: ''
+  "/api/syncTask/{syncTaskId}":
+    get:
+      summary: Get specified sync task
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a specified sync task
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_type_id
+              - sync_task_status_id
+              - created_by_user_id
+              - project_id
+              properties:
+                sync_task_id:
+                  type: string
+                  format: uuid
+                sync_task_type_id:
+                  maxLength: 50
+                  type: string
+                sync_task_status_id:
+                  maxLength: 50
+                  type: string
+                created_by_user_id:
+                  type: string
+                  format: uuid
+                project_id:
+                  type: string
+                  format: uuid
+                planned_at:
+                  type: string
+                  description: Must be a valid date according to the strtotime PHP
+                    function.
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified sync task
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified sync task
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_type_id
+              - sync_task_status_id
+              - created_by_user_id
+              - project_id
+              properties:
+                sync_task_id:
+                  type: string
+                  format: uuid
+                sync_task_type_id:
+                  maxLength: 50
+                  type: string
+                sync_task_status_id:
+                  maxLength: 50
+                  type: string
+                created_by_user_id:
+                  type: string
+                  format: uuid
+                project_id:
+                  type: string
+                  format: uuid
+                planned_at:
+                  type: string
+                  description: Must be a valid date according to the strtotime PHP
+                    function.
+      responses:
+        '201':
+          description: ''
+  "/api/syncTask/{syncTaskId}/children":
+    get:
+      summary: Sync task sync task children list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/syncTask/{syncTaskId}/syncTaskLog":
+    get:
+      summary: Sync task sync task logs list
+      description: You can specify a GET parameter `public` to filter results (Only
+        allowed for `Developer` and `Support` users).
+      operationId: index
+      parameters:
+      - name: public
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+  "/api/project/{projectId}/syncTask":
+    get:
+      summary: Project sync task list
+      description: You can specify a GET parameter `root` (return only root tasks
+        if true, children only if false) to filter results.
+      operationId: index
+      parameters:
+      - name: root
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+  "/api/syncTaskType":
+    get:
+      summary: Show sync task type list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncTaskTypeIndexExampleResponse"
+    post:
+      summary: Create and store new sync task type
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - id
+              properties:
+                id:
+                  maxLength: 50
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskType/{syncTaskTypeId}":
+    get:
+      summary: Get specified sync task type
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a sync task type
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - id
+              properties:
+                id:
+                  maxLength: 50
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified sync task type
+      description: |-
+        The sync task type versions will be automatically deleted too.<br />
+        <aside class="warning">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.</aside>
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a sync task type
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - id
+              properties:
+                id:
+                  maxLength: 50
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskTypeVersion":
+    get:
+      summary: Sync task type version item list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncTaskTypeVersionIndexExampleResponse"
+    post:
+      summary: Create and store new sync task type version
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_type_id
+              - i18n_lang_id
+              - description
+              properties:
+                sync_task_type_id:
+                  maxLength: 50
+                  type: string
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskTypeVersion/{syncTaskTypeId},{i18nLangId}":
+    get:
+      summary: Get specified sync task type version
+      operationId: show
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncTaskTypeVersionShowExampleResponse"
+    put:
+      summary: Update a specified sync task type version
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_type_id
+              - i18n_lang_id
+              - description
+              properties:
+                sync_task_type_id:
+                  maxLength: 50
+                  type: string
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified sync task type version
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified sync task type version
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_type_id
+              - i18n_lang_id
+              - description
+              properties:
+                sync_task_type_id:
+                  maxLength: 50
+                  type: string
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskType/{syncTaskTypeId}/version":
+    get:
+      summary: Sync task type sync task type versions list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/syncTaskStatus":
+    get:
+      summary: Show sync task status list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncTaskStatusIndexExampleResponse"
+    post:
+      summary: Create and store new sync task status
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - id
+              properties:
+                id:
+                  maxLength: 50
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskStatus/{syncTaskStatusId}":
+    get:
+      summary: Get specified sync task status
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a sync task status
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - id
+              properties:
+                id:
+                  maxLength: 50
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified sync task status
+      description: |-
+        The sync task status versions will be automatically deleted too.<br />
+        <aside class="warning">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.</aside>
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a sync task status
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - id
+              properties:
+                id:
+                  maxLength: 50
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskStatusVersion":
+    get:
+      summary: Sync task status version item list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncTaskStatusVersionIndexExampleResponse"
+    post:
+      summary: Create and store new sync task status version
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_status_id
+              - i18n_lang_id
+              - description
+              properties:
+                sync_task_status_id:
+                  maxLength: 50
+                  type: string
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskStatusVersion/{syncTaskStatusId},{i18nLangId}":
+    get:
+      summary: Get specified sync task status version
+      operationId: show
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SyncTaskStatusVersionShowExampleResponse"
+    put:
+      summary: Update a specified sync task status version
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_status_id
+              - i18n_lang_id
+              - description
+              properties:
+                sync_task_status_id:
+                  maxLength: 50
+                  type: string
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified sync task status version
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified sync task status version
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - sync_task_status_id
+              - i18n_lang_id
+              - description
+              properties:
+                sync_task_status_id:
+                  maxLength: 50
+                  type: string
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/syncTaskStatus/{syncTaskStatusId}/version":
+    get:
+      summary: Sync task status sync task status versions list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/dataStream":
+    get:
+      summary: Show data stream list
+      operationId: index
+      responses:
+        '200':
+          description: A DataStream list
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStreamListResponse"
+              example:
+                "$ref": "#/components/examples/DataStreamIndexExampleResponse"
+    post:
+      summary: Create and store new data stream
+      description: Only one data stream per project is allowed.
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              - feed_url
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  type: string
+                feed_url:
+                  type: string
+                  format: url
+      responses:
+        '201':
+          description: A DataStreamResponse
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStream"
+  "/api/dataStream/{dataStreamId}":
+    get:
+      summary: Get specified data stream
+      operationId: show
+      responses:
+        '200':
+          description: A DataStream
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStreamResponse"
+    put:
+      summary: Update a data stream
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              - feed_url
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  type: string
+                feed_url:
+                  type: string
+                  format: url
+      responses:
+        '201':
+          description: A DataStreamResponse
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStream"
+    delete:
+      summary: Delete specified data stream
+      operationId: destroy
+      responses:
+        '204':
+          description: Empty response
+    patch:
+      summary: Update a data stream
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              - feed_url
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  type: string
+                feed_url:
+                  type: string
+                  format: url
+      responses:
+        '201':
+          description: A DataStreamResponse
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStream"
+  "/api/dataStreamField":
+    get:
+      summary: Show data stream field list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/DataStreamFieldIndexExampleResponse"
+    post:
+      summary: Create and store new data stream field
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_id
+              - name
+              - path
+              - versioned
+              - searchable
+              - to_retrieve
+              properties:
+                data_stream_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                path:
+                  maxLength: 1000
+                  minLength: 1
+                  type: string
+                versioned:
+                  type: boolean
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamField/{dataStreamFieldId}":
+    get:
+      summary: Get specified data stream field
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a data stream field
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_id
+              - name
+              - path
+              - versioned
+              - searchable
+              - to_retrieve
+              properties:
+                data_stream_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                path:
+                  maxLength: 1000
+                  minLength: 1
+                  type: string
+                versioned:
+                  type: boolean
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: |-
+        Delete specified data stream field
+        *
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a data stream field
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_id
+              - name
+              - path
+              - versioned
+              - searchable
+              - to_retrieve
+              properties:
+                data_stream_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                path:
+                  maxLength: 1000
+                  minLength: 1
+                  type: string
+                versioned:
+                  type: boolean
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/dataStream/{dataStreamPresetId}/dataStreamField":
+    get:
+      summary: |-
+        Data stream data stream field list
+         *
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/project/{projectId}/dataStream":
+    get:
+      summary: Show project data stream
+      operationId: show
+      responses:
+        '200':
+          description: A DataStream
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStreamResponse"
+    put:
+      summary: Update the project data stream
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              - feed_url
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  type: string
+                feed_url:
+                  type: string
+                  format: url
+      responses:
+        '201':
+          description: A DataStreamResponse
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStream"
+    post:
+      summary: Create and store the project data stream
+      description: Only one data stream per project is allowed.
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              - feed_url
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  type: string
+                feed_url:
+                  type: string
+                  format: url
+      responses:
+        '201':
+          description: A DataStreamResponse
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStream"
+    delete:
+      summary: Delete the project data stream
+      operationId: destroy
+      responses:
+        '204':
+          description: Empty response
+    patch:
+      summary: Update the project data stream
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              - feed_url
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  type: string
+                feed_url:
+                  type: string
+                  format: url
+      responses:
+        '201':
+          description: A DataStreamResponse
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStream"
+  "/api/dataStreamHasI18nLang":
+    get:
+      summary: List of relationships between data streams and i18n langs
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/DataStreamHasI18nLangIndexExampleResponse"
+    post:
+      summary: Create and store new relationship between a data stream and a i18n
+        lang
+      description: <aside class="notice">Only one relationship per data stream/i18n
+        lang is allowed.</aside>
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_id
+              - i18n_lang_id
+              properties:
+                data_stream_id:
+                  type: string
+                  format: uuid
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamHasI18nLang/{dataStreamId},{i18nLangId}":
+    get:
+      summary: Get specified relationship between a data stream and a i18n lang
+      operationId: show
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/DataStreamHasI18nLangShowExampleResponse"
+    put:
+      summary: Update a specified relationship between a data stream and a i18n lang
+      description: <aside class="notice">Only one relationship per data stream/i18n
+        lang is allowed.</aside>
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_id
+              - i18n_lang_id
+              properties:
+                data_stream_id:
+                  type: string
+                  format: uuid
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified relationship between a data stream and a i18n lang
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified relationship between a data stream and a i18n lang
+      description: <aside class="notice">Only one relationship per data stream/i18n
+        lang is allowed.</aside>
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_id
+              - i18n_lang_id
+              properties:
+                data_stream_id:
+                  type: string
+                  format: uuid
+                i18n_lang_id:
+                  maxLength: 30
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/dataStream/{dataStreamId}/dataStreamHasI18nLang":
+    get:
+      summary: Data stream relationship between data stream and i18n langs list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/dataStream/{dataStreamId}/i18nLang":
+    get:
+      summary: Data stream i18n lang list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/i18nLang/{i18nLangId}/dataStream":
+    get:
+      summary: I18n lang data streams list
+      operationId: index
+      responses:
+        '200':
+          description: A DataStream list
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DataStreamListResponse"
+  "/api/userHasProject":
+    get:
+      summary: List of relationships between users and projects
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/UserHasProjectIndexExampleResponse"
+    post:
+      summary: Create and store new relationship between a user and a project
+      description: <aside class="notice">Only one relationship per user/project is
+        allowed and only one user can be <code>Owner</code>of a project.</aside>
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - user_id
+              - project_id
+              - user_role_id
+              properties:
+                user_id:
+                  type: string
+                  format: uuid
+                project_id:
+                  type: string
+                  format: uuid
+                user_role_id:
+                  enum:
+                  - Owner
+                  - Administrator
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/userHasProject/{userId},{projectId}":
+    get:
+      summary: Get specified relationship between a user and a project
+      operationId: show
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/UserHasProjectShowExampleResponse"
+    put:
+      summary: Update a specified relationship between a user and a project
+      description: <aside class="notice">Only one relationship per user/project is
+        allowed and only one user can be <code>Owner</code>of a project.</aside>
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - user_id
+              - project_id
+              - user_role_id
+              properties:
+                user_id:
+                  type: string
+                  format: uuid
+                project_id:
+                  type: string
+                  format: uuid
+                user_role_id:
+                  enum:
+                  - Owner
+                  - Administrator
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified relationship between a user and a project
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified relationship between a user and a project
+      description: <aside class="notice">Only one relationship per user/project is
+        allowed and only one user can be <code>Owner</code>of a project.</aside>
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - user_id
+              - project_id
+              - user_role_id
+              properties:
+                user_id:
+                  type: string
+                  format: uuid
+                project_id:
+                  type: string
+                  format: uuid
+                user_role_id:
+                  enum:
+                  - Owner
+                  - Administrator
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamDecoder":
+    get:
+      summary: Show data stream decoder list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/DataStreamDecoderIndexExampleResponse"
+    post:
+      summary: Create and store new data stream decoder
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - class_name
+              - file_mime_type
+              properties:
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+                class_name:
+                  type: string
+                file_mime_type:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamDecoder/{dataStreamDecoderId}":
+    get:
+      summary: Get specified data stream decoder
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a data stream decoder
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - class_name
+              - file_mime_type
+              properties:
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+                class_name:
+                  type: string
+                file_mime_type:
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified data stream decoder
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a data stream decoder
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - class_name
+              - file_mime_type
+              properties:
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+                class_name:
+                  type: string
+                file_mime_type:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamPreset":
+    get:
+      summary: Show data stream preset list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/DataStreamPresetIndexExampleResponse"
+    post:
+      summary: Create and store new data stream preset
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamPreset/{dataStreamPresetId}":
+    get:
+      summary: Get specified data stream preset
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a data stream preset
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: |-
+        Delete specified data stream preset
+        *
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a data stream preset
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_decoder_id
+              - name
+              properties:
+                data_stream_decoder_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamPreset/{dataStreamPresetId}/dataStreamPresetField":
+    get:
+      summary: |-
+        Data stream preset data stream preset field list
+         *
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/dataStreamPresetField":
+    get:
+      summary: Show data stream preset field list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/DataStreamPresetFieldIndexExampleResponse"
+    post:
+      summary: Create and store new data stream preset field
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_preset_id
+              - name
+              - path
+              - versioned
+              - searchable
+              - to_retrieve
+              properties:
+                data_stream_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                path:
+                  maxLength: 1000
+                  minLength: 1
+                  type: string
+                versioned:
+                  type: boolean
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/dataStreamPresetField/{dataStreamPresetFieldId}":
+    get:
+      summary: Get specified data stream preset field
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a data stream preset field
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_preset_id
+              - name
+              - path
+              - versioned
+              - searchable
+              - to_retrieve
+              properties:
+                data_stream_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                path:
+                  maxLength: 1000
+                  minLength: 1
+                  type: string
+                versioned:
+                  type: boolean
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: |-
+        Delete specified data stream preset field
+        *
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a data stream preset field
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_preset_id
+              - name
+              - path
+              - versioned
+              - searchable
+              - to_retrieve
+              properties:
+                data_stream_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                path:
+                  maxLength: 1000
+                  minLength: 1
+                  type: string
+                versioned:
+                  type: boolean
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/i18nLang":
+    get:
+      summary: Show i18n lang list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/I18nLangIndexExampleResponse"
+    post:
+      summary: Create and store new i18n lang
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - id
+              - description
+              properties:
+                id:
+                  maxLength: 30
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/i18nLang/{i18nLangId}":
+    get:
+      summary: Get specified i18n lang
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a i18n lang
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - description
+              properties:
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified i18n Lang
+      description: <aside class="warning">Avoid using this feature ! Check foreign
+        keys constraints to remove dependent resources properly before.</aside>
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a i18n lang
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - description
+              properties:
+                description:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/i18nLang/search":
+    get:
+      summary: Show i18n lang list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/i18nLang/{i18nLangId}/syncTaskTypeVersion":
+    get:
+      summary: I18n lang sync task type versions list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/searchEngine":
+    get:
+      summary: Show search engine list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SearchEngineIndexExampleResponse"
+    post:
+      summary: Create and store new search engine
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - class_name
+              properties:
+                name:
+                  maxLength: 100
+                  type: string
+                class_name:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchEngine/{searchEngineId}":
+    get:
+      summary: Get specified search engine
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a search engine
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - class_name
+              properties:
+                name:
+                  maxLength: 100
+                  type: string
+                class_name:
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified search engine
+      description: <aside class="warning">Avoid using this feature ! Check foreign
+        keys constraints to remove dependent resources properly before.</aside>
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a search engine
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - name
+              - class_name
+              properties:
+                name:
+                  maxLength: 100
+                  type: string
+                class_name:
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchEngine/{searchEngineId}/project":
+    get:
+      summary: Search engine project list
+      operationId: index
+      responses:
+        '200':
+          description: A Project list
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProjectListResponse"
+  "/api/project/{projectId}/searchUseCase":
+    get:
+      summary: Project search use case list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/searchUseCase":
+    get:
+      summary: Show search use case list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SearchUseCaseIndexExampleResponse"
+    post:
+      summary: Create and store new search use case
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - project_id
+              - name
+              properties:
+                project_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCase/{searchUseCaseId}":
+    get:
+      summary: Get specified search use case
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a search use case
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - project_id
+              - name
+              properties:
+                project_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified search use case
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a search use case
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - project_id
+              - name
+              properties:
+                project_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCaseField":
+    get:
+      summary: Show search use case field list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SearchUseCaseFieldIndexExampleResponse"
+    post:
+      summary: Create and store new search use case field
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_id
+              - data_stream_field_id
+              - name
+              - searchable
+              - to_retrieve
+              properties:
+                search_use_case_id:
+                  type: string
+                  format: uuid
+                data_stream_field_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCaseField/{searchUseCaseId},{dataStreamFieldId}":
+    get:
+      summary: Get specified search use case field
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a specified search use case field
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_id
+              - data_stream_field_id
+              - name
+              - searchable
+              - to_retrieve
+              properties:
+                search_use_case_id:
+                  type: string
+                  format: uuid
+                data_stream_field_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified search use case field
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified search use case field
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_id
+              - data_stream_field_id
+              - name
+              - searchable
+              - to_retrieve
+              properties:
+                search_use_case_id:
+                  type: string
+                  format: uuid
+                data_stream_field_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCase/{searchUseCaseId}/searchUseCaseField":
+    get:
+      summary: Search use case search use case fields list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/searchUseCasePreset":
+    get:
+      summary: Show search use case preset list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SearchUseCasePresetIndexExampleResponse"
+    post:
+      summary: Create and store new search use case preset
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_preset_id
+              - name
+              properties:
+                data_stream_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCasePreset/{searchUseCasePresetId}":
+    get:
+      summary: Get specified search use case preset
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a search use case preset
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_preset_id
+              - name
+              properties:
+                data_stream_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified search use case preset
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a search use case preset
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - data_stream_preset_id
+              - name
+              properties:
+                data_stream_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCasePresetField":
+    get:
+      summary: Show search use case preset field list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/SearchUseCasePresetFieldIndexExampleResponse"
+    post:
+      summary: Create and store new search use case preset field
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_preset_id
+              - data_stream_preset_field_id
+              - name
+              - searchable
+              - to_retrieve
+              properties:
+                search_use_case_preset_id:
+                  type: string
+                  format: uuid
+                data_stream_preset_field_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCasePresetField/{searchUseCasePresetId},{dataStreamPresetFieldId}":
+    get:
+      summary: Get specified search use case preset field
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a specified search use case preset field
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_preset_id
+              - data_stream_preset_field_id
+              - name
+              - searchable
+              - to_retrieve
+              properties:
+                search_use_case_preset_id:
+                  type: string
+                  format: uuid
+                data_stream_preset_field_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified search use case preset field
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a specified search use case preset field
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_preset_id
+              - data_stream_preset_field_id
+              - name
+              - searchable
+              - to_retrieve
+              properties:
+                search_use_case_preset_id:
+                  type: string
+                  format: uuid
+                data_stream_preset_field_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 1
+                  type: string
+                searchable:
+                  type: boolean
+                to_retrieve:
+                  type: boolean
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCasePreset/{searchUseCasePresetId}/searchUseCasePresetField":
+    get:
+      summary: Search use case preset search use case preset fields list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/widget":
+    get:
+      summary: Show widget list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/WidgetIndexExampleResponse"
+    post:
+      summary: Create and store new widget
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_id
+              - name
+              properties:
+                search_use_case_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/widget/{widgetId}":
+    get:
+      summary: Get specified widget
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a widget
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_id
+              - name
+              properties:
+                search_use_case_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified widget
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a widget
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_id
+              - name
+              properties:
+                search_use_case_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCase/{searchUseCaseId}/widget":
+    get:
+      summary: Search use case widget list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/widgetPreset":
+    get:
+      summary: Show widget preset list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              example:
+                "$ref": "#/components/examples/WidgetPresetIndexExampleResponse"
+    post:
+      summary: Create and store new widget preset
+      operationId: store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_preset_id
+              - name
+              properties:
+                search_use_case_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/widgetPreset/{widgetPresetId}":
+    get:
+      summary: Get specified widget preset
+      operationId: show
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: Update a widget preset
+      operationId: putUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_preset_id
+              - name
+              properties:
+                search_use_case_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+    delete:
+      summary: Delete specified widget preset
+      operationId: destroy
+      responses:
+        '204':
+          description: ''
+    patch:
+      summary: Update a widget preset
+      operationId: patchUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - search_use_case_preset_id
+              - name
+              properties:
+                search_use_case_preset_id:
+                  type: string
+                  format: uuid
+                name:
+                  maxLength: 200
+                  minLength: 5
+                  type: string
+      responses:
+        '201':
+          description: ''
+  "/api/searchUseCasePreset/{searchUseCasePresetId}/widgetPreset":
+    get:
+      summary: Search use case preset widget presets list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/dataStreamPreset/{dataStreamPresetId}/searchUseCasePreset":
+    get:
+      summary: Data stream preset search use case preset list
+      operationId: index
+      responses:
+        '200':
+          description: ''
+  "/api/dataStreamPreset/{dataStreamPresetId}/widgetPreset":
+    get:
+      summary: Data stream preset widget preset list
+      description: "(Through the related search use case presets)"
+      operationId: index
+      responses:
+        '200':
+          description: ''
+components:
+  schemas:
+    Pagination:
+      properties:
+        total:
+          minimum: 0
+          type: integer
+          format: int32
+          example: 434
+        count:
+          minimum: 0
+          type: integer
+          format: int32
+          example: 10
+        per_page:
+          minimum: 0
+          type: integer
+          format: int32
+          example: 10
+        current_page:
+          minimum: 0
+          type: integer
+          format: int32
+          example: 1
+        total_pages:
+          minimum: 0
+          type: integer
+          format: int32
+          example: 44
+        links:
+          properties:
+            next:
+              type: string
+              format: url
+            previous:
+              type: string
+              format: url
+    Meta:
+      properties:
+        pagination:
+          "$ref": "#/components/schemas/Pagination"
+    Project:
+      properties:
+        id:
+          type: string
+          format: uuid
+        search_engine_id:
+          type: string
+          format: uuid
+        data_stream_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ProjectResponse:
+      properties:
+        data:
+          "$ref": "#/components/schemas/Project"
+    ProjectList:
+      type: array
+      items:
+        "$ref": "#/components/schemas/Project"
+    ProjectListResponse:
+      properties:
+        data:
+          "$ref": "#/components/schemas/Project"
+        meta:
+          "$ref": "#/components/schemas/Meta"
+      example:
+        "$ref": "#/components/examples/ProjectIndexExampleResponse"
+    DataStream:
+      properties:
+        id:
+          type: string
+          format: uuid
+        data_stream_decoder_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        feed_url:
+          type: string
+          format: url
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    DataStreamResponse:
+      properties:
+        data:
+          "$ref": "#/components/schemas/DataStream"
+        meta:
+          "$ref": "#/components/schemas/Meta"
+    DataStreamList:
+      type: array
+      items:
+        "$ref": "#/components/schemas/DataStream"
+    DataStreamListResponse:
+      properties:
+        data:
+          "$ref": "#/components/schemas/DataStream"
+        meta:
+          "$ref": "#/components/schemas/Meta"
+  examples:
+    MeIndexExampleResponse:
+      value:
+        data:
+          id: 41abdec2-1389-11e7-93ae-92361f002671
+          user_group_id: Developer
+          name: John Doe
+          email: john.doe@domain.tld
+          created_at: '2017-08-18 10:21:59'
+          updated_at: '2017-08-18 10:21:59'
+    MeProjectIndexExampleResponse:
+      value:
+        data: []
+        meta:
+          pagination:
+            total: 0
+            count: 0
+            per_page: 10
+            current_page: 1
+            total_pages: 0
+            links: []
+    MeNotificationIndexExampleResponse:
+      value:
+        data: []
+        meta:
+          pagination:
+            total: 0
+            count: 0
+            per_page: 10
+            current_page: 1
+            total_pages: 0
+            links: []
+    UserGroupIndexExampleResponse:
+      value:
+        data:
+        - id: Developer
+          users_count: 1
+        - id: End-User
+          users_count: 2
+        - id: Support
+          users_count: 1
+        meta:
+          pagination:
+            total: 3
+            count: 3
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    UserIndexExampleResponse:
+      value:
+        data:
+        - id: 41abdec2-1389-11e7-93ae-92361f002671
+          user_group_id: Developer
+          name: John Doe
+          email: john.doe@domain.tld
+          created_at: '2017-08-18 10:21:59'
+          updated_at: '2017-08-18 10:21:59'
+        - id: 509dd5c0-1389-11e7-93ae-92361f002671
+          user_group_id: Support
+          name: Alan Smithee
+          email: alan.smithee@domain.tld
+          created_at: '2017-08-18 10:21:59'
+          updated_at: '2017-08-18 10:21:59'
+        - id: 605c7610-1389-11e7-93ae-92361f002671
+          user_group_id: End-User
+          name: John Smith
+          email: john.smith@domain.tld
+          created_at: '2017-08-18 10:21:59'
+          updated_at: '2017-08-18 10:21:59'
+        - id: 82b5da82-138c-11e7-93ae-92361f002671
+          user_group_id: End-User
+          name: Mickey Mouse
+          email: mickey.mouse@domain.tld
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 4
+            count: 4
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    ProjectIndexExampleResponse:
+      value:
+        data:
+        - id: 1bcc7efc-138c-11e7-93ae-92361f002671
+          search_engine_id: ee87e3b2-1388-11e7-93ae-92361f002671
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: John Smith Sample Project 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: b6860dd2-138c-11e7-93ae-92361f002671
+          search_engine_id: ee87e3b2-1388-11e7-93ae-92361f002671
+          data_stream_id: 
+          name: John Smith Sample Project 2
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: c4b5d93c-138c-11e7-93ae-92361f002671
+          search_engine_id: ee87e3b2-1388-11e7-93ae-92361f002671
+          data_stream_id: 605d712c-1934-11e7-93ae-92361f002671
+          name: Mickey Mouse Sample Project
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 3
+            count: 3
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    ProjectShowExampleResponse:
+      value:
+        data:
+          id: 1bcc7efc-138c-11e7-93ae-92361f002671
+          search_engine_id: ee87e3b2-1388-11e7-93ae-92361f002671
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: John Smith Sample Project 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+    SyncItemIndexExampleResponse:
+      value:
+        data: []
+        meta:
+          pagination:
+            total: 0
+            count: 0
+            per_page: 10
+            current_page: 1
+            total_pages: 0
+            links: []
+    SyncItemShowExampleResponse:
+      value:
+        data: []
+    SyncTaskIndexExampleResponse:
+      value:
+        data:
+        - id: 8dbfd6e6-2055-11e7-93ae-92361f002671
+          sync_task_id: 
+          sync_task_type_id: Main
+          sync_task_status_id: Planned
+          created_by_user_id: 605c7610-1389-11e7-93ae-92361f002671
+          project_id: 1bcc7efc-138c-11e7-93ae-92361f002671
+          planned_at: '2017-08-18 10:32:00'
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+          sync_task_logs_count: 1
+          children_sync_tasks_count: 0
+        - id: f542c0e4-729e-11e7-8cf7-a6006ad3dba0
+          sync_task_id: 
+          sync_task_type_id: Main
+          sync_task_status_id: Planned
+          created_by_user_id: 82b5da82-138c-11e7-93ae-92361f002671
+          project_id: c4b5d93c-138c-11e7-93ae-92361f002671
+          planned_at: '2017-08-18 10:42:00'
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+          sync_task_logs_count: 0
+          children_sync_tasks_count: 0
+        meta:
+          pagination:
+            total: 2
+            count: 2
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SyncTaskTypeIndexExampleResponse:
+      value:
+        data:
+        - id: DataStreamCheck
+          sync_tasks_count: 0
+          sync_task_type_versions_count: 2
+        - id: DataStreamDownload
+          sync_tasks_count: 0
+          sync_task_type_versions_count: 2
+        - id: DataStreamPrepare
+          sync_tasks_count: 0
+          sync_task_type_versions_count: 2
+        - id: ItemsDelete
+          sync_tasks_count: 0
+          sync_task_type_versions_count: 2
+        - id: ItemsInsertion
+          sync_tasks_count: 0
+          sync_task_type_versions_count: 2
+        - id: ItemsUpdate
+          sync_tasks_count: 0
+          sync_task_type_versions_count: 2
+        - id: Main
+          sync_tasks_count: 2
+          sync_task_type_versions_count: 2
+        meta:
+          pagination:
+            total: 7
+            count: 7
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SyncTaskTypeVersionIndexExampleResponse:
+      value:
+        data:
+        - sync_task_type_id: DataStreamCheck
+          i18n_lang_id: en_US
+          description: Comparison and verification of downloaded data.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: DataStreamCheck
+          i18n_lang_id: fr_FR
+          description: Comparaison et vérification des données téléchargées.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: DataStreamDownload
+          i18n_lang_id: en_US
+          description: Downloading the provided data feed url of the data stream.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: DataStreamDownload
+          i18n_lang_id: fr_FR
+          description: Téléchargement des données fournies par l'url du flux de données.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: DataStreamPrepare
+          i18n_lang_id: en_US
+          description: Data breakdown for creation, edition or deletion.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: DataStreamPrepare
+          i18n_lang_id: fr_FR
+          description: Ventilation des données pour la création, modification ou suppression.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: ItemsDelete
+          i18n_lang_id: en_US
+          description: Deleting records.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: ItemsDelete
+          i18n_lang_id: fr_FR
+          description: Suppression d'enregistrements.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: ItemsInsertion
+          i18n_lang_id: en_US
+          description: Creating new records.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_type_id: ItemsInsertion
+          i18n_lang_id: fr_FR
+          description: Création des nouveaux enregistrements.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        meta:
+          pagination:
+            total: 14
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 2
+            links:
+              next: https://emsearch.ryan.ems-dev.net/api/syncTaskTypeVersion?page=2
+    SyncTaskTypeVersionShowExampleResponse:
+      value:
+        data: []
+    SyncTaskStatusIndexExampleResponse:
+      value:
+        data:
+        - id: Complete
+          sync_tasks_count: 0
+          sync_task_logs_count: 0
+          sync_task_status_versions_count: 2
+        - id: InProgress
+          sync_tasks_count: 0
+          sync_task_logs_count: 0
+          sync_task_status_versions_count: 2
+        - id: Planned
+          sync_tasks_count: 2
+          sync_task_logs_count: 1
+          sync_task_status_versions_count: 2
+        meta:
+          pagination:
+            total: 3
+            count: 3
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SyncTaskStatusVersionIndexExampleResponse:
+      value:
+        data:
+        - sync_task_status_id: Complete
+          i18n_lang_id: en_US
+          description: Items synchronization is complete.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_status_id: Complete
+          i18n_lang_id: fr_FR
+          description: La synchronisation des items est terminée
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_status_id: InProgress
+          i18n_lang_id: en_US
+          description: Items synchronization is in progress.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_status_id: InProgress
+          i18n_lang_id: fr_FR
+          description: La synchronisation des items est en cours.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_status_id: Planned
+          i18n_lang_id: en_US
+          description: Items synchronization is planned.
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        - sync_task_status_id: Planned
+          i18n_lang_id: fr_FR
+          description: La synchronisation des items est plannifiée
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        meta:
+          pagination:
+            total: 6
+            count: 6
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SyncTaskStatusVersionShowExampleResponse:
+      value:
+        data: []
+    DataStreamIndexExampleResponse:
+      value:
+        data:
+        - id: 56278dc8-1934-11e7-93ae-92361f002671
+          data_stream_decoder_id: 53fd5290-5a4c-11e7-907b-a6006ad3dba0
+          name: John Smith Sample Project Data Stream
+          feed_url: https://www.e-monsite.com/blog/do/datastream/
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 605d712c-1934-11e7-93ae-92361f002671
+          data_stream_decoder_id: 53fd5290-5a4c-11e7-907b-a6006ad3dba0
+          name: Mickey Mouse Sample Project Data Stream
+          feed_url: https://www.e-monsite.com/blog/do/datastream/
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 2
+            count: 2
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    DataStreamFieldIndexExampleResponse:
+      value:
+        data:
+        - id: 145ca4a6-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: title
+          path: title
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145ca730-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: content
+          path: content
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145ca848-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: seo_keywords
+          path: seo_keywords
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145ca9ba-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: seo_description
+          path: seo_description
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145cac44-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: tags
+          path: tags
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145cad20-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: breadcrumb
+          path: breadcrumb
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145cade8-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: url
+          path: url
+          versioned: true
+          searchable: false
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145caeb0-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: seo_image_url
+          path: seo_image_url
+          versioned: true
+          searchable: false
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145cb13a-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: author
+          path: author
+          versioned: false
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 145cb27a-60af-11e7-907b-a6006ad3dba0
+          data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          name: rating_count
+          path: rating_count
+          versioned: false
+          searchable: false
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 22
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 3
+            links:
+              next: https://emsearch.ryan.ems-dev.net/api/dataStreamField?page=2
+    DataStreamHasI18nLangIndexExampleResponse:
+      value:
+        data:
+        - data_stream_id: 56278dc8-1934-11e7-93ae-92361f002671
+          i18n_lang_id: fr
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - data_stream_id: 605d712c-1934-11e7-93ae-92361f002671
+          i18n_lang_id: en
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - data_stream_id: 605d712c-1934-11e7-93ae-92361f002671
+          i18n_lang_id: fr
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 3
+            count: 3
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    DataStreamHasI18nLangShowExampleResponse:
+      value:
+        data: []
+    UserHasProjectIndexExampleResponse:
+      value:
+        data:
+        - user_id: 605c7610-1389-11e7-93ae-92361f002671
+          project_id: 1bcc7efc-138c-11e7-93ae-92361f002671
+          user_role_id: Owner
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - user_id: 605c7610-1389-11e7-93ae-92361f002671
+          project_id: b6860dd2-138c-11e7-93ae-92361f002671
+          user_role_id: Owner
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - user_id: 605c7610-1389-11e7-93ae-92361f002671
+          project_id: c4b5d93c-138c-11e7-93ae-92361f002671
+          user_role_id: Administrator
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - user_id: 82b5da82-138c-11e7-93ae-92361f002671
+          project_id: 1bcc7efc-138c-11e7-93ae-92361f002671
+          user_role_id: Administrator
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - user_id: 82b5da82-138c-11e7-93ae-92361f002671
+          project_id: c4b5d93c-138c-11e7-93ae-92361f002671
+          user_role_id: Owner
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 5
+            count: 5
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    UserHasProjectShowExampleResponse:
+      value:
+        data: []
+    DataStreamDecoderIndexExampleResponse:
+      value:
+        data:
+        - id: 53fd5290-5a4c-11e7-907b-a6006ad3dba0
+          name: Emonsite
+          class_name: EmonsiteDecoder
+          file_mime_type: application/json
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+        meta:
+          pagination:
+            total: 1
+            count: 1
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    DataStreamPresetIndexExampleResponse:
+      value:
+        data:
+        - id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          data_stream_decoder_id: 53fd5290-5a4c-11e7-907b-a6006ad3dba0
+          name: E-monsite | Blog
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 1
+            count: 1
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    DataStreamPresetFieldIndexExampleResponse:
+      value:
+        data:
+        - id: 76952b58-5bf4-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: rating_avg
+          path: rating_avg
+          versioned: false
+          searchable: false
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cb642-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: title
+          path: title
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cba20-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: content
+          path: content
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cc15a-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: seo_keywords
+          path: seo_keywords
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cc34e-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: seo_description
+          path: seo_description
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cc4ca-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: tags
+          path: tags
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cc650-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: breadcrumb
+          path: breadcrumb
+          versioned: true
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cc7c2-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: url
+          path: url
+          versioned: true
+          searchable: false
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9cc92a-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: seo_image_url
+          path: seo_image_url
+          versioned: true
+          searchable: false
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: eb9ccec0-5bf3-11e7-907b-a6006ad3dba0
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: author
+          path: author
+          versioned: false
+          searchable: true
+          to_retrieve: true
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 11
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 2
+            links:
+              next: https://emsearch.ryan.ems-dev.net/api/dataStreamPresetField?page=2
+    I18nLangIndexExampleResponse:
+      value:
+        data:
+        - id: af
+          description: Afrikaans
+        - id: af_NA
+          description: Afrikaans (Namibia)
+        - id: af_ZA
+          description: Afrikaans (South Africa)
+        - id: ak
+          description: Akan
+        - id: ak_GH
+          description: Akan (Ghana)
+        - id: am
+          description: Amharic
+        - id: am_ET
+          description: Amharic (Ethiopia)
+        - id: ar
+          description: Arabic
+        - id: ar_AE
+          description: Arabic (United Arab Emirates)
+        - id: ar_BH
+          description: Arabic (Bahrain)
+        meta:
+          pagination:
+            total: 434
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 44
+            links:
+              next: https://emsearch.ryan.ems-dev.net/api/i18nLang?page=2
+    SearchEngineIndexExampleResponse:
+      value:
+        data:
+        - id: ee87e3b2-1388-11e7-93ae-92361f002671
+          name: Algolia
+          class_name: AlgoliaSearchEngine
+          created_at: '2017-08-18 10:21:56'
+          updated_at: '2017-08-18 10:21:56'
+          projects_count: 3
+        meta:
+          pagination:
+            total: 1
+            count: 1
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SearchUseCaseIndexExampleResponse:
+      value:
+        data:
+        - id: 37f79df8-707c-11e7-8cf7-a6006ad3dba0
+          project_id: 1bcc7efc-138c-11e7-93ae-92361f002671
+          name: John Smith Sample Project Default Search Use Case
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+          search_use_case_fields_count: 3
+        - id: dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0
+          project_id: c4b5d93c-138c-11e7-93ae-92361f002671
+          name: Mickey Mouse Sample Project Default Search Use Case
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+          search_use_case_fields_count: 3
+        meta:
+          pagination:
+            total: 2
+            count: 2
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SearchUseCaseFieldIndexExampleResponse:
+      value:
+        data:
+        - search_use_case_id: 37f79df8-707c-11e7-8cf7-a6006ad3dba0
+          data_stream_field_id: 145ca4a6-60af-11e7-907b-a6006ad3dba0
+          name: title
+          searchable: 1
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_id: 37f79df8-707c-11e7-8cf7-a6006ad3dba0
+          data_stream_field_id: 145ca730-60af-11e7-907b-a6006ad3dba0
+          name: content
+          searchable: 0
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_id: 37f79df8-707c-11e7-8cf7-a6006ad3dba0
+          data_stream_field_id: 145cade8-60af-11e7-907b-a6006ad3dba0
+          name: url
+          searchable: 0
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_id: dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0
+          data_stream_field_id: 36116fa6-5c0d-11e7-907b-a6006ad3dba0
+          name: title
+          searchable: 1
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_id: dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0
+          data_stream_field_id: 36117334-5c0d-11e7-907b-a6006ad3dba0
+          name: content
+          searchable: 0
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_id: dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0
+          data_stream_field_id: 36118072-5c0d-11e7-907b-a6006ad3dba0
+          name: url
+          searchable: 0
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 6
+            count: 6
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SearchUseCasePresetIndexExampleResponse:
+      value:
+        data:
+        - id: 516f0252-7767-11e7-b5a5-be2e44b06b34
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: E-monsite | Blog - Summary
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+          search_use_case_preset_fields_count: 3
+        - id: d3c73a6c-7767-11e7-b5a5-be2e44b06b34
+          data_stream_preset_id: 737441b0-57ea-11e7-907b-a6006ad3dba0
+          name: E-monsite | Blog - Photo
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+          search_use_case_preset_fields_count: 2
+        meta:
+          pagination:
+            total: 2
+            count: 2
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    SearchUseCasePresetFieldIndexExampleResponse:
+      value:
+        data:
+        - search_use_case_preset_id: 516f0252-7767-11e7-b5a5-be2e44b06b34
+          data_stream_preset_field_id: eb9cb642-5bf3-11e7-907b-a6006ad3dba0
+          name: title
+          searchable: 1
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_preset_id: 516f0252-7767-11e7-b5a5-be2e44b06b34
+          data_stream_preset_field_id: eb9cc4ca-5bf3-11e7-907b-a6006ad3dba0
+          name: tags
+          searchable: 1
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_preset_id: 516f0252-7767-11e7-b5a5-be2e44b06b34
+          data_stream_preset_field_id: eb9cc7c2-5bf3-11e7-907b-a6006ad3dba0
+          name: url
+          searchable: 0
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_preset_id: d3c73a6c-7767-11e7-b5a5-be2e44b06b34
+          data_stream_preset_field_id: eb9cb642-5bf3-11e7-907b-a6006ad3dba0
+          name: title
+          searchable: 1
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - search_use_case_preset_id: d3c73a6c-7767-11e7-b5a5-be2e44b06b34
+          data_stream_preset_field_id: eb9cc92a-5bf3-11e7-907b-a6006ad3dba0
+          name: image_url
+          searchable: 0
+          to_retrieve: 1
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 5
+            count: 5
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    WidgetIndexExampleResponse:
+      value:
+        data:
+        - id: a2fb4304-781d-11e7-b5a5-be2e44b06b34
+          search_use_case_id: 37f79df8-707c-11e7-8cf7-a6006ad3dba0
+          name: E-monsite | Blog - Summary Widget
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: b070b438-781d-11e7-b5a5-be2e44b06b34
+          search_use_case_id: dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0
+          name: E-monsite | Blog - Photo Widget
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 2
+            count: 2
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+    WidgetPresetIndexExampleResponse:
+      value:
+        data:
+        - id: 0f85eb82-776a-11e7-b5a5-be2e44b06b34
+          search_use_case_preset_id: d3c73a6c-7767-11e7-b5a5-be2e44b06b34
+          name: E-monsite | Blog - Photo Widget
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        - id: 6be0a102-7769-11e7-b5a5-be2e44b06b34
+          search_use_case_preset_id: 516f0252-7767-11e7-b5a5-be2e44b06b34
+          name: E-monsite | Blog - Summary Widget
+          created_at: '2017-08-18 10:22:00'
+          updated_at: '2017-08-18 10:22:00'
+        meta:
+          pagination:
+            total: 2
+            count: 2
+            per_page: 10
+            current_page: 1
+            total_pages: 1
+            links: []
+  securitySchemes:
+    apiBearer:
+      type: http
+      scheme: bearer
+    apiOAuth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://emsearch.ryan.ems-dev.net/oauth/authorize
+          scopes:
+            "*": Access to anything
+        authorizationCode:
+          authorizationUrl: https://emsearch.ryan.ems-dev.net/oauth/authorize
+          tokenUrl: https://emsearch.ryan.ems-dev.net/oauth/token
+          refreshUrl: https://emsearch.ryan.ems-dev.net/oauth/token/refresh
+          scopes:
+            "*": Access to anything
+security:
+- apiBearer:
+  - "*"
+- apiOAuth:
+  - "*"

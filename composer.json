@@ -1,0 +1,28 @@
+{
+    "name": "emsearch/emsearch-php-client",
+    "description": "emsearch Api PHP Client",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ryan Gilles",
+            "email": "ryan@e-monsite.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "/home/dev/rygilles/openapi-php-client-generator"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "emsearch\\Api": "generated/"
+        }
+    },
+    "require-dev": {
+		"rygilles/openapi-php-client-generator": "@dev"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}

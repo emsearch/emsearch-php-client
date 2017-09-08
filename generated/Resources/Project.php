@@ -1,0 +1,230 @@
+<?php
+
+namespace emsearch\Api\Resources;
+
+use emsearch\Api\ApiClient;
+use emsearch\Api\Resources\ProjectResponse;
+use emsearch\Api\Resources\DataStreamResponse;
+
+/**
+ * Project resource class
+ * 
+ * @package emsearch\Api\Resources
+ */
+class Project 
+{
+	/**
+	 * API client
+	 *
+	 * @var ApiClient
+	 */
+	protected $apiClient;
+
+	/**
+	 * Format: uuid.
+	 * 
+	 * @var string
+	 */
+	public $id;
+
+	/**
+	 * Format: uuid.
+	 * 
+	 * @var string
+	 */
+	public $search_engine_id;
+
+	/**
+	 * Format: uuid.
+	 * 
+	 * @var string
+	 */
+	public $data_stream_id;
+
+	/**
+	 * @var string
+	 */
+	public $name;
+
+	/**
+	 * Format: date-time.
+	 * 
+	 * @var string
+	 */
+	public $created_at;
+
+	/**
+	 * Format: date-time.
+	 * 
+	 * @var string
+	 */
+	public $updated_at;
+
+	/**
+	 * Project resource class constructor
+	 * 
+	 * @param ApiClient $apiClient API Client to use for this manager requests
+	 * @param string $id Format: uuid.
+	 * @param string $search_engine_id Format: uuid.
+	 * @param string $data_stream_id Format: uuid.
+	 * @param string $name
+	 * @param string $created_at Format: date-time.
+	 * @param string $updated_at Format: date-time.
+	 */
+	public function __constructor(ApiClient $apiClient, $id = null, $search_engine_id = null, $data_stream_id = null, $name = null, $created_at = null, $updated_at = null)
+	{
+		$this->apiClient = $apiClient;
+		$this->id = $id;
+		$this->search_engine_id = $search_engine_id;
+		$this->data_stream_id = $data_stream_id;
+		$this->name = $name;
+		$this->created_at = $created_at;
+		$this->updated_at = $updated_at;
+	}
+	/**
+	 * Update a specified project
+	 * 
+	 * Excepted HTTP code : 201
+	 * 
+	 * @param string $search_engine_id Format: uuid.
+	 * @param string $name
+	 * @param string $data_stream_id Format: uuid.
+	 * 
+	 * @return ProjectResponse
+	 */
+	public function update($search_engine_id, $name, $data_stream_id = null)
+	{
+		$path = '/api/project/{projectId}';
+
+		$pathReplacements = [
+			'{projectId}' => $this->id,
+		];
+
+		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+
+		$request = $this->apiClient->request('patch', $url);
+
+		return $request;
+	}
+	
+	/**
+	 * Delete specified project
+	 * 
+	 * All relationships between the project and his users will be automatically deleted too.<br />
+	 * The project sync items will be automatically deleted too.<br />
+	 * The project data stream will be automatically deleted too, if exists.
+	 * <aside class="notice">Only <code>Owner</code> of project is allowed to delete it.</aside>
+	 * 
+	 * Excepted HTTP code : 204
+	 */
+	public function delete()
+	{
+		$path = '/api/project/{projectId}';
+
+		$pathReplacements = [
+			'{projectId}' => $this->id,
+		];
+
+		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+
+		$request = $this->apiClient->request('delete', $url);
+
+		return $request;
+	}
+	
+	/**
+	 * Show project data stream
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @return DataStreamResponse
+	 */
+	public function getDataStream()
+	{
+		$path = '/api/project/{projectId}/dataStream';
+
+		$pathReplacements = [
+			'{projectId}' => $this->id,
+		];
+
+		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+
+		$request = $this->apiClient->request('get', $url);
+
+		return $request;
+	}
+	
+	/**
+	 * Update the project data stream
+	 * 
+	 * Excepted HTTP code : 201
+	 * 
+	 * @param string $data_stream_decoder_id Format: uuid.
+	 * @param string $name
+	 * @param string $feed_url Format: url.
+	 * 
+	 * @return DataStreamResponse
+	 */
+	public function updateDataStream($data_stream_decoder_id, $name, $feed_url)
+	{
+		$path = '/api/project/{projectId}/dataStream';
+
+		$pathReplacements = [
+			'{projectId}' => $this->id,
+		];
+
+		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+
+		$request = $this->apiClient->request('patch', $url);
+
+		return $request;
+	}
+	
+	/**
+	 * Create and store the project data stream
+	 * 
+	 * Only one data stream per project is allowed.
+	 * 
+	 * Excepted HTTP code : 201
+	 * 
+	 * @param string $data_stream_decoder_id Format: uuid.
+	 * @param string $name
+	 * @param string $feed_url Format: url.
+	 * 
+	 * @return DataStreamResponse
+	 */
+	public function createDataStream($data_stream_decoder_id, $name, $feed_url)
+	{
+		$path = '/api/project/{projectId}/dataStream';
+
+		$pathReplacements = [
+			'{projectId}' => $this->id,
+		];
+
+		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+
+		$request = $this->apiClient->request('post', $url);
+
+		return $request;
+	}
+	
+	/**
+	 * Delete the project data stream
+	 * 
+	 * Excepted HTTP code : 204
+	 */
+	public function deleteDataStream()
+	{
+		$path = '/api/project/{projectId}/dataStream';
+
+		$pathReplacements = [
+			'{projectId}' => $this->id,
+		];
+
+		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+
+		$request = $this->apiClient->request('delete', $url);
+
+		return $request;
+	}
+}
