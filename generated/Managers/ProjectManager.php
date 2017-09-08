@@ -6,9 +6,9 @@ use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\ApiException;
 use emsearch\Api\Resources\ProjectListResponse;
 use emsearch\Api\Resources\ProjectResponse;
+use emsearch\Api\Resources\Project;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
-use emsearch\Api\Resources\Project;
 
 /**
  * Project manager class
@@ -64,11 +64,20 @@ class ProjectManager
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true));
 
 		$response = new ProjectListResponse(
 			$this->apiClient, 
-			$requestBody['data'], 
+			array_map(function($data) {
+				return new Project(
+					$this->apiClient, 
+					$data['id'], 
+					$data['search_engine_id'], 
+					$data['data_stream_id'], 
+					$data['name'], 
+					$data['created_at'], 
+					$data['updated_at']
+				); 
+			}, $requestBody['data'], 
 			new Meta(
 				$this->apiClient, 
 				new Pagination(
@@ -110,7 +119,6 @@ class ProjectManager
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true));
 
 		$response = new ProjectResponse(
 			$this->apiClient, 
@@ -156,7 +164,6 @@ class ProjectManager
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true));
 
 		$response = new ProjectResponse(
 			$this->apiClient, 
@@ -205,7 +212,6 @@ class ProjectManager
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true));
 
 		$response = new ProjectResponse(
 			$this->apiClient, 

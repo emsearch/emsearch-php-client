@@ -5998,16 +5998,11 @@
                     }
                 }
             },
-            "ProjectList": {
-                "type": "array",
-                "items": {
-                    "$ref": "#\/components\/schemas\/Project"
-                }
-            },
             "ProjectListResponse": {
                 "properties": {
                     "data": {
-                        "allOf": {
+                        "type": "array",
+                        "items": {
                             "$ref": "#\/components\/schemas\/Project"
                         }
                     },

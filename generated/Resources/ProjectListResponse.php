@@ -4,6 +4,7 @@ namespace emsearch\Api\Resources;
 
 use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\ApiException;
+use emsearch\Api\Resources\Project;
 use emsearch\Api\Resources\Meta;
 
 /**
@@ -21,7 +22,7 @@ class ProjectListResponse
 	protected $apiClient;
 
 	/**
-	 * @var mixed
+	 * @var Project[]
 	 */
 	public $data;
 
@@ -34,7 +35,7 @@ class ProjectListResponse
 	 * ProjectListResponse resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
-	 * @param mixed $data
+	 * @param Project[] $data
 	 * @param Meta $meta
 	 */
 	public function __constructor(ApiClient $apiClient, $data = null, $meta = null)
