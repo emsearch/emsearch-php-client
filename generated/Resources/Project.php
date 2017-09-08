@@ -116,7 +116,6 @@ class Project
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true) . "\n");
 
 		$response = new ProjectResponse(
 			$this->apiClient, 
@@ -189,7 +188,6 @@ class Project
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true) . "\n");
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
@@ -249,7 +247,6 @@ class Project
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true) . "\n");
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
@@ -311,7 +308,6 @@ class Project
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
-		die(print_r($requestBody, true) . "\n");
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
