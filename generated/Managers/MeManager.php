@@ -3,7 +3,11 @@
 namespace emsearch\Api\Managers;
 
 use emsearch\Api\ApiClient;
+use emsearch\Api\Exceptions\ApiException;
 use emsearch\Api\Resources\ProjectListResponse;
+use emsearch\Api\Resources\Project;
+use emsearch\Api\Resources\Meta;
+use emsearch\Api\Resources\Pagination;
 
 /**
  * Me manager class
@@ -43,6 +47,8 @@ class MeManager
 	 * Get current user
 	 * 
 	 * Excepted HTTP code : 200
+	 * 
+	 * @throws ApiException
 	 */
 	public function getUser()
 	{
@@ -50,7 +56,9 @@ class MeManager
 
 		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 200) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 200');
+		}
 	}
 	
 	/**
@@ -63,6 +71,8 @@ class MeManager
 	 * @param string $user_role_id
 	 * 
 	 * @return ProjectListResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function getProjects($user_role_id = null)
 	{
@@ -70,6 +80,37 @@ class MeManager
 
 		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 200) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 200');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ProjectListResponse(
+			$this->apiClient, 
+			new Project(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['search_engine_id'], 
+				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			), 
+			new Meta(
+				$this->apiClient, 
+				new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)
+			)
+		);
+
+		return $response;
 	}
 }

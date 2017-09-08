@@ -3,8 +3,12 @@
 namespace emsearch\Api\Managers;
 
 use emsearch\Api\ApiClient;
+use emsearch\Api\Exceptions\ApiException;
 use emsearch\Api\Resources\ProjectListResponse;
 use emsearch\Api\Resources\ProjectResponse;
+use emsearch\Api\Resources\Project;
+use emsearch\Api\Resources\Meta;
+use emsearch\Api\Resources\Pagination;
 
 /**
  * Project manager class
@@ -46,6 +50,8 @@ class ProjectManager
 	 * Excepted HTTP code : 200
 	 * 
 	 * @return ProjectListResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function all()
 	{
@@ -53,7 +59,38 @@ class ProjectManager
 
 		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 200) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 200');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ProjectListResponse(
+			$this->apiClient, 
+			new Project(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['search_engine_id'], 
+				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			), 
+			new Meta(
+				$this->apiClient, 
+				new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
@@ -66,6 +103,8 @@ class ProjectManager
 	 * @param string $data_stream_id Format: uuid.
 	 * 
 	 * @return ProjectResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function create($search_engine_id, $name, $data_stream_id = null)
 	{
@@ -73,7 +112,26 @@ class ProjectManager
 
 		$request = $this->apiClient->getHttpClient()->request('post', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 201) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 201');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ProjectResponse(
+			$this->apiClient, 
+			new Project(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['search_engine_id'], 
+				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
@@ -84,6 +142,8 @@ class ProjectManager
 	 * @param string $projectId Project UUID
 	 * 
 	 * @return ProjectResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function get($projectId)
 	{
@@ -97,7 +157,26 @@ class ProjectManager
 
 		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 200) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 200');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ProjectResponse(
+			$this->apiClient, 
+			new Project(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['search_engine_id'], 
+				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
@@ -111,6 +190,8 @@ class ProjectManager
 	 * @param string $data_stream_id Format: uuid.
 	 * 
 	 * @return ProjectResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function update($projectId, $search_engine_id, $name, $data_stream_id = null)
 	{
@@ -124,7 +205,26 @@ class ProjectManager
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 201) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 201');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ProjectResponse(
+			$this->apiClient, 
+			new Project(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['search_engine_id'], 
+				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
@@ -138,6 +238,8 @@ class ProjectManager
 	 * Excepted HTTP code : 204
 	 * 
 	 * @param string $projectId Project UUID
+	 * 
+	 * @throws ApiException
 	 */
 	public function delete($projectId)
 	{
@@ -151,6 +253,8 @@ class ProjectManager
 
 		$request = $this->apiClient->getHttpClient()->request('delete', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 204) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 204');
+		}
 	}
 }

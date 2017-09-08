@@ -3,8 +3,13 @@
 namespace emsearch\Api\Resources;
 
 use emsearch\Api\ApiClient;
+use emsearch\Api\Exceptions\ApiException;
 use emsearch\Api\Resources\ProjectResponse;
 use emsearch\Api\Resources\DataStreamResponse;
+use emsearch\Api\Resources\Project;
+use emsearch\Api\Resources\DataStream;
+use emsearch\Api\Resources\Meta;
+use emsearch\Api\Resources\Pagination;
 
 /**
  * Project resource class
@@ -91,6 +96,8 @@ class Project
 	 * @param string $data_stream_id Format: uuid.
 	 * 
 	 * @return ProjectResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function update($search_engine_id, $name, $data_stream_id = null)
 	{
@@ -104,7 +111,26 @@ class Project
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 201) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 201');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ProjectResponse(
+			$this->apiClient, 
+			new Project(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['search_engine_id'], 
+				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
@@ -116,6 +142,8 @@ class Project
 	 * <aside class="notice">Only <code>Owner</code> of project is allowed to delete it.</aside>
 	 * 
 	 * Excepted HTTP code : 204
+	 * 
+	 * @throws ApiException
 	 */
 	public function delete()
 	{
@@ -129,7 +157,9 @@ class Project
 
 		$request = $this->apiClient->getHttpClient()->request('delete', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 204) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 204');
+		}
 	}
 	
 	/**
@@ -138,6 +168,8 @@ class Project
 	 * Excepted HTTP code : 200
 	 * 
 	 * @return DataStreamResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function getDataStream()
 	{
@@ -151,7 +183,38 @@ class Project
 
 		$request = $this->apiClient->getHttpClient()->request('get', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 200) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 200');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new DataStreamResponse(
+			$this->apiClient, 
+			new DataStream(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['data_stream_decoder_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['feed_url'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			), 
+			new Meta(
+				$this->apiClient, 
+				new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
@@ -164,6 +227,8 @@ class Project
 	 * @param string $feed_url Format: url.
 	 * 
 	 * @return DataStreamResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function updateDataStream($data_stream_decoder_id, $name, $feed_url)
 	{
@@ -177,7 +242,38 @@ class Project
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 201) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 201');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new DataStreamResponse(
+			$this->apiClient, 
+			new DataStream(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['data_stream_decoder_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['feed_url'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			), 
+			new Meta(
+				$this->apiClient, 
+				new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
@@ -192,6 +288,8 @@ class Project
 	 * @param string $feed_url Format: url.
 	 * 
 	 * @return DataStreamResponse
+	 * 
+	 * @throws ApiException
 	 */
 	public function createDataStream($data_stream_decoder_id, $name, $feed_url)
 	{
@@ -205,13 +303,46 @@ class Project
 
 		$request = $this->apiClient->getHttpClient()->request('post', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 201) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 201');
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new DataStreamResponse(
+			$this->apiClient, 
+			new DataStream(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['data_stream_decoder_id'], 
+				$requestBody['data']['name'], 
+				$requestBody['data']['feed_url'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			), 
+			new Meta(
+				$this->apiClient, 
+				new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)
+			)
+		);
+
+		return $response;
 	}
 	
 	/**
 	 * Delete the project data stream
 	 * 
 	 * Excepted HTTP code : 204
+	 * 
+	 * @throws ApiException
 	 */
 	public function deleteDataStream()
 	{
@@ -225,6 +356,8 @@ class Project
 
 		$request = $this->apiClient->getHttpClient()->request('delete', $url);
 
-		return $request;
+		if ($request->getStatusCode() != 204) {
+			throw new ApiException('Unexpected response HTTP code : ' . $request->getStatusCode() . ' instead of 204');
+		}
 	}
 }

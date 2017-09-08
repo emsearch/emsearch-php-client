@@ -3,6 +3,7 @@
 namespace emsearch\Api\Resources;
 
 use emsearch\Api\ApiClient;
+use emsearch\Api\Exceptions\ApiException;
 use emsearch\Api\Resources\Pagination;
 
 /**
