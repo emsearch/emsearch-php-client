@@ -91,14 +91,14 @@ class MeManager
 			array_map(function($data) {
 				return new Project(
 					$this->apiClient, 
-					$data['id']), 
-					$data['search_engine_id']), 
-					$data['data_stream_id']), 
-					$data['name']), 
-					$data['created_at']), 
-					$data['updated_at'])
+					$data['id'], 
+					$data['search_engine_id'], 
+					$data['data_stream_id'], 
+					$data['name'], 
+					$data['created_at'], 
+					$data['updated_at']
 				); 
-			}, $requestBody['data'], 
+			}, $requestBody['data']), 
 			new Meta(
 				$this->apiClient, 
 				new Pagination(
