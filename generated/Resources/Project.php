@@ -112,7 +112,7 @@ class Project
 		}
 
 		$requestOptions = [];
-		$requestOptions['body'] = $bodyParameters;
+		$requestOptions['form_params'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
@@ -255,7 +255,7 @@ class Project
 		$bodyParameters['feed_url'] = $feed_url;
 
 		$requestOptions = [];
-		$requestOptions['body'] = $bodyParameters;
+		$requestOptions['form_params'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
@@ -324,7 +324,7 @@ class Project
 		$bodyParameters['feed_url'] = $feed_url;
 
 		$requestOptions = [];
-		$requestOptions['body'] = $bodyParameters;
+		$requestOptions['form_params'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('post', $url, $requestOptions);
 

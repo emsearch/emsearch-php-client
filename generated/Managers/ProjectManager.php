@@ -123,7 +123,7 @@ class ProjectManager
 		}
 
 		$requestOptions = [];
-		$requestOptions['body'] = $bodyParameters;
+		$requestOptions['form_params'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('post', $url, $requestOptions);
 
@@ -229,7 +229,7 @@ class ProjectManager
 		}
 
 		$requestOptions = [];
-		$requestOptions['body'] = $bodyParameters;
+		$requestOptions['form_params'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
