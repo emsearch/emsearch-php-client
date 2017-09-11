@@ -103,7 +103,9 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->getHttpClient()->request('patch', $url);
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request);
@@ -149,7 +151,9 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->getHttpClient()->request('delete', $url);
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('delete', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 204) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 204, $request);
@@ -175,7 +179,9 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->getHttpClient()->request('get', $url);
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request);
@@ -234,7 +240,9 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->getHttpClient()->request('patch', $url);
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request);
@@ -295,7 +303,9 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->getHttpClient()->request('post', $url);
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('post', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request);
@@ -348,7 +358,9 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
-		$request = $this->apiClient->getHttpClient()->request('delete', $url);
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('delete', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 204) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 204, $request);

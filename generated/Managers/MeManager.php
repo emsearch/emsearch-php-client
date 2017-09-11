@@ -54,7 +54,9 @@ class MeManager
 	{
 		$url = '/api/me';
 
-		$request = $this->apiClient->getHttpClient()->request('get', $url);
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request);
@@ -84,7 +86,10 @@ class MeManager
 			$queryParameters['user_role_id'] = $user_role_id;
 		}
 
-		$request = $this->apiClient->getHttpClient()->request('get', $url, $queryParameters);
+		$requestOptions = [];
+		$requestOptions['query'] = $queryParameters;
+
+		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request);
