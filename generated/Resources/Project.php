@@ -117,7 +117,17 @@ class Project
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request);
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				$requestBody['errors'], 
+				$requestBody['status_code'], 
+				$requestBody['debug']
+			);
+	
+			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
@@ -193,7 +203,17 @@ class Project
 		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
-			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request);
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				$requestBody['errors'], 
+				$requestBody['status_code'], 
+				$requestBody['debug']
+			);
+	
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
@@ -260,7 +280,17 @@ class Project
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request);
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				$requestBody['errors'], 
+				$requestBody['status_code'], 
+				$requestBody['debug']
+			);
+	
+			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
@@ -329,7 +359,17 @@ class Project
 		$request = $this->apiClient->getHttpClient()->request('post', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request);
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				$requestBody['errors'], 
+				$requestBody['status_code'], 
+				$requestBody['debug']
+			);
+	
+			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
@@ -367,6 +407,8 @@ class Project
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
+	 * @return ErrorResponse
+	 * 
 	 * @throws UnexpectedResponseException
 	 */
 	public function deleteDataStream()
@@ -384,7 +426,29 @@ class Project
 		$request = $this->apiClient->getHttpClient()->request('delete', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 204) {
-			throw new UnexpectedResponseException($request->getStatusCode(), 204, $request);
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				$requestBody['errors'], 
+				$requestBody['status_code'], 
+				$requestBody['debug']
+			);
+	
+			throw new UnexpectedResponseException($request->getStatusCode(), 204, $request, $apiExceptionResponse);
 		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new ErrorResponse(
+			$this->apiClient, 
+			$requestBody['message'], 
+			$requestBody['errors'], 
+			$requestBody['status_code'], 
+			$requestBody['debug']
+		);
+
+		return $response;
 	}
 }

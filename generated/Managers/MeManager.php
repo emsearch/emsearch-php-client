@@ -5,6 +5,7 @@ namespace emsearch\Api\Managers;
 use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
 use emsearch\Api\Resources\ProjectListResponse;
+use emsearch\Api\Resources\ErrorResponse;
 use emsearch\Api\Resources\Project;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
@@ -92,7 +93,17 @@ class MeManager
 		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
-			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request);
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				$requestBody['errors'], 
+				$requestBody['status_code'], 
+				$requestBody['debug']
+			);
+	
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
