@@ -48,7 +48,7 @@ class UnexpectedResponseException extends ApiException
 		$this->expectedHttpCode = $expectedHttpCode;
 		$this->response = $response;
 
-		if (is_null(message)) {
+		if (is_null($message)) {
 			$message = 'Unexpected response HTTP code : ' . $this->httpCode . ' instead of ' . $this->expectedHttpCode;
 		}
 
