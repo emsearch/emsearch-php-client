@@ -114,7 +114,16 @@ class ProjectManager
 	{
 		$url = '/api/project';
 
+		$bodyParameters = [];
+		$bodyParameters['search_engine_id'] = $search_engine_id;
+		$bodyParameters['name'] = $name;
+
+		if (!is_null($data_stream_id)) {
+			$bodyParameters['data_stream_id'] = $data_stream_id;
+		}
+
 		$requestOptions = [];
+		$requestOptions['body'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('post', $url, $requestOptions);
 
@@ -211,7 +220,16 @@ class ProjectManager
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
+		$bodyParameters = [];
+		$bodyParameters['search_engine_id'] = $search_engine_id;
+		$bodyParameters['name'] = $name;
+
+		if (!is_null($data_stream_id)) {
+			$bodyParameters['data_stream_id'] = $data_stream_id;
+		}
+
 		$requestOptions = [];
+		$requestOptions['body'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 

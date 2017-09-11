@@ -103,7 +103,16 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
+		$bodyParameters = [];
+		$bodyParameters['search_engine_id'] = $search_engine_id;
+		$bodyParameters['name'] = $name;
+
+		if (!is_null($data_stream_id)) {
+			$bodyParameters['data_stream_id'] = $data_stream_id;
+		}
+
 		$requestOptions = [];
+		$requestOptions['body'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
@@ -240,7 +249,13 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
+		$bodyParameters = [];
+		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
+		$bodyParameters['name'] = $name;
+		$bodyParameters['feed_url'] = $feed_url;
+
 		$requestOptions = [];
+		$requestOptions['body'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
 
@@ -303,7 +318,13 @@ class Project
 
 		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
 
+		$bodyParameters = [];
+		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
+		$bodyParameters['name'] = $name;
+		$bodyParameters['feed_url'] = $feed_url;
+
 		$requestOptions = [];
+		$requestOptions['body'] = $bodyParameters;
 
 		$request = $this->apiClient->getHttpClient()->request('post', $url, $requestOptions);
 
