@@ -894,7 +894,14 @@
                         "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -2525,8 +2532,11 @@
         },
         "\/api\/dataStream": {
             "get": {
+                "tags": [
+                    "Manager:DataStream"
+                ],
                 "summary": "Show data stream list",
-                "operationId": "index",
+                "operationId": "all",
                 "responses": {
                     "200": {
                         "description": "A DataStream list",
@@ -2554,9 +2564,12 @@
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:DataStream"
+                ],
                 "summary": "Create and store new data stream",
                 "description": "Only one data stream per project is allowed.",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -2610,8 +2623,11 @@
         },
         "\/api\/dataStream\/{dataStreamId}": {
             "get": {
+                "tags": [
+                    "Manager:DataStream"
+                ],
                 "summary": "Get specified data stream",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -2647,8 +2663,12 @@
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:DataStream",
+                    "Resource:DataStream"
+                ],
                 "summary": "Update a data stream",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -2689,7 +2709,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "A DataStreamResponse",
+                        "description": "The updated DataStream",
                         "content": {
                             "application\/json": {
                                 "schema": {
@@ -2711,8 +2731,12 @@
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:DataStream",
+                    "Resource:DataStream"
+                ],
                 "summary": "Delete specified data stream",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -2741,8 +2765,12 @@
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:DataStream",
+                    "Resource:DataStream"
+                ],
                 "summary": "Update a data stream",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -2783,7 +2811,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "A DataStreamResponse",
+                        "description": "The updated DataStream",
                         "content": {
                             "application\/json": {
                                 "schema": {

@@ -9,6 +9,7 @@ use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Middleware;
 use emsearch\Api\Managers\MeManager;
 use emsearch\Api\Managers\ProjectManager;
+use emsearch\Api\Managers\DataStreamManager;
 
 /**
  * emsearch API client class (version 1.0)
@@ -53,6 +54,13 @@ class ApiClient
 	protected $projectManager;
 
 	/**
+	 * DataStream manager
+	 *
+	 * @var DataStreamManager
+	 */
+	protected $dataStreamManager;
+
+	/**
 	 * API Client class constructor
 	 *
 	 * @param string $bearerToken Bearer authentication access token
@@ -78,6 +86,7 @@ class ApiClient
 
 		$this->meManager = new MeManager($this);
 		$this->projectManager = new ProjectManager($this);
+		$this->dataStreamManager = new DataStreamManager($this);
 	}
 
 	/**
@@ -118,5 +127,15 @@ class ApiClient
 	public function ProjectManager()
 	{
 		return $this->projectManager;
+	}
+	
+	/**
+	 * Return the DataStream manager
+	 *
+	 * @return DataStreamManager
+	 */
+	public function DataStreamManager()
+	{
+		return $this->dataStreamManager;
 	}
 }
