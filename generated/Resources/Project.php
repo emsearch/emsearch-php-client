@@ -228,18 +228,6 @@ class Project
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			), 
-			new Meta(
-				$this->apiClient, 
-				new Pagination(
-					$this->apiClient, 
-					$requestBody['meta']['pagination']['total'], 
-					$requestBody['meta']['pagination']['count'], 
-					$requestBody['meta']['pagination']['per_page'], 
-					$requestBody['meta']['pagination']['current_page'], 
-					$requestBody['meta']['pagination']['total_pages'], 
-					$requestBody['meta']['pagination']['links']
-				)
 			)
 		);
 
@@ -305,18 +293,6 @@ class Project
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			), 
-			new Meta(
-				$this->apiClient, 
-				new Pagination(
-					$this->apiClient, 
-					$requestBody['meta']['pagination']['total'], 
-					$requestBody['meta']['pagination']['count'], 
-					$requestBody['meta']['pagination']['per_page'], 
-					$requestBody['meta']['pagination']['current_page'], 
-					$requestBody['meta']['pagination']['total_pages'], 
-					$requestBody['meta']['pagination']['links']
-				)
 			)
 		);
 
@@ -384,18 +360,6 @@ class Project
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			), 
-			new Meta(
-				$this->apiClient, 
-				new Pagination(
-					$this->apiClient, 
-					$requestBody['meta']['pagination']['total'], 
-					$requestBody['meta']['pagination']['count'], 
-					$requestBody['meta']['pagination']['per_page'], 
-					$requestBody['meta']['pagination']['current_page'], 
-					$requestBody['meta']['pagination']['total_pages'], 
-					$requestBody['meta']['pagination']['links']
-				)
 			)
 		);
 

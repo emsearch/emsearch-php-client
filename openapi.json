@@ -6771,22 +6771,16 @@
                 "properties": {
                     "data": {
                         "$ref": "#\/components\/schemas\/DataStream"
-                    },
-                    "meta": {
-                        "$ref": "#\/components\/schemas\/Meta"
                     }
-                }
-            },
-            "DataStreamList": {
-                "type": "array",
-                "items": {
-                    "$ref": "#\/components\/schemas\/DataStream"
                 }
             },
             "DataStreamListResponse": {
                 "properties": {
                     "data": {
-                        "$ref": "#\/components\/schemas\/DataStream"
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/DataStream"
+                        }
                     },
                     "meta": {
                         "$ref": "#\/components\/schemas\/Meta"
