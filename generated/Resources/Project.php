@@ -95,13 +95,13 @@ class Project
 	 */
 	public function update($search_engine_id, $name, $data_stream_id = null)
 	{
-		$path = '/api/project/{projectId}';
+		$routePath = '/api/project/{projectId}';
 
 		$pathReplacements = [
 			'{projectId}' => $this->id,
 		];
 
-		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
 		$bodyParameters['search_engine_id'] = $search_engine_id;
@@ -114,7 +114,7 @@ class Project
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
 
-		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -122,11 +122,11 @@ class Project
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
 				$requestBody['message'], 
-				$requestBody['errors'], 
-				$requestBody['status_code'], 
-				$requestBody['debug']
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
-	
+
 			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
 		}
 
@@ -164,17 +164,17 @@ class Project
 	 */
 	public function delete()
 	{
-		$path = '/api/project/{projectId}';
+		$routePath = '/api/project/{projectId}';
 
 		$pathReplacements = [
 			'{projectId}' => $this->id,
 		];
 
-		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$requestOptions = [];
 
-		$request = $this->apiClient->getHttpClient()->request('delete', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('delete', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 204) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -182,11 +182,11 @@ class Project
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
 				$requestBody['message'], 
-				$requestBody['errors'], 
-				$requestBody['status_code'], 
-				$requestBody['debug']
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
-	
+
 			throw new UnexpectedResponseException($request->getStatusCode(), 204, $request, $apiExceptionResponse);
 		}
 
@@ -195,9 +195,9 @@ class Project
 		$response = new ErrorResponse(
 			$this->apiClient, 
 			$requestBody['message'], 
-			$requestBody['errors'], 
-			$requestBody['status_code'], 
-			$requestBody['debug']
+			(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+			(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+			(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 		);
 
 		return $response;
@@ -208,23 +208,32 @@ class Project
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
+	 * @param string $include Include responses : {include1},{include2,{include3}[...]
+	 * 
 	 * @return DataStreamResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function getDataStream()
+	public function getDataStream($include = null)
 	{
-		$path = '/api/project/{projectId}/dataStream';
+		$routePath = '/api/project/{projectId}/dataStream';
 
 		$pathReplacements = [
 			'{projectId}' => $this->id,
 		];
 
-		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$queryParameters = [];
+
+		if (!is_null($include)) {
+			$queryParameters['include'] = $include;
+		}
 
 		$requestOptions = [];
+		$requestOptions['query'] = $queryParameters;
 
-		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -232,11 +241,11 @@ class Project
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
 				$requestBody['message'], 
-				$requestBody['errors'], 
-				$requestBody['status_code'], 
-				$requestBody['debug']
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
-	
+
 			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
@@ -251,7 +260,19 @@ class Project
 				$requestBody['data']['name'], 
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+					$this->apiClient, 
+					new Project(
+						$this->apiClient, 
+						$requestBody['data']['project']['data']['id'], 
+						$requestBody['data']['project']['data']['search_engine_id'], 
+						$requestBody['data']['project']['data']['data_stream_id'], 
+						$requestBody['data']['project']['data']['name'], 
+						$requestBody['data']['project']['data']['created_at'], 
+						$requestBody['data']['project']['data']['updated_at']
+					)
+				)) : null)
 			)
 		);
 
@@ -273,13 +294,13 @@ class Project
 	 */
 	public function updateDataStream($data_stream_decoder_id, $name, $feed_url)
 	{
-		$path = '/api/project/{projectId}/dataStream';
+		$routePath = '/api/project/{projectId}/dataStream';
 
 		$pathReplacements = [
 			'{projectId}' => $this->id,
 		];
 
-		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
 		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
@@ -289,7 +310,7 @@ class Project
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
 
-		$request = $this->apiClient->getHttpClient()->request('patch', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -297,11 +318,11 @@ class Project
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
 				$requestBody['message'], 
-				$requestBody['errors'], 
-				$requestBody['status_code'], 
-				$requestBody['debug']
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
-	
+
 			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
 		}
 
@@ -316,7 +337,19 @@ class Project
 				$requestBody['data']['name'], 
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+					$this->apiClient, 
+					new Project(
+						$this->apiClient, 
+						$requestBody['data']['project']['data']['id'], 
+						$requestBody['data']['project']['data']['search_engine_id'], 
+						$requestBody['data']['project']['data']['data_stream_id'], 
+						$requestBody['data']['project']['data']['name'], 
+						$requestBody['data']['project']['data']['created_at'], 
+						$requestBody['data']['project']['data']['updated_at']
+					)
+				)) : null)
 			)
 		);
 
@@ -340,13 +373,13 @@ class Project
 	 */
 	public function createDataStream($data_stream_decoder_id, $name, $feed_url)
 	{
-		$path = '/api/project/{projectId}/dataStream';
+		$routePath = '/api/project/{projectId}/dataStream';
 
 		$pathReplacements = [
 			'{projectId}' => $this->id,
 		];
 
-		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
 		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
@@ -356,7 +389,7 @@ class Project
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
 
-		$request = $this->apiClient->getHttpClient()->request('post', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('post', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 201) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -364,11 +397,11 @@ class Project
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
 				$requestBody['message'], 
-				$requestBody['errors'], 
-				$requestBody['status_code'], 
-				$requestBody['debug']
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
-	
+
 			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
 		}
 
@@ -383,7 +416,19 @@ class Project
 				$requestBody['data']['name'], 
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+					$this->apiClient, 
+					new Project(
+						$this->apiClient, 
+						$requestBody['data']['project']['data']['id'], 
+						$requestBody['data']['project']['data']['search_engine_id'], 
+						$requestBody['data']['project']['data']['data_stream_id'], 
+						$requestBody['data']['project']['data']['name'], 
+						$requestBody['data']['project']['data']['created_at'], 
+						$requestBody['data']['project']['data']['updated_at']
+					)
+				)) : null)
 			)
 		);
 
@@ -401,17 +446,17 @@ class Project
 	 */
 	public function deleteDataStream()
 	{
-		$path = '/api/project/{projectId}/dataStream';
+		$routePath = '/api/project/{projectId}/dataStream';
 
 		$pathReplacements = [
 			'{projectId}' => $this->id,
 		];
 
-		$url = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $path);
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$requestOptions = [];
 
-		$request = $this->apiClient->getHttpClient()->request('delete', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('delete', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 204) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -419,11 +464,11 @@ class Project
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
 				$requestBody['message'], 
-				$requestBody['errors'], 
-				$requestBody['status_code'], 
-				$requestBody['debug']
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
-	
+
 			throw new UnexpectedResponseException($request->getStatusCode(), 204, $request, $apiExceptionResponse);
 		}
 
@@ -432,9 +477,9 @@ class Project
 		$response = new ErrorResponse(
 			$this->apiClient, 
 			$requestBody['message'], 
-			$requestBody['errors'], 
-			$requestBody['status_code'], 
-			$requestBody['debug']
+			(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+			(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+			(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 		);
 
 		return $response;

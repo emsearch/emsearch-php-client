@@ -53,11 +53,11 @@ class MeManager
 	 */
 	public function getUser()
 	{
-		$url = '/api/me';
+		$routeUrl = '/api/me';
 
 		$requestOptions = [];
 
-		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
 			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request);
@@ -72,14 +72,19 @@ class MeManager
 	 * Excepted HTTP code : 200
 	 * 
 	 * @param string $user_role_id
+	 * @param string $include Include responses : {include1},{include2,{include3}[...]
+	 * @param string $search Search words
+	 * @param int $page Format: int32. Pagination : Page number
+	 * @param int $limit Format: int32. Pagination : Maximum entries per page
+	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
 	 * @return ProjectListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function getProjects($user_role_id = null)
+	public function getProjects($user_role_id = null, $include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$url = '/api/me/project';
+		$routeUrl = '/api/me/project';
 
 		$queryParameters = [];
 
@@ -87,10 +92,30 @@ class MeManager
 			$queryParameters['user_role_id'] = $user_role_id;
 		}
 
+		if (!is_null($include)) {
+			$queryParameters['include'] = $include;
+		}
+
+		if (!is_null($search)) {
+			$queryParameters['search'] = $search;
+		}
+
+		if (!is_null($page)) {
+			$queryParameters['page'] = $page;
+		}
+
+		if (!is_null($limit)) {
+			$queryParameters['limit'] = $limit;
+		}
+
+		if (!is_null($order_by)) {
+			$queryParameters['order_by'] = $order_by;
+		}
+
 		$requestOptions = [];
 		$requestOptions['query'] = $queryParameters;
 
-		$request = $this->apiClient->getHttpClient()->request('get', $url, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -98,11 +123,11 @@ class MeManager
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
 				$requestBody['message'], 
-				$requestBody['errors'], 
-				$requestBody['status_code'], 
-				$requestBody['debug']
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
-	
+
 			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
@@ -123,7 +148,7 @@ class MeManager
 			}, $requestBody['data']), 
 			new Meta(
 				$this->apiClient, 
-				new Pagination(
+				(isset($requestBody['meta']['pagination']) ? (new Pagination(
 					$this->apiClient, 
 					$requestBody['meta']['pagination']['total'], 
 					$requestBody['meta']['pagination']['count'], 
@@ -131,7 +156,7 @@ class MeManager
 					$requestBody['meta']['pagination']['current_page'], 
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
-				)
+				)) : null)
 			)
 		);
 

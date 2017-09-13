@@ -4,19 +4,19 @@ namespace emsearch\Api\Managers;
 
 use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\ProjectListResponse;
+use emsearch\Api\Resources\DataStreamHasI18nLangListResponse;
 use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\ProjectResponse;
-use emsearch\Api\Resources\Project;
+use emsearch\Api\Resources\DataStreamHasI18nLangResponse;
+use emsearch\Api\Resources\DataStreamHasI18nLang;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
 /**
- * Project manager class
+ * DataStreamHasI18nLang manager class
  * 
  * @package emsearch\Api\Managers
  */
-class ProjectManager 
+class DataStreamHasI18nLangManager 
 {
 	/**
 	 * API client
@@ -26,7 +26,7 @@ class ProjectManager
 	protected $apiClient;
 
 	/**
-	 * Project manager class constructor
+	 * DataStreamHasI18nLang manager class constructor
 	 *
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 */
@@ -46,7 +46,7 @@ class ProjectManager
 	}
 
 	/**
-	 * Project list
+	 * List of relationships between data streams and i18n langs
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
@@ -56,13 +56,13 @@ class ProjectManager
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return ProjectListResponse
+	 * @return DataStreamHasI18nLangListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
 	public function all($include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routeUrl = '/api/project';
+		$routeUrl = '/api/dataStreamHasI18nLang';
 
 		$queryParameters = [];
 
@@ -107,15 +107,13 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectListResponse(
+		$response = new DataStreamHasI18nLangListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new Project(
+				return new DataStreamHasI18nLang(
 					$this->apiClient, 
-					$data['id'], 
-					$data['search_engine_id'], 
 					$data['data_stream_id'], 
-					$data['name'], 
+					$data['i18n_lang_id'], 
 					$data['created_at'], 
 					$data['updated_at']
 				); 
@@ -138,29 +136,26 @@ class ProjectManager
 	}
 	
 	/**
-	 * Create and store new project
+	 * Create and store new relationship between a data stream and a i18n lang
+	 * 
+	 * <aside class="notice">Only one relationship per data stream/i18n lang is allowed.</aside>
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $search_engine_id Format: uuid.
-	 * @param string $name
 	 * @param string $data_stream_id Format: uuid.
+	 * @param string $i18n_lang_id
 	 * 
-	 * @return ProjectResponse
+	 * @return DataStreamHasI18nLangResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($search_engine_id, $name, $data_stream_id = null)
+	public function create($data_stream_id, $i18n_lang_id)
 	{
-		$routeUrl = '/api/project';
+		$routeUrl = '/api/dataStreamHasI18nLang';
 
 		$bodyParameters = [];
-		$bodyParameters['search_engine_id'] = $search_engine_id;
-		$bodyParameters['name'] = $name;
-
-		if (!is_null($data_stream_id)) {
-			$bodyParameters['data_stream_id'] = $data_stream_id;
-		}
+		$bodyParameters['data_stream_id'] = $data_stream_id;
+		$bodyParameters['i18n_lang_id'] = $i18n_lang_id;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -183,14 +178,12 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectResponse(
+		$response = new DataStreamHasI18nLangResponse(
 			$this->apiClient, 
-			new Project(
+			new DataStreamHasI18nLang(
 				$this->apiClient, 
-				$requestBody['data']['id'], 
-				$requestBody['data']['search_engine_id'], 
 				$requestBody['data']['data_stream_id'], 
-				$requestBody['data']['name'], 
+				$requestBody['data']['i18n_lang_id'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -200,23 +193,25 @@ class ProjectManager
 	}
 	
 	/**
-	 * Get specified project
+	 * Get specified relationship between a data stream and a i18n lang
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
-	 * @param string $projectId Project UUID
+	 * @param string $dataStreamId Data Stream UUID
+	 * @param string $i18nLangId I18n Land Id
 	 * @param string $include Include responses : {include1},{include2,{include3}[...]
 	 * 
-	 * @return ProjectResponse
+	 * @return DataStreamHasI18nLangResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function get($projectId, $include = null)
+	public function get($dataStreamId, $i18nLangId, $include = null)
 	{
-		$routePath = '/api/project/{projectId}';
+		$routePath = '/api/dataStreamHasI18nLang/{dataStreamId},{i18nLangId}';
 
 		$pathReplacements = [
-			'{projectId}' => $projectId,
+			'{dataStreamId}' => $dataStreamId,
+			'{i18nLangId}' => $i18nLangId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
@@ -248,14 +243,12 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectResponse(
+		$response = new DataStreamHasI18nLangResponse(
 			$this->apiClient, 
-			new Project(
+			new DataStreamHasI18nLang(
 				$this->apiClient, 
-				$requestBody['data']['id'], 
-				$requestBody['data']['search_engine_id'], 
 				$requestBody['data']['data_stream_id'], 
-				$requestBody['data']['name'], 
+				$requestBody['data']['i18n_lang_id'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -265,36 +258,35 @@ class ProjectManager
 	}
 	
 	/**
-	 * Update a specified project
+	 * Update a specified relationship between a data stream and a i18n lang
+	 * 
+	 * <aside class="notice">Only one relationship per data stream/i18n lang is allowed.</aside>
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $projectId Project UUID
-	 * @param string $search_engine_id Format: uuid.
-	 * @param string $name
+	 * @param string $dataStreamId Data Stream UUID
+	 * @param string $i18nLangId I18n Land Id
 	 * @param string $data_stream_id Format: uuid.
+	 * @param string $i18n_lang_id
 	 * 
-	 * @return ProjectResponse
+	 * @return DataStreamHasI18nLangResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($projectId, $search_engine_id, $name, $data_stream_id = null)
+	public function update($dataStreamId, $i18nLangId, $data_stream_id, $i18n_lang_id)
 	{
-		$routePath = '/api/project/{projectId}';
+		$routePath = '/api/dataStreamHasI18nLang/{dataStreamId},{i18nLangId}';
 
 		$pathReplacements = [
-			'{projectId}' => $projectId,
+			'{dataStreamId}' => $dataStreamId,
+			'{i18nLangId}' => $i18nLangId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['search_engine_id'] = $search_engine_id;
-		$bodyParameters['name'] = $name;
-
-		if (!is_null($data_stream_id)) {
-			$bodyParameters['data_stream_id'] = $data_stream_id;
-		}
+		$bodyParameters['data_stream_id'] = $data_stream_id;
+		$bodyParameters['i18n_lang_id'] = $i18n_lang_id;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -317,14 +309,12 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectResponse(
+		$response = new DataStreamHasI18nLangResponse(
 			$this->apiClient, 
-			new Project(
+			new DataStreamHasI18nLang(
 				$this->apiClient, 
-				$requestBody['data']['id'], 
-				$requestBody['data']['search_engine_id'], 
 				$requestBody['data']['data_stream_id'], 
-				$requestBody['data']['name'], 
+				$requestBody['data']['i18n_lang_id'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -334,27 +324,24 @@ class ProjectManager
 	}
 	
 	/**
-	 * Delete specified project
-	 * 
-	 * All relationships between the project and his users will be automatically deleted too.<br />
-	 * The project sync items will be automatically deleted too.<br />
-	 * The project data stream will be automatically deleted too, if exists.
-	 * <aside class="notice">Only <code>Owner</code> of project is allowed to delete it.</aside>
+	 * Delete specified relationship between a data stream and a i18n lang
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
-	 * @param string $projectId Project UUID
+	 * @param string $dataStreamId Data Stream UUID
+	 * @param string $i18nLangId I18n Land Id
 	 * 
 	 * @return ErrorResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function delete($projectId)
+	public function delete($dataStreamId, $i18nLangId)
 	{
-		$routePath = '/api/project/{projectId}';
+		$routePath = '/api/dataStreamHasI18nLang/{dataStreamId},{i18nLangId}';
 
 		$pathReplacements = [
-			'{projectId}' => $projectId,
+			'{dataStreamId}' => $dataStreamId,
+			'{i18nLangId}' => $i18nLangId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);

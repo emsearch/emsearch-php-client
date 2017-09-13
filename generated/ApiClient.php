@@ -10,6 +10,11 @@ use GuzzleHttp\Middleware;
 use emsearch\Api\Managers\MeManager;
 use emsearch\Api\Managers\ProjectManager;
 use emsearch\Api\Managers\DataStreamManager;
+use emsearch\Api\Managers\DataStreamFieldManager;
+use emsearch\Api\Managers\DataStreamHasI18nLangManager;
+use emsearch\Api\Managers\DataStreamDecoderManager;
+use emsearch\Api\Managers\DataStreamPresetManager;
+use emsearch\Api\Managers\DataStreamPresetFieldManager;
 
 /**
  * emsearch API client class (version 1.0)
@@ -61,6 +66,41 @@ class ApiClient
 	protected $dataStreamManager;
 
 	/**
+	 * DataStreamField manager
+	 *
+	 * @var DataStreamFieldManager
+	 */
+	protected $dataStreamFieldManager;
+
+	/**
+	 * DataStreamHasI18nLang manager
+	 *
+	 * @var DataStreamHasI18nLangManager
+	 */
+	protected $dataStreamHasI18nLangManager;
+
+	/**
+	 * DataStreamDecoder manager
+	 *
+	 * @var DataStreamDecoderManager
+	 */
+	protected $dataStreamDecoderManager;
+
+	/**
+	 * DataStreamPreset manager
+	 *
+	 * @var DataStreamPresetManager
+	 */
+	protected $dataStreamPresetManager;
+
+	/**
+	 * DataStreamPresetField manager
+	 *
+	 * @var DataStreamPresetFieldManager
+	 */
+	protected $dataStreamPresetFieldManager;
+
+	/**
 	 * API Client class constructor
 	 *
 	 * @param string $bearerToken Bearer authentication access token
@@ -87,6 +127,11 @@ class ApiClient
 		$this->meManager = new MeManager($this);
 		$this->projectManager = new ProjectManager($this);
 		$this->dataStreamManager = new DataStreamManager($this);
+		$this->dataStreamFieldManager = new DataStreamFieldManager($this);
+		$this->dataStreamHasI18nLangManager = new DataStreamHasI18nLangManager($this);
+		$this->dataStreamDecoderManager = new DataStreamDecoderManager($this);
+		$this->dataStreamPresetManager = new DataStreamPresetManager($this);
+		$this->dataStreamPresetFieldManager = new DataStreamPresetFieldManager($this);
 	}
 
 	/**
@@ -137,5 +182,55 @@ class ApiClient
 	public function DataStreamManager()
 	{
 		return $this->dataStreamManager;
+	}
+	
+	/**
+	 * Return the DataStreamField manager
+	 *
+	 * @return DataStreamFieldManager
+	 */
+	public function DataStreamFieldManager()
+	{
+		return $this->dataStreamFieldManager;
+	}
+	
+	/**
+	 * Return the DataStreamHasI18nLang manager
+	 *
+	 * @return DataStreamHasI18nLangManager
+	 */
+	public function DataStreamHasI18nLangManager()
+	{
+		return $this->dataStreamHasI18nLangManager;
+	}
+	
+	/**
+	 * Return the DataStreamDecoder manager
+	 *
+	 * @return DataStreamDecoderManager
+	 */
+	public function DataStreamDecoderManager()
+	{
+		return $this->dataStreamDecoderManager;
+	}
+	
+	/**
+	 * Return the DataStreamPreset manager
+	 *
+	 * @return DataStreamPresetManager
+	 */
+	public function DataStreamPresetManager()
+	{
+		return $this->dataStreamPresetManager;
+	}
+	
+	/**
+	 * Return the DataStreamPresetField manager
+	 *
+	 * @return DataStreamPresetFieldManager
+	 */
+	public function DataStreamPresetFieldManager()
+	{
+		return $this->dataStreamPresetFieldManager;
 	}
 }

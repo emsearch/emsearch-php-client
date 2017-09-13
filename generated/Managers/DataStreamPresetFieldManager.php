@@ -4,19 +4,19 @@ namespace emsearch\Api\Managers;
 
 use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\ProjectListResponse;
+use emsearch\Api\Resources\DataStreamPresetFieldListResponse;
 use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\ProjectResponse;
-use emsearch\Api\Resources\Project;
+use emsearch\Api\Resources\DataStreamPresetFieldResponse;
+use emsearch\Api\Resources\DataStreamPresetField;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
 /**
- * Project manager class
+ * DataStreamPresetField manager class
  * 
  * @package emsearch\Api\Managers
  */
-class ProjectManager 
+class DataStreamPresetFieldManager 
 {
 	/**
 	 * API client
@@ -26,7 +26,7 @@ class ProjectManager
 	protected $apiClient;
 
 	/**
-	 * Project manager class constructor
+	 * DataStreamPresetField manager class constructor
 	 *
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 */
@@ -46,7 +46,7 @@ class ProjectManager
 	}
 
 	/**
-	 * Project list
+	 * Show data stream preset field list
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
@@ -56,13 +56,13 @@ class ProjectManager
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return ProjectListResponse
+	 * @return DataStreamPresetFieldListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
 	public function all($include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routeUrl = '/api/project';
+		$routeUrl = '/api/dataStreamPresetField';
 
 		$queryParameters = [];
 
@@ -107,15 +107,18 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectListResponse(
+		$response = new DataStreamPresetFieldListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new Project(
+				return new DataStreamPresetField(
 					$this->apiClient, 
 					$data['id'], 
-					$data['search_engine_id'], 
-					$data['data_stream_id'], 
+					$data['data_stream_preset_id'], 
 					$data['name'], 
+					$data['path'], 
+					$data['versioned'], 
+					$data['searchable'], 
+					$data['to_retrieve'], 
 					$data['created_at'], 
 					$data['updated_at']
 				); 
@@ -138,29 +141,32 @@ class ProjectManager
 	}
 	
 	/**
-	 * Create and store new project
+	 * Create and store new data stream preset field
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $search_engine_id Format: uuid.
+	 * @param string $data_stream_preset_id Format: uuid.
 	 * @param string $name
-	 * @param string $data_stream_id Format: uuid.
+	 * @param string $path
+	 * @param boolean $versioned
+	 * @param boolean $searchable
+	 * @param boolean $to_retrieve
 	 * 
-	 * @return ProjectResponse
+	 * @return DataStreamPresetFieldResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($search_engine_id, $name, $data_stream_id = null)
+	public function create($data_stream_preset_id, $name, $path, $versioned, $searchable, $to_retrieve)
 	{
-		$routeUrl = '/api/project';
+		$routeUrl = '/api/dataStreamPresetField';
 
 		$bodyParameters = [];
-		$bodyParameters['search_engine_id'] = $search_engine_id;
+		$bodyParameters['data_stream_preset_id'] = $data_stream_preset_id;
 		$bodyParameters['name'] = $name;
-
-		if (!is_null($data_stream_id)) {
-			$bodyParameters['data_stream_id'] = $data_stream_id;
-		}
+		$bodyParameters['path'] = $path;
+		$bodyParameters['versioned'] = $versioned;
+		$bodyParameters['searchable'] = $searchable;
+		$bodyParameters['to_retrieve'] = $to_retrieve;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -183,14 +189,17 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectResponse(
+		$response = new DataStreamPresetFieldResponse(
 			$this->apiClient, 
-			new Project(
+			new DataStreamPresetField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['search_engine_id'], 
-				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['data_stream_preset_id'], 
 				$requestBody['data']['name'], 
+				$requestBody['data']['path'], 
+				$requestBody['data']['versioned'], 
+				$requestBody['data']['searchable'], 
+				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -200,23 +209,23 @@ class ProjectManager
 	}
 	
 	/**
-	 * Get specified project
+	 * Get specified data stream preset field
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
-	 * @param string $projectId Project UUID
+	 * @param string $dataStreamPresetFieldId Data stream preset field UUID
 	 * @param string $include Include responses : {include1},{include2,{include3}[...]
 	 * 
-	 * @return ProjectResponse
+	 * @return DataStreamPresetFieldResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function get($projectId, $include = null)
+	public function get($dataStreamPresetFieldId, $include = null)
 	{
-		$routePath = '/api/project/{projectId}';
+		$routePath = '/api/dataStreamPresetField/{dataStreamPresetFieldId}';
 
 		$pathReplacements = [
-			'{projectId}' => $projectId,
+			'{dataStreamPresetFieldId}' => $dataStreamPresetFieldId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
@@ -248,14 +257,17 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectResponse(
+		$response = new DataStreamPresetFieldResponse(
 			$this->apiClient, 
-			new Project(
+			new DataStreamPresetField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['search_engine_id'], 
-				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['data_stream_preset_id'], 
 				$requestBody['data']['name'], 
+				$requestBody['data']['path'], 
+				$requestBody['data']['versioned'], 
+				$requestBody['data']['searchable'], 
+				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -265,36 +277,39 @@ class ProjectManager
 	}
 	
 	/**
-	 * Update a specified project
+	 * Update a data stream preset field
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $projectId Project UUID
-	 * @param string $search_engine_id Format: uuid.
+	 * @param string $dataStreamPresetFieldId Data stream preset field UUID
+	 * @param string $data_stream_preset_id Format: uuid.
 	 * @param string $name
-	 * @param string $data_stream_id Format: uuid.
+	 * @param string $path
+	 * @param boolean $versioned
+	 * @param boolean $searchable
+	 * @param boolean $to_retrieve
 	 * 
-	 * @return ProjectResponse
+	 * @return DataStreamPresetFieldResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($projectId, $search_engine_id, $name, $data_stream_id = null)
+	public function update($dataStreamPresetFieldId, $data_stream_preset_id, $name, $path, $versioned, $searchable, $to_retrieve)
 	{
-		$routePath = '/api/project/{projectId}';
+		$routePath = '/api/dataStreamPresetField/{dataStreamPresetFieldId}';
 
 		$pathReplacements = [
-			'{projectId}' => $projectId,
+			'{dataStreamPresetFieldId}' => $dataStreamPresetFieldId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['search_engine_id'] = $search_engine_id;
+		$bodyParameters['data_stream_preset_id'] = $data_stream_preset_id;
 		$bodyParameters['name'] = $name;
-
-		if (!is_null($data_stream_id)) {
-			$bodyParameters['data_stream_id'] = $data_stream_id;
-		}
+		$bodyParameters['path'] = $path;
+		$bodyParameters['versioned'] = $versioned;
+		$bodyParameters['searchable'] = $searchable;
+		$bodyParameters['to_retrieve'] = $to_retrieve;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -317,14 +332,17 @@ class ProjectManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectResponse(
+		$response = new DataStreamPresetFieldResponse(
 			$this->apiClient, 
-			new Project(
+			new DataStreamPresetField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['search_engine_id'], 
-				$requestBody['data']['data_stream_id'], 
+				$requestBody['data']['data_stream_preset_id'], 
 				$requestBody['data']['name'], 
+				$requestBody['data']['path'], 
+				$requestBody['data']['versioned'], 
+				$requestBody['data']['searchable'], 
+				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -334,27 +352,22 @@ class ProjectManager
 	}
 	
 	/**
-	 * Delete specified project
-	 * 
-	 * All relationships between the project and his users will be automatically deleted too.<br />
-	 * The project sync items will be automatically deleted too.<br />
-	 * The project data stream will be automatically deleted too, if exists.
-	 * <aside class="notice">Only <code>Owner</code> of project is allowed to delete it.</aside>
+	 * Delete specified data stream preset field
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
-	 * @param string $projectId Project UUID
+	 * @param string $dataStreamPresetFieldId Data stream preset field UUID
 	 * 
 	 * @return ErrorResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function delete($projectId)
+	public function delete($dataStreamPresetFieldId)
 	{
-		$routePath = '/api/project/{projectId}';
+		$routePath = '/api/dataStreamPresetField/{dataStreamPresetFieldId}';
 
 		$pathReplacements = [
-			'{projectId}' => $projectId,
+			'{dataStreamPresetFieldId}' => $dataStreamPresetFieldId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);

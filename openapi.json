@@ -115,6 +115,21 @@
                             ],
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
@@ -642,6 +657,21 @@
                             ],
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
@@ -675,6 +705,23 @@
                 ],
                 "summary": "Project list",
                 "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "A Project list",
@@ -774,6 +821,9 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
@@ -2537,6 +2587,23 @@
                 ],
                 "summary": "Show data stream list",
                 "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "A DataStream list",
@@ -2637,6 +2704,9 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
@@ -2835,13 +2905,36 @@
         },
         "\/api\/dataStreamField": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamField"
+                ],
                 "summary": "Show data stream field list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A DataStreamField list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamFieldListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/DataStreamFieldIndexExampleResponse"
                                 }
@@ -2849,13 +2942,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:DataStreamField"
+                ],
                 "summary": "Create and store new data stream field",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -2899,18 +3002,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A DataStreamFieldResponse",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamField\/{dataStreamFieldId}": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamField"
+                ],
                 "summary": "Get specified data stream field",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "dataStreamFieldId",
@@ -2920,20 +3040,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A DataStreamField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:DataStreamField",
+                    "Resource:DataStreamField"
+                ],
                 "summary": "Update a data stream field",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamFieldId",
@@ -2988,16 +3129,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
-                "summary": "Delete specified data stream field\n*",
-                "operationId": "destroy",
+                "tags": [
+                    "Manager:DataStreamField",
+                    "Resource:DataStreamField"
+                ],
+                "summary": "Delete specified data stream field",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "dataStreamFieldId",
@@ -3011,16 +3170,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:DataStreamField",
+                    "Resource:DataStreamField"
+                ],
                 "summary": "Update a data stream field",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamFieldId",
@@ -3075,18 +3245,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStream\/{dataStreamPresetId}\/dataStreamField": {
             "get": {
-                "summary": "Data stream data stream field list\n *",
-                "operationId": "index",
+                "tags": [
+                    "Resource:DataStream"
+                ],
+                "summary": "Data stream data stream field list",
+                "operationId": "getFields",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -3096,14 +3283,43 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A DataStreamField list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamFieldListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -3124,6 +3340,9 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
@@ -3387,13 +3606,36 @@
         },
         "\/api\/dataStreamHasI18nLang": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamHasI18nLang"
+                ],
                 "summary": "List of relationships between data streams and i18n langs",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A DataStreamHasI18nLang list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamHasI18nLangListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/DataStreamHasI18nLangIndexExampleResponse"
                                 }
@@ -3401,14 +3643,24 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:DataStreamHasI18nLang"
+                ],
                 "summary": "Create and store new relationship between a data stream and a i18n lang",
                 "description": "<aside class=\"notice\">Only one relationship per data stream\/i18n lang is allowed.<\/aside>",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -3433,18 +3685,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A DataStreamHasI18nLangResponse",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamHasI18nLangResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamHasI18nLang\/{dataStreamId},{i18nLangId}": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamHasI18nLang"
+                ],
                 "summary": "Get specified relationship between a data stream and a i18n lang",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -3463,13 +3732,19 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A DataStreamHasI18nLang",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamHasI18nLangResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/DataStreamHasI18nLangShowExampleResponse"
                                 }
@@ -3477,14 +3752,25 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:DataStreamHasI18nLang",
+                    "Resource:DataStreamHasI18nLang"
+                ],
                 "summary": "Update a specified relationship between a data stream and a i18n lang",
                 "description": "<aside class=\"notice\">Only one relationship per data stream\/i18n lang is allowed.<\/aside>",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -3529,16 +3815,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamHasI18nLang",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamHasI18nLangResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:DataStreamHasI18nLang",
+                    "Resource:DataStreamHasI18nLang"
+                ],
                 "summary": "Delete specified relationship between a data stream and a i18n lang",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -3561,17 +3865,28 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:DataStreamHasI18nLang",
+                    "Resource:DataStreamHasI18nLang"
+                ],
                 "summary": "Update a specified relationship between a data stream and a i18n lang",
                 "description": "<aside class=\"notice\">Only one relationship per data stream\/i18n lang is allowed.<\/aside>",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -3616,18 +3931,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamHasI18nLang",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamHasI18nLangResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStream\/{dataStreamId}\/dataStreamHasI18nLang": {
             "get": {
+                "tags": [
+                    "Resource:DataStream"
+                ],
                 "summary": "Data stream relationship between data stream and i18n langs list",
-                "operationId": "index",
+                "operationId": "getDataStreamHasI18nLangs",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -3637,22 +3969,54 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A DataStreamHasI18nLang list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamHasI18nLangListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStream\/{dataStreamId}\/i18nLang": {
             "get": {
+                "tags": [
+                    "Resource:DataStream"
+                ],
                 "summary": "Data stream i18n lang list",
-                "operationId": "index",
+                "operationId": "getI18nLangs",
                 "parameters": [
                     {
                         "name": "dataStreamId",
@@ -3662,14 +4026,40 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A I18nLang list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/I18nLangListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -3978,13 +4368,36 @@
         },
         "\/api\/dataStreamDecoder": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamDecoder"
+                ],
                 "summary": "Show data stream decoder list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A DataStreamDecoder list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamDecoderListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/DataStreamDecoderIndexExampleResponse"
                                 }
@@ -3992,13 +4405,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:DataStreamDecoder"
+                ],
                 "summary": "Create and store new data stream decoder",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -4027,18 +4450,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A DataStreamDecoderResponse",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamDecoderResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamDecoder\/{dataStreamDecoderId}": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamDecoder"
+                ],
                 "summary": "Get specified data stream decoder",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "dataStreamDecoderId",
@@ -4048,20 +4488,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A DataStreamDecoder",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamDecoderResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:DataStreamDecoder",
+                    "Resource:DataStreamDecoder"
+                ],
                 "summary": "Update a data stream decoder",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamDecoderId",
@@ -4101,16 +4562,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamDecoder",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamDecoderResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:DataStreamDecoder",
+                    "Resource:DataStreamDecoder"
+                ],
                 "summary": "Delete specified data stream decoder",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "dataStreamDecoderId",
@@ -4124,16 +4603,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:DataStreamDecoder",
+                    "Resource:DataStreamDecoder"
+                ],
                 "summary": "Update a data stream decoder",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamDecoderId",
@@ -4173,23 +4663,60 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamDecoder",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamDecoderResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamPreset": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamPreset"
+                ],
                 "summary": "Show data stream preset list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A DataStreamPreset list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/DataStreamPresetIndexExampleResponse"
                                 }
@@ -4197,13 +4724,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:DataStreamPreset"
+                ],
                 "summary": "Create and store new data stream preset",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -4229,18 +4766,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A DataStreamPresetResponse",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamPreset\/{dataStreamPresetId}": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamPreset"
+                ],
                 "summary": "Get specified data stream preset",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "dataStreamPresetId",
@@ -4250,20 +4804,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A DataStreamPreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:DataStreamPreset",
+                    "Resource:DataStreamPreset"
+                ],
                 "summary": "Update a data stream preset",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamPresetId",
@@ -4300,16 +4875,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamPreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
-                "summary": "Delete specified data stream preset\n*",
-                "operationId": "destroy",
+                "tags": [
+                    "Manager:DataStreamPreset",
+                    "Resource:DataStreamPreset"
+                ],
+                "summary": "Delete specified data stream preset",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "dataStreamPresetId",
@@ -4323,16 +4916,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:DataStreamPreset",
+                    "Resource:DataStreamPreset"
+                ],
                 "summary": "Update a data stream preset",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamPresetId",
@@ -4369,18 +4973,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamPreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamPreset\/{dataStreamPresetId}\/dataStreamPresetField": {
             "get": {
-                "summary": "Data stream preset data stream preset field list\n *",
-                "operationId": "index",
+                "tags": [
+                    "Resource:DataStreamPreset"
+                ],
+                "summary": "Data stream preset data stream preset field list",
+                "operationId": "getFields",
                 "parameters": [
                     {
                         "name": "dataStreamPresetId",
@@ -4390,27 +5011,79 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A DataStreamPresetField list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetFieldListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamPresetField": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamPresetField"
+                ],
                 "summary": "Show data stream preset field list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A DataStreamPresetField list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetFieldListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/DataStreamPresetFieldIndexExampleResponse"
                                 }
@@ -4418,13 +5091,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:DataStreamPresetField"
+                ],
                 "summary": "Create and store new data stream preset field",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -4468,18 +5151,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A DataStreamPresetFieldResponse",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamPresetField\/{dataStreamPresetFieldId}": {
             "get": {
+                "tags": [
+                    "Manager:DataStreamPresetField"
+                ],
                 "summary": "Get specified data stream preset field",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "dataStreamPresetFieldId",
@@ -4489,20 +5189,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A DataStreamPresetField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:DataStreamPresetField",
+                    "Resource:DataStreamPresetField"
+                ],
                 "summary": "Update a data stream preset field",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamPresetFieldId",
@@ -4557,16 +5278,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamPresetField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
-                "summary": "Delete specified data stream preset field\n*",
-                "operationId": "destroy",
+                "tags": [
+                    "Manager:DataStreamPresetField",
+                    "Resource:DataStreamPresetField"
+                ],
+                "summary": "Delete specified data stream preset field",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "dataStreamPresetFieldId",
@@ -4580,16 +5319,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:DataStreamPresetField",
+                    "Resource:DataStreamPresetField"
+                ],
                 "summary": "Update a data stream preset field",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "dataStreamPresetFieldId",
@@ -4644,10 +5394,24 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated DataStreamPresetField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/DataStreamPresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -6666,6 +7430,14 @@
                 }
             },
             "Pagination": {
+                "required": [
+                    "total",
+                    "count",
+                    "per_page",
+                    "current_page",
+                    "total_pages",
+                    "links"
+                ],
                 "properties": {
                     "total": {
                         "minimum": 0,
@@ -6719,6 +7491,14 @@
                 }
             },
             "Project": {
+                "required": [
+                    "id",
+                    "search_engine_id",
+                    "data_stream_id",
+                    "name",
+                    "created_at",
+                    "updated_at"
+                ],
                 "properties": {
                     "id": {
                         "type": "string",
@@ -6746,6 +7526,9 @@
                 }
             },
             "ProjectResponse": {
+                "required": [
+                    "data"
+                ],
                 "properties": {
                     "data": {
                         "$ref": "#\/components\/schemas\/Project"
@@ -6753,6 +7536,10 @@
                 }
             },
             "ProjectListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
                 "properties": {
                     "data": {
                         "type": "array",
@@ -6769,6 +7556,14 @@
                 }
             },
             "DataStream": {
+                "required": [
+                    "id",
+                    "data_stream_decoder_id",
+                    "name",
+                    "feed_url",
+                    "created_at",
+                    "updated_at"
+                ],
                 "properties": {
                     "id": {
                         "type": "string",
@@ -6792,10 +7587,16 @@
                     "updated_at": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "project": {
+                        "$ref": "#\/components\/schemas\/ProjectResponse"
                     }
                 }
             },
             "DataStreamResponse": {
+                "required": [
+                    "data"
+                ],
                 "properties": {
                     "data": {
                         "$ref": "#\/components\/schemas\/DataStream"
@@ -6803,6 +7604,10 @@
                 }
             },
             "DataStreamListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
                 "properties": {
                     "data": {
                         "type": "array",
@@ -6813,6 +7618,414 @@
                     "meta": {
                         "$ref": "#\/components\/schemas\/Meta"
                     }
+                }
+            },
+            "DataStreamField": {
+                "required": [
+                    "id",
+                    "data_stream_id",
+                    "name",
+                    "path",
+                    "versioned",
+                    "searchable",
+                    "to_retrieve",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "data_stream_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "versioned": {
+                        "type": "boolean"
+                    },
+                    "searchable": {
+                        "type": "boolean"
+                    },
+                    "to_retrieve": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "DataStreamFieldResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/DataStreamField"
+                    }
+                }
+            },
+            "DataStreamFieldListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/DataStreamField"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "DataStreamHasI18nLang": {
+                "required": [
+                    "data_stream_id",
+                    "i18n_lang_id",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "data_stream_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "i18n_lang_id": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "DataStreamHasI18nLangResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/DataStreamHasI18nLang"
+                    }
+                }
+            },
+            "DataStreamHasI18nLangListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/DataStreamHasI18nLang"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "DataStreamDecoder": {
+                "required": [
+                    "id",
+                    "name",
+                    "class_name",
+                    "file_mime_type",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "class_name": {
+                        "type": "string"
+                    },
+                    "file_mime_type": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "DataStreamDecoderResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/DataStreamDecoder"
+                    }
+                }
+            },
+            "DataStreamDecoderListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/DataStreamDecoder"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "I18nLang": {
+                "required": [
+                    "id",
+                    "description"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "I18nLangResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/I18nLang"
+                    }
+                }
+            },
+            "I18nLangListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/I18nLang"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "DataStreamPreset": {
+                "required": [
+                    "id",
+                    "data_stream_decoder_id",
+                    "name",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "data_stream_decoder_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "DataStreamPresetResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/DataStreamPreset"
+                    }
+                }
+            },
+            "DataStreamPresetListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/DataStreamPreset"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "DataStreamPresetField": {
+                "required": [
+                    "id",
+                    "data_stream_preset_id",
+                    "name",
+                    "path",
+                    "versioned",
+                    "searchable",
+                    "to_retrieve",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "data_stream_preset_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "versioned": {
+                        "type": "boolean"
+                    },
+                    "searchable": {
+                        "type": "boolean"
+                    },
+                    "to_retrieve": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "DataStreamPresetFieldResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/DataStreamPresetField"
+                    }
+                }
+            },
+            "DataStreamPresetFieldListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/DataStreamPresetField"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "Include": {
+                "name": "include",
+                "in": "query",
+                "description": "Include responses : {include1},{include2,{include3}[...]",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "Search": {
+                "name": "search",
+                "in": "query",
+                "description": "Search words",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "PaginationPage": {
+                "name": "page",
+                "in": "query",
+                "description": "Pagination : Page number",
+                "required": false,
+                "schema": {
+                    "minimum": 1,
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1
+                }
+            },
+            "PaginationLimit": {
+                "name": "limit",
+                "in": "query",
+                "description": "Pagination : Maximum entries per page",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 20
+                }
+            },
+            "OrderBy": {
+                "name": "order_by",
+                "in": "query",
+                "description": "Order by : {field},[asc|desc]",
+                "required": false,
+                "schema": {
+                    "type": "string"
                 }
             }
         },
