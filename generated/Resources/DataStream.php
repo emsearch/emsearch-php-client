@@ -155,7 +155,8 @@ class DataStream
 						$requestBody['data']['project']['data']['data_stream_id'], 
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
-						$requestBody['data']['project']['data']['updated_at']
+						$requestBody['data']['project']['data']['updated_at'], 
+						null
 					)
 				)) : null)
 			)

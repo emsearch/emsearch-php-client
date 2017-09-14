@@ -45,6 +45,13 @@ class ApiClient
 	protected $bearerToken;
 
 	/**
+	 * Map of global headers to use with every requests
+	 *
+	 * @var string[]
+	 */
+	protected $globalHeaders = [];
+
+	/**
 	 * Me manager
 	 *
 	 * @var MeManager
@@ -105,10 +112,12 @@ class ApiClient
 	 *
 	 * @param string $bearerToken Bearer authentication access token
 	 * @param string $apiBaseUrl API base url for requests
+	 * @param string[] $globalHeaders Map of global headers to use with every requests
 	 */
-	public function __construct($bearerToken, $apiBaseUrl = 'https://emsearch.ryan.ems-dev.net')
+	public function __construct($bearerToken, $apiBaseUrl = 'https://emsearch.ryan.ems-dev.net', $globalHeaders = [])
 	{
 		$this->apiBaseUrl = $apiBaseUrl;
+		$this->globalHeaders = $globalHeaders;
 
 		$this->bearerToken = $bearerToken;
 
@@ -116,7 +125,15 @@ class ApiClient
 		$stack->setHandler(new CurlHandler());
 
 		$stack->push(Middleware::mapRequest(function (RequestInterface $request) {
-			return $request->withHeader('Authorization', 'Bearer ' . $this->bearerToken);
+			if (count($this->globalHeaders) > 0) {
+				$request = $request->withHeader('Authorization', 'Bearer ' . $this->bearerToken);
+				foreach ($this->globalHeaders as $header => $value) {
+					$request = $request->withHeader($header, $value);
+				}
+				return $request;
+			} else {
+				return $request->withHeader('Authorization', 'Bearer ' . $this->bearerToken);
+			}
 		}));
 
 		$this->httpClient = new GuzzleClient([
@@ -142,6 +159,16 @@ class ApiClient
 	public function getApiBaseUrl()
 	{
 		return $this->apiBaseUrl;
+	}
+
+	/**
+	 * Return the map of global headers to use with every requests
+	 *
+	 * @return string[]
+	 */
+	public function getGlobalHeaders()
+	{
+		return $this->globalHeaders;
 	}
 
 	/**

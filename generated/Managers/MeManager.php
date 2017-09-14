@@ -6,6 +6,9 @@ use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
 use emsearch\Api\Resources\ProjectListResponse;
 use emsearch\Api\Resources\ErrorResponse;
+use emsearch\Api\Resources\DataStreamResponse;
+use emsearch\Api\Resources\DataStream;
+use emsearch\Api\Resources\ProjectResponse;
 use emsearch\Api\Resources\Project;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
@@ -143,7 +146,23 @@ class MeManager
 					$data['data_stream_id'], 
 					$data['name'], 
 					$data['created_at'], 
-					$data['updated_at']
+					$data['updated_at'], 
+					(isset($data['data']['dataStream']) ? (new DataStreamResponse(
+						$this->apiClient, 
+						new DataStream(
+							$this->apiClient, 
+							$data['id'], 
+							$data['data_stream_decoder_id'], 
+							$data['name'], 
+							$data['feed_url'], 
+							$data['created_at'], 
+							$data['updated_at'], 
+							(isset($data['data']['dataStream']['data']['project']) ? (new ProjectResponse(
+								$this->apiClient, 
+								null
+							)) : null)
+						)
+					)) : null)
 				); 
 			}, $requestBody['data']), 
 			new Meta(

@@ -129,7 +129,11 @@ class DataStreamManager
 							$data['data_stream_id'], 
 							$data['name'], 
 							$data['created_at'], 
-							$data['updated_at']
+							$data['updated_at'], 
+							(isset($data['data']['project']['data']['dataStream']) ? (new DataStreamResponse(
+								$this->apiClient, 
+								null
+							)) : null)
 						)
 					)) : null)
 				); 
@@ -215,7 +219,8 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['data_stream_id'], 
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
-						$requestBody['data']['project']['data']['updated_at']
+						$requestBody['data']['project']['data']['updated_at'], 
+						null
 					)
 				)) : null)
 			)
@@ -292,7 +297,8 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['data_stream_id'], 
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
-						$requestBody['data']['project']['data']['updated_at']
+						$requestBody['data']['project']['data']['updated_at'], 
+						null
 					)
 				)) : null)
 			)
@@ -370,7 +376,8 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['data_stream_id'], 
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
-						$requestBody['data']['project']['data']['updated_at']
+						$requestBody['data']['project']['data']['updated_at'], 
+						null
 					)
 				)) : null)
 			)

@@ -60,6 +60,11 @@ class Project
 	public $updated_at;
 
 	/**
+	 * @var DataStreamResponse
+	 */
+	public $dataStream;
+
+	/**
 	 * Project resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
@@ -69,8 +74,9 @@ class Project
 	 * @param string $name
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
+	 * @param DataStreamResponse $dataStream
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $search_engine_id = null, $data_stream_id = null, $name = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $id = null, $search_engine_id = null, $data_stream_id = null, $name = null, $created_at = null, $updated_at = null, $dataStream = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;
@@ -79,6 +85,7 @@ class Project
 		$this->name = $name;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
+		$this->dataStream = $dataStream;
 	}
 	/**
 	 * Update a specified project
@@ -141,7 +148,20 @@ class Project
 				$requestBody['data']['data_stream_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				(isset($requestBody['data']['dataStream']) ? (new DataStreamResponse(
+					$this->apiClient, 
+					new DataStream(
+						$this->apiClient, 
+						$requestBody['data']['dataStream']['data']['id'], 
+						$requestBody['data']['dataStream']['data']['data_stream_decoder_id'], 
+						$requestBody['data']['dataStream']['data']['name'], 
+						$requestBody['data']['dataStream']['data']['feed_url'], 
+						$requestBody['data']['dataStream']['data']['created_at'], 
+						$requestBody['data']['dataStream']['data']['updated_at'], 
+						null
+					)
+				)) : null)
 			)
 		);
 
@@ -270,7 +290,8 @@ class Project
 						$requestBody['data']['project']['data']['data_stream_id'], 
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
-						$requestBody['data']['project']['data']['updated_at']
+						$requestBody['data']['project']['data']['updated_at'], 
+						null
 					)
 				)) : null)
 			)
@@ -347,7 +368,8 @@ class Project
 						$requestBody['data']['project']['data']['data_stream_id'], 
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
-						$requestBody['data']['project']['data']['updated_at']
+						$requestBody['data']['project']['data']['updated_at'], 
+						null
 					)
 				)) : null)
 			)
@@ -426,7 +448,8 @@ class Project
 						$requestBody['data']['project']['data']['data_stream_id'], 
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
-						$requestBody['data']['project']['data']['updated_at']
+						$requestBody['data']['project']['data']['updated_at'], 
+						null
 					)
 				)) : null)
 			)
