@@ -120,7 +120,7 @@ class DataStreamManager
 					$data['feed_url'], 
 					$data['created_at'], 
 					$data['updated_at'], 
-					(isset($data['project']) ? (new ProjectResponse(
+					((isset($data['project']) && !is_null($data['project'])) ? (new ProjectResponse(
 						$this->apiClient, 
 						new Project(
 							$this->apiClient, 
@@ -130,7 +130,7 @@ class DataStreamManager
 							$data['project']['data']['name'], 
 							$data['project']['data']['created_at'], 
 							$data['project']['data']['updated_at'], 
-							(isset($data['project']['data']['dataStream']) ? (new DataStreamResponse(
+							((isset($data['project']['data']['dataStream']) && !is_null($data['project']['data']['dataStream'])) ? (new DataStreamResponse(
 								$this->apiClient, 
 								null
 							)) : null)
@@ -140,7 +140,7 @@ class DataStreamManager
 			}, $requestBody['data']), 
 			new Meta(
 				$this->apiClient, 
-				(isset($requestBody['meta']['pagination']) ? (new Pagination(
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
 					$requestBody['meta']['pagination']['total'], 
 					$requestBody['meta']['pagination']['count'], 
@@ -210,7 +210,7 @@ class DataStreamManager
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
 						$this->apiClient, 
@@ -288,7 +288,7 @@ class DataStreamManager
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
 						$this->apiClient, 
@@ -367,7 +367,7 @@ class DataStreamManager
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
 						$this->apiClient, 

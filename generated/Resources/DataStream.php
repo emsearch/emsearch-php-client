@@ -146,7 +146,7 @@ class DataStream
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
 						$this->apiClient, 
@@ -301,7 +301,7 @@ class DataStream
 			}, $requestBody['data']), 
 			new Meta(
 				$this->apiClient, 
-				(isset($requestBody['meta']['pagination']) ? (new Pagination(
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
 					$requestBody['meta']['pagination']['total'], 
 					$requestBody['meta']['pagination']['count'], 
@@ -397,7 +397,7 @@ class DataStream
 			}, $requestBody['data']), 
 			new Meta(
 				$this->apiClient, 
-				(isset($requestBody['meta']['pagination']) ? (new Pagination(
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
 					$requestBody['meta']['pagination']['total'], 
 					$requestBody['meta']['pagination']['count'], 
@@ -486,7 +486,7 @@ class DataStream
 			}, $requestBody['data']), 
 			new Meta(
 				$this->apiClient, 
-				(isset($requestBody['meta']['pagination']) ? (new Pagination(
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
 					$requestBody['meta']['pagination']['total'], 
 					$requestBody['meta']['pagination']['count'], 

@@ -122,7 +122,7 @@ class DataStreamDecoderManager
 			}, $requestBody['data']), 
 			new Meta(
 				$this->apiClient, 
-				(isset($requestBody['meta']['pagination']) ? (new Pagination(
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
 					$requestBody['meta']['pagination']['total'], 
 					$requestBody['meta']['pagination']['count'], 

@@ -149,7 +149,7 @@ class Project
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['dataStream']) ? (new DataStreamResponse(
+				((isset($requestBody['data']['dataStream']) && !is_null($requestBody['data']['dataStream'])) ? (new DataStreamResponse(
 					$this->apiClient, 
 					new DataStream(
 						$this->apiClient, 
@@ -281,7 +281,7 @@ class Project
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
 						$this->apiClient, 
@@ -359,7 +359,7 @@ class Project
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
 						$this->apiClient, 
@@ -439,7 +439,7 @@ class Project
 				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				(isset($requestBody['data']['project']) ? (new ProjectResponse(
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
 						$this->apiClient, 
