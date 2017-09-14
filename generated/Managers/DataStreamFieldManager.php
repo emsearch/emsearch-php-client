@@ -123,7 +123,7 @@ class DataStreamFieldManager
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -134,7 +134,7 @@ class DataStreamFieldManager
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;

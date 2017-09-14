@@ -149,7 +149,7 @@ class MeManager
 					$data['updated_at'], 
 					((isset($data['dataStream']) && !is_null($data['dataStream'])) ? (new DataStreamResponse(
 						$this->apiClient, 
-						((isset($data['dataStream']['data']) && !is_null($data['dataStream']['data'])) ? (new DataStream(
+						new DataStream(
 							$this->apiClient, 
 							$data['dataStream']['data']['id'], 
 							$data['dataStream']['data']['data_stream_decoder_id'], 
@@ -161,11 +161,11 @@ class MeManager
 								$this->apiClient, 
 								null
 							)) : null)
-						)) : null)
+						)
 					)) : null)
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -176,7 +176,7 @@ class MeManager
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;

@@ -123,7 +123,7 @@ class DataStreamPresetFieldManager
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -134,7 +134,7 @@ class DataStreamPresetFieldManager
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -191,7 +191,7 @@ class DataStreamPresetFieldManager
 
 		$response = new DataStreamPresetFieldResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPresetField(
+			new DataStreamPresetField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_preset_id'], 
@@ -202,7 +202,7 @@ class DataStreamPresetFieldManager
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -259,7 +259,7 @@ class DataStreamPresetFieldManager
 
 		$response = new DataStreamPresetFieldResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPresetField(
+			new DataStreamPresetField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_preset_id'], 
@@ -270,7 +270,7 @@ class DataStreamPresetFieldManager
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -334,7 +334,7 @@ class DataStreamPresetFieldManager
 
 		$response = new DataStreamPresetFieldResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPresetField(
+			new DataStreamPresetField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_preset_id'], 
@@ -345,7 +345,7 @@ class DataStreamPresetFieldManager
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;

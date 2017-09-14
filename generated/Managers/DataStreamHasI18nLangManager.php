@@ -118,7 +118,7 @@ class DataStreamHasI18nLangManager
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -129,7 +129,7 @@ class DataStreamHasI18nLangManager
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -180,13 +180,13 @@ class DataStreamHasI18nLangManager
 
 		$response = new DataStreamHasI18nLangResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamHasI18nLang(
+			new DataStreamHasI18nLang(
 				$this->apiClient, 
 				$requestBody['data']['data_stream_id'], 
 				$requestBody['data']['i18n_lang_id'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -245,13 +245,13 @@ class DataStreamHasI18nLangManager
 
 		$response = new DataStreamHasI18nLangResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamHasI18nLang(
+			new DataStreamHasI18nLang(
 				$this->apiClient, 
 				$requestBody['data']['data_stream_id'], 
 				$requestBody['data']['i18n_lang_id'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -311,13 +311,13 @@ class DataStreamHasI18nLangManager
 
 		$response = new DataStreamHasI18nLangResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamHasI18nLang(
+			new DataStreamHasI18nLang(
 				$this->apiClient, 
 				$requestBody['data']['data_stream_id'], 
 				$requestBody['data']['i18n_lang_id'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;

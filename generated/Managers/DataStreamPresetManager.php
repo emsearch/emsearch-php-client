@@ -119,7 +119,7 @@ class DataStreamPresetManager
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -130,7 +130,7 @@ class DataStreamPresetManager
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -179,14 +179,14 @@ class DataStreamPresetManager
 
 		$response = new DataStreamPresetResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPreset(
+			new DataStreamPreset(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -243,14 +243,14 @@ class DataStreamPresetManager
 
 		$response = new DataStreamPresetResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPreset(
+			new DataStreamPreset(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -306,14 +306,14 @@ class DataStreamPresetManager
 
 		$response = new DataStreamPresetResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPreset(
+			new DataStreamPreset(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;

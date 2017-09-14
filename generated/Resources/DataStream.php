@@ -138,7 +138,7 @@ class DataStream
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStream(
+			new DataStream(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
@@ -148,7 +148,7 @@ class DataStream
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
-					((isset($requestBody['data']['project']['data']) && !is_null($requestBody['data']['project']['data'])) ? (new Project(
+					new Project(
 						$this->apiClient, 
 						$requestBody['data']['project']['data']['id'], 
 						$requestBody['data']['project']['data']['search_engine_id'], 
@@ -157,9 +157,9 @@ class DataStream
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
 						null
-					)) : null)
+					)
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -299,7 +299,7 @@ class DataStream
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -310,7 +310,7 @@ class DataStream
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -395,7 +395,7 @@ class DataStream
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -406,7 +406,7 @@ class DataStream
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;
@@ -484,7 +484,7 @@ class DataStream
 					$data['description']
 				); 
 			}, $requestBody['data']), 
-			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
+			new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -495,7 +495,7 @@ class DataStream
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)) : null)
+			)
 		);
 
 		return $response;

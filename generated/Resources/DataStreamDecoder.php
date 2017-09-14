@@ -127,7 +127,7 @@ class DataStreamDecoder
 
 		$response = new DataStreamDecoderResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamDecoder(
+			new DataStreamDecoder(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['name'], 
@@ -135,7 +135,7 @@ class DataStreamDecoder
 				$requestBody['data']['file_mime_type'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;

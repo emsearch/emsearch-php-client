@@ -114,13 +114,13 @@ class DataStreamHasI18nLang
 
 		$response = new DataStreamHasI18nLangResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamHasI18nLang(
+			new DataStreamHasI18nLang(
 				$this->apiClient, 
 				$requestBody['data']['data_stream_id'], 
 				$requestBody['data']['i18n_lang_id'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
