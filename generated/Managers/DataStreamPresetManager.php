@@ -112,11 +112,11 @@ class DataStreamPresetManager
 			array_map(function($data) {
 				return new DataStreamPreset(
 					$this->apiClient, 
-					$data['id'], 
-					$data['data_stream_decoder_id'], 
-					$data['name'], 
-					$data['created_at'], 
-					$data['updated_at']
+					$data['data']['id'], 
+					$data['data']['data_stream_decoder_id'], 
+					$data['data']['name'], 
+					$data['data']['created_at'], 
+					$data['data']['updated_at']
 				); 
 			}, $requestBody['data']), 
 			new Meta(

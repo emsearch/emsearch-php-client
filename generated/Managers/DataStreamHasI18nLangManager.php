@@ -112,10 +112,10 @@ class DataStreamHasI18nLangManager
 			array_map(function($data) {
 				return new DataStreamHasI18nLang(
 					$this->apiClient, 
-					$data['data_stream_id'], 
-					$data['i18n_lang_id'], 
-					$data['created_at'], 
-					$data['updated_at']
+					$data['data']['data_stream_id'], 
+					$data['data']['i18n_lang_id'], 
+					$data['data']['created_at'], 
+					$data['data']['updated_at']
 				); 
 			}, $requestBody['data']), 
 			new Meta(

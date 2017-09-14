@@ -288,15 +288,15 @@ class DataStream
 			array_map(function($data) {
 				return new DataStreamField(
 					$this->apiClient, 
-					$data['id'], 
-					$data['data_stream_id'], 
-					$data['name'], 
-					$data['path'], 
-					$data['versioned'], 
-					$data['searchable'], 
-					$data['to_retrieve'], 
-					$data['created_at'], 
-					$data['updated_at']
+					$data['data']['id'], 
+					$data['data']['data_stream_id'], 
+					$data['data']['name'], 
+					$data['data']['path'], 
+					$data['data']['versioned'], 
+					$data['data']['searchable'], 
+					$data['data']['to_retrieve'], 
+					$data['data']['created_at'], 
+					$data['data']['updated_at']
 				); 
 			}, $requestBody['data']), 
 			new Meta(
@@ -389,10 +389,10 @@ class DataStream
 			array_map(function($data) {
 				return new DataStreamHasI18nLang(
 					$this->apiClient, 
-					$data['data_stream_id'], 
-					$data['i18n_lang_id'], 
-					$data['created_at'], 
-					$data['updated_at']
+					$data['data']['data_stream_id'], 
+					$data['data']['i18n_lang_id'], 
+					$data['data']['created_at'], 
+					$data['data']['updated_at']
 				); 
 			}, $requestBody['data']), 
 			new Meta(
@@ -480,8 +480,8 @@ class DataStream
 			array_map(function($data) {
 				return new I18nLang(
 					$this->apiClient, 
-					$data['id'], 
-					$data['description']
+					$data['data']['id'], 
+					$data['data']['description']
 				); 
 			}, $requestBody['data']), 
 			new Meta(

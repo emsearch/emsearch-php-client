@@ -256,15 +256,15 @@ class DataStreamPreset
 			array_map(function($data) {
 				return new DataStreamPresetField(
 					$this->apiClient, 
-					$data['id'], 
-					$data['data_stream_preset_id'], 
-					$data['name'], 
-					$data['path'], 
-					$data['versioned'], 
-					$data['searchable'], 
-					$data['to_retrieve'], 
-					$data['created_at'], 
-					$data['updated_at']
+					$data['data']['id'], 
+					$data['data']['data_stream_preset_id'], 
+					$data['data']['name'], 
+					$data['data']['path'], 
+					$data['data']['versioned'], 
+					$data['data']['searchable'], 
+					$data['data']['to_retrieve'], 
+					$data['data']['created_at'], 
+					$data['data']['updated_at']
 				); 
 			}, $requestBody['data']), 
 			new Meta(

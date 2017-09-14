@@ -141,22 +141,22 @@ class MeManager
 			array_map(function($data) {
 				return new Project(
 					$this->apiClient, 
-					$data['id'], 
-					$data['search_engine_id'], 
-					$data['data_stream_id'], 
-					$data['name'], 
-					$data['created_at'], 
-					$data['updated_at'], 
+					$data['data']['id'], 
+					$data['data']['search_engine_id'], 
+					$data['data']['data_stream_id'], 
+					$data['data']['name'], 
+					$data['data']['created_at'], 
+					$data['data']['updated_at'], 
 					(isset($data['data']['dataStream']) ? (new DataStreamResponse(
 						$this->apiClient, 
 						new DataStream(
 							$this->apiClient, 
-							$data['id'], 
-							$data['data_stream_decoder_id'], 
-							$data['name'], 
-							$data['feed_url'], 
-							$data['created_at'], 
-							$data['updated_at'], 
+							$data['data']['dataStream']['data']['id'], 
+							$data['data']['dataStream']['data']['data_stream_decoder_id'], 
+							$data['data']['dataStream']['data']['name'], 
+							$data['data']['dataStream']['data']['feed_url'], 
+							$data['data']['dataStream']['data']['created_at'], 
+							$data['data']['dataStream']['data']['updated_at'], 
 							(isset($data['data']['dataStream']['data']['project']) ? (new ProjectResponse(
 								$this->apiClient, 
 								null
