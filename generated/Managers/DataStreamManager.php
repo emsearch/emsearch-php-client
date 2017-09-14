@@ -114,23 +114,23 @@ class DataStreamManager
 			array_map(function($data) {
 				return new DataStream(
 					$this->apiClient, 
-					$data['data']['id'], 
-					$data['data']['data_stream_decoder_id'], 
-					$data['data']['name'], 
-					$data['data']['feed_url'], 
-					$data['data']['created_at'], 
-					$data['data']['updated_at'], 
-					(isset($data['data']['project']) ? (new ProjectResponse(
+					$data['id'], 
+					$data['data_stream_decoder_id'], 
+					$data['name'], 
+					$data['feed_url'], 
+					$data['created_at'], 
+					$data['updated_at'], 
+					(isset($data['project']) ? (new ProjectResponse(
 						$this->apiClient, 
 						new Project(
 							$this->apiClient, 
-							$data['data']['project']['data']['id'], 
-							$data['data']['project']['data']['search_engine_id'], 
-							$data['data']['project']['data']['data_stream_id'], 
-							$data['data']['project']['data']['name'], 
-							$data['data']['project']['data']['created_at'], 
-							$data['data']['project']['data']['updated_at'], 
-							(isset($data['data']['project']['data']['dataStream']) ? (new DataStreamResponse(
+							$data['project']['data']['id'], 
+							$data['project']['data']['search_engine_id'], 
+							$data['project']['data']['data_stream_id'], 
+							$data['project']['data']['name'], 
+							$data['project']['data']['created_at'], 
+							$data['project']['data']['updated_at'], 
+							(isset($data['project']['data']['dataStream']) ? (new DataStreamResponse(
 								$this->apiClient, 
 								null
 							)) : null)

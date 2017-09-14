@@ -112,12 +112,12 @@ class DataStreamDecoderManager
 			array_map(function($data) {
 				return new DataStreamDecoder(
 					$this->apiClient, 
-					$data['data']['id'], 
-					$data['data']['name'], 
-					$data['data']['class_name'], 
-					$data['data']['file_mime_type'], 
-					$data['data']['created_at'], 
-					$data['data']['updated_at']
+					$data['id'], 
+					$data['name'], 
+					$data['class_name'], 
+					$data['file_mime_type'], 
+					$data['created_at'], 
+					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
 			new Meta(
