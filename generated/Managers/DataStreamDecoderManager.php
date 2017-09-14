@@ -120,7 +120,7 @@ class DataStreamDecoderManager
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			new Meta(
+			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -131,7 +131,7 @@ class DataStreamDecoderManager
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -182,7 +182,7 @@ class DataStreamDecoderManager
 
 		$response = new DataStreamDecoderResponse(
 			$this->apiClient, 
-			new DataStreamDecoder(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamDecoder(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['name'], 
@@ -190,7 +190,7 @@ class DataStreamDecoderManager
 				$requestBody['data']['file_mime_type'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -247,7 +247,7 @@ class DataStreamDecoderManager
 
 		$response = new DataStreamDecoderResponse(
 			$this->apiClient, 
-			new DataStreamDecoder(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamDecoder(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['name'], 
@@ -255,7 +255,7 @@ class DataStreamDecoderManager
 				$requestBody['data']['file_mime_type'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -313,7 +313,7 @@ class DataStreamDecoderManager
 
 		$response = new DataStreamDecoderResponse(
 			$this->apiClient, 
-			new DataStreamDecoder(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamDecoder(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['name'], 
@@ -321,7 +321,7 @@ class DataStreamDecoderManager
 				$requestBody['data']['file_mime_type'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)
+			)) : null)
 		);
 
 		return $response;

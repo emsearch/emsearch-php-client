@@ -141,7 +141,7 @@ class Project
 
 		$response = new ProjectResponse(
 			$this->apiClient, 
-			new Project(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new Project(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['search_engine_id'], 
@@ -151,7 +151,7 @@ class Project
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['dataStream']) && !is_null($requestBody['data']['dataStream'])) ? (new DataStreamResponse(
 					$this->apiClient, 
-					new DataStream(
+					((isset($requestBody['data']['dataStream']['data']) && !is_null($requestBody['data']['dataStream']['data'])) ? (new DataStream(
 						$this->apiClient, 
 						$requestBody['data']['dataStream']['data']['id'], 
 						$requestBody['data']['dataStream']['data']['data_stream_decoder_id'], 
@@ -160,9 +160,9 @@ class Project
 						$requestBody['data']['dataStream']['data']['created_at'], 
 						$requestBody['data']['dataStream']['data']['updated_at'], 
 						null
-					)
+					)) : null)
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -273,7 +273,7 @@ class Project
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
-			new DataStream(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStream(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
@@ -283,7 +283,7 @@ class Project
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
-					new Project(
+					((isset($requestBody['data']['project']['data']) && !is_null($requestBody['data']['project']['data'])) ? (new Project(
 						$this->apiClient, 
 						$requestBody['data']['project']['data']['id'], 
 						$requestBody['data']['project']['data']['search_engine_id'], 
@@ -292,9 +292,9 @@ class Project
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
 						null
-					)
+					)) : null)
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -351,7 +351,7 @@ class Project
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
-			new DataStream(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStream(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
@@ -361,7 +361,7 @@ class Project
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
-					new Project(
+					((isset($requestBody['data']['project']['data']) && !is_null($requestBody['data']['project']['data'])) ? (new Project(
 						$this->apiClient, 
 						$requestBody['data']['project']['data']['id'], 
 						$requestBody['data']['project']['data']['search_engine_id'], 
@@ -370,9 +370,9 @@ class Project
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
 						null
-					)
+					)) : null)
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -431,7 +431,7 @@ class Project
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
-			new DataStream(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStream(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
@@ -441,7 +441,7 @@ class Project
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
-					new Project(
+					((isset($requestBody['data']['project']['data']) && !is_null($requestBody['data']['project']['data'])) ? (new Project(
 						$this->apiClient, 
 						$requestBody['data']['project']['data']['id'], 
 						$requestBody['data']['project']['data']['search_engine_id'], 
@@ -450,9 +450,9 @@ class Project
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
 						null
-					)
+					)) : null)
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;

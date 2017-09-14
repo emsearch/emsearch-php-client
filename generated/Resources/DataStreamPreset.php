@@ -120,14 +120,14 @@ class DataStreamPreset
 
 		$response = new DataStreamPresetResponse(
 			$this->apiClient, 
-			new DataStreamPreset(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPreset(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -267,7 +267,7 @@ class DataStreamPreset
 					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
-			new Meta(
+			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -278,7 +278,7 @@ class DataStreamPreset
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;

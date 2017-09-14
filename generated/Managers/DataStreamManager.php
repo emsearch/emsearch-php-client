@@ -122,7 +122,7 @@ class DataStreamManager
 					$data['updated_at'], 
 					((isset($data['project']) && !is_null($data['project'])) ? (new ProjectResponse(
 						$this->apiClient, 
-						new Project(
+						((isset($data['project']['data']) && !is_null($data['project']['data'])) ? (new Project(
 							$this->apiClient, 
 							$data['project']['data']['id'], 
 							$data['project']['data']['search_engine_id'], 
@@ -134,11 +134,11 @@ class DataStreamManager
 								$this->apiClient, 
 								null
 							)) : null)
-						)
+						)) : null)
 					)) : null)
 				); 
 			}, $requestBody['data']), 
-			new Meta(
+			((isset($requestBody['meta']) && !is_null($requestBody['meta'])) ? (new Meta(
 				$this->apiClient, 
 				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
 					$this->apiClient, 
@@ -149,7 +149,7 @@ class DataStreamManager
 					$requestBody['meta']['pagination']['total_pages'], 
 					$requestBody['meta']['pagination']['links']
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -202,7 +202,7 @@ class DataStreamManager
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
-			new DataStream(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStream(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
@@ -212,7 +212,7 @@ class DataStreamManager
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
-					new Project(
+					((isset($requestBody['data']['project']['data']) && !is_null($requestBody['data']['project']['data'])) ? (new Project(
 						$this->apiClient, 
 						$requestBody['data']['project']['data']['id'], 
 						$requestBody['data']['project']['data']['search_engine_id'], 
@@ -221,9 +221,9 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
 						null
-					)
+					)) : null)
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -280,7 +280,7 @@ class DataStreamManager
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
-			new DataStream(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStream(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
@@ -290,7 +290,7 @@ class DataStreamManager
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
-					new Project(
+					((isset($requestBody['data']['project']['data']) && !is_null($requestBody['data']['project']['data'])) ? (new Project(
 						$this->apiClient, 
 						$requestBody['data']['project']['data']['id'], 
 						$requestBody['data']['project']['data']['search_engine_id'], 
@@ -299,9 +299,9 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
 						null
-					)
+					)) : null)
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;
@@ -359,7 +359,7 @@ class DataStreamManager
 
 		$response = new DataStreamResponse(
 			$this->apiClient, 
-			new DataStream(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStream(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_decoder_id'], 
@@ -369,7 +369,7 @@ class DataStreamManager
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
-					new Project(
+					((isset($requestBody['data']['project']['data']) && !is_null($requestBody['data']['project']['data'])) ? (new Project(
 						$this->apiClient, 
 						$requestBody['data']['project']['data']['id'], 
 						$requestBody['data']['project']['data']['search_engine_id'], 
@@ -378,9 +378,9 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
 						null
-					)
+					)) : null)
 				)) : null)
-			)
+			)) : null)
 		);
 
 		return $response;

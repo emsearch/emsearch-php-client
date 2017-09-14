@@ -156,7 +156,7 @@ class DataStreamPresetField
 
 		$response = new DataStreamPresetFieldResponse(
 			$this->apiClient, 
-			new DataStreamPresetField(
+			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamPresetField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_preset_id'], 
@@ -167,7 +167,7 @@ class DataStreamPresetField
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)
+			)) : null)
 		);
 
 		return $response;
