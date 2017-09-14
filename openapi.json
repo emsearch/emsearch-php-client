@@ -7670,6 +7670,9 @@
                 }
             },
             "DataStreamFieldResponse": {
+                "required": [
+                    "data"
+                ],
                 "properties": {
                     "data": {
                         "$ref": "#\/components\/schemas\/DataStreamField"

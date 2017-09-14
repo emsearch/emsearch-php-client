@@ -156,7 +156,7 @@ class DataStreamField
 
 		$response = new DataStreamFieldResponse(
 			$this->apiClient, 
-			((isset($requestBody['data']) && !is_null($requestBody['data'])) ? (new DataStreamField(
+			new DataStreamField(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
 				$requestBody['data']['data_stream_id'], 
@@ -167,7 +167,7 @@ class DataStreamField
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
-			)) : null)
+			)
 		);
 
 		return $response;
