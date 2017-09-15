@@ -53,6 +53,11 @@ class DataStreamPreset
 	public $updated_at;
 
 	/**
+	 * @var DataStreamDecoderResponse
+	 */
+	public $dataStreamDecoder;
+
+	/**
 	 * DataStreamPreset resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
@@ -61,8 +66,9 @@ class DataStreamPreset
 	 * @param string $name
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
+	 * @param DataStreamDecoderResponse $dataStreamDecoder
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $data_stream_decoder_id = null, $name = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $id = null, $data_stream_decoder_id = null, $name = null, $created_at = null, $updated_at = null, $dataStreamDecoder = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;
@@ -70,6 +76,7 @@ class DataStreamPreset
 		$this->name = $name;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
+		$this->dataStreamDecoder = $dataStreamDecoder;
 	}
 	/**
 	 * Update a data stream preset
@@ -126,7 +133,19 @@ class DataStreamPreset
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+					$this->apiClient, 
+					new DataStreamDecoder(
+						$this->apiClient, 
+						$requestBody['data']['dataStreamDecoder']['data']['id'], 
+						$requestBody['data']['dataStreamDecoder']['data']['name'], 
+						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
+						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
+						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
+						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
+					)
+				)) : null)
 			)
 		);
 
@@ -264,7 +283,30 @@ class DataStreamPreset
 					$data['searchable'], 
 					$data['to_retrieve'], 
 					$data['created_at'], 
-					$data['updated_at']
+					$data['updated_at'], 
+					((isset($data['dataStreamPreset']) && !is_null($data['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+						$this->apiClient, 
+						new DataStreamPreset(
+							$this->apiClient, 
+							$data['dataStreamPreset']['data']['id'], 
+							$data['dataStreamPreset']['data']['data_stream_decoder_id'], 
+							$data['dataStreamPreset']['data']['name'], 
+							$data['dataStreamPreset']['data']['created_at'], 
+							$data['dataStreamPreset']['data']['updated_at'], 
+							((isset($data['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($data['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+								$this->apiClient, 
+								new DataStreamDecoder(
+									$this->apiClient, 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+								)
+							)) : null)
+						)
+					)) : null)
 				); 
 			}, $requestBody['data']), 
 			new Meta(

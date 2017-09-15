@@ -4,21 +4,19 @@ namespace emsearch\Api\Managers;
 
 use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\DataStreamPresetListResponse;
+use emsearch\Api\Resources\SearchEngineListResponse;
 use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\DataStreamPresetResponse;
-use emsearch\Api\Resources\DataStreamPreset;
-use emsearch\Api\Resources\DataStreamDecoderResponse;
-use emsearch\Api\Resources\DataStreamDecoder;
+use emsearch\Api\Resources\SearchEngineResponse;
+use emsearch\Api\Resources\SearchEngine;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
 /**
- * DataStreamPreset manager class
+ * SearchEngine manager class
  * 
  * @package emsearch\Api\Managers
  */
-class DataStreamPresetManager 
+class SearchEngineManager 
 {
 	/**
 	 * API client
@@ -28,7 +26,7 @@ class DataStreamPresetManager
 	protected $apiClient;
 
 	/**
-	 * DataStreamPreset manager class constructor
+	 * SearchEngine manager class constructor
 	 *
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 */
@@ -48,7 +46,7 @@ class DataStreamPresetManager
 	}
 
 	/**
-	 * Show data stream preset list
+	 * Show search engine list
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
@@ -58,13 +56,13 @@ class DataStreamPresetManager
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return DataStreamPresetListResponse
+	 * @return SearchEngineListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
 	public function all($include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routeUrl = '/api/dataStreamPreset';
+		$routeUrl = '/api/searchEngine';
 
 		$queryParameters = [];
 
@@ -109,28 +107,17 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetListResponse(
+		$response = new SearchEngineListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new DataStreamPreset(
+				return new SearchEngine(
 					$this->apiClient, 
 					$data['id'], 
-					$data['data_stream_decoder_id'], 
 					$data['name'], 
+					$data['class_name'], 
 					$data['created_at'], 
 					$data['updated_at'], 
-					((isset($data['dataStreamDecoder']) && !is_null($data['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-						$this->apiClient, 
-						new DataStreamDecoder(
-							$this->apiClient, 
-							$data['dataStreamDecoder']['data']['id'], 
-							$data['dataStreamDecoder']['data']['name'], 
-							$data['dataStreamDecoder']['data']['class_name'], 
-							$data['dataStreamDecoder']['data']['file_mime_type'], 
-							$data['dataStreamDecoder']['data']['created_at'], 
-							$data['dataStreamDecoder']['data']['updated_at']
-						)
-					)) : null)
+					(isset($data['projects_count']) ? $data['projects_count'] : null)
 				); 
 			}, $requestBody['data']), 
 			new Meta(
@@ -151,24 +138,24 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Create and store new data stream preset
+	 * Create and store new search engine
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $data_stream_decoder_id Format: uuid.
 	 * @param string $name
+	 * @param string $class_name
 	 * 
-	 * @return DataStreamPresetResponse
+	 * @return SearchEngineResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($data_stream_decoder_id, $name)
+	public function create($name, $class_name)
 	{
-		$routeUrl = '/api/dataStreamPreset';
+		$routeUrl = '/api/searchEngine';
 
 		$bodyParameters = [];
-		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
 		$bodyParameters['name'] = $name;
+		$bodyParameters['class_name'] = $class_name;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -191,27 +178,16 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetResponse(
+		$response = new SearchEngineResponse(
 			$this->apiClient, 
-			new DataStreamPreset(
+			new SearchEngine(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
+				$requestBody['data']['class_name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
-				)) : null)
+				(isset($requestBody['data']['projects_count']) ? $requestBody['data']['projects_count'] : null)
 			)
 		);
 
@@ -219,23 +195,23 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Get specified data stream preset
+	 * Get specified search engine
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
-	 * @param string $dataStreamPresetId Data stream preset UUID
+	 * @param string $searchEngineId Search Engine UUID
 	 * @param string $include Include responses : {include1},{include2,{include3}[...]
 	 * 
-	 * @return DataStreamPresetResponse
+	 * @return SearchEngineResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function get($dataStreamPresetId, $include = null)
+	public function get($searchEngineId, $include = null)
 	{
-		$routePath = '/api/dataStreamPreset/{dataStreamPresetId}';
+		$routePath = '/api/searchEngine/{searchEngineId}';
 
 		$pathReplacements = [
-			'{dataStreamPresetId}' => $dataStreamPresetId,
+			'{searchEngineId}' => $searchEngineId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
@@ -267,27 +243,16 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetResponse(
+		$response = new SearchEngineResponse(
 			$this->apiClient, 
-			new DataStreamPreset(
+			new SearchEngine(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
+				$requestBody['data']['class_name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
-				)) : null)
+				(isset($requestBody['data']['projects_count']) ? $requestBody['data']['projects_count'] : null)
 			)
 		);
 
@@ -295,31 +260,31 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Update a data stream preset
+	 * Update a search engine
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $dataStreamPresetId Data stream preset UUID
-	 * @param string $data_stream_decoder_id Format: uuid.
+	 * @param string $searchEngineId User UUID
 	 * @param string $name
+	 * @param string $class_name
 	 * 
-	 * @return DataStreamPresetResponse
+	 * @return SearchEngineResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($dataStreamPresetId, $data_stream_decoder_id, $name)
+	public function update($searchEngineId, $name, $class_name)
 	{
-		$routePath = '/api/dataStreamPreset/{dataStreamPresetId}';
+		$routePath = '/api/searchEngine/{searchEngineId}';
 
 		$pathReplacements = [
-			'{dataStreamPresetId}' => $dataStreamPresetId,
+			'{searchEngineId}' => $searchEngineId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
 		$bodyParameters['name'] = $name;
+		$bodyParameters['class_name'] = $class_name;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -342,27 +307,16 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetResponse(
+		$response = new SearchEngineResponse(
 			$this->apiClient, 
-			new DataStreamPreset(
+			new SearchEngine(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
+				$requestBody['data']['class_name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
-				)) : null)
+				(isset($requestBody['data']['projects_count']) ? $requestBody['data']['projects_count'] : null)
 			)
 		);
 
@@ -370,22 +324,24 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Delete specified data stream preset
+	 * Delete specified search engine
+	 * 
+	 * <aside class="warning">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.</aside>
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
-	 * @param string $dataStreamPresetId Data stream preset UUID
+	 * @param string $searchEngineId Search Engine UUID
 	 * 
 	 * @return ErrorResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function delete($dataStreamPresetId)
+	public function delete($searchEngineId)
 	{
-		$routePath = '/api/dataStreamPreset/{dataStreamPresetId}';
+		$routePath = '/api/searchEngine/{searchEngineId}';
 
 		$pathReplacements = [
-			'{dataStreamPresetId}' => $dataStreamPresetId,
+			'{searchEngineId}' => $searchEngineId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);

@@ -10,6 +10,10 @@ use emsearch\Api\Resources\ProjectResponse;
 use emsearch\Api\Resources\Project;
 use emsearch\Api\Resources\DataStreamResponse;
 use emsearch\Api\Resources\DataStream;
+use emsearch\Api\Resources\DataStreamDecoderResponse;
+use emsearch\Api\Resources\DataStreamDecoder;
+use emsearch\Api\Resources\SearchEngineResponse;
+use emsearch\Api\Resources\SearchEngine;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
@@ -133,7 +137,31 @@ class ProjectManager
 							((isset($data['dataStream']['data']['project']) && !is_null($data['dataStream']['data']['project'])) ? (new ProjectResponse(
 								$this->apiClient, 
 								null
+							)) : null), 
+							((isset($data['dataStream']['data']['dataStreamDecoder']) && !is_null($data['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+								$this->apiClient, 
+								new DataStreamDecoder(
+									$this->apiClient, 
+									$data['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+									$data['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+									$data['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+									$data['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+									$data['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+									$data['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+								)
 							)) : null)
+						)
+					)) : null), 
+					((isset($data['searchEngine']) && !is_null($data['searchEngine'])) ? (new SearchEngineResponse(
+						$this->apiClient, 
+						new SearchEngine(
+							$this->apiClient, 
+							$data['searchEngine']['data']['id'], 
+							$data['searchEngine']['data']['name'], 
+							$data['searchEngine']['data']['class_name'], 
+							$data['searchEngine']['data']['created_at'], 
+							$data['searchEngine']['data']['updated_at'], 
+							(isset($data['searchEngine']['data']['projects_count']) ? $data['projects_count'] : null)
 						)
 					)) : null)
 				); 
@@ -221,7 +249,31 @@ class ProjectManager
 						$requestBody['data']['dataStream']['data']['feed_url'], 
 						$requestBody['data']['dataStream']['data']['created_at'], 
 						$requestBody['data']['dataStream']['data']['updated_at'], 
-						null
+						null, 
+						((isset($requestBody['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+							$this->apiClient, 
+							new DataStreamDecoder(
+								$this->apiClient, 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+							)
+						)) : null)
+					)
+				)) : null), 
+				((isset($requestBody['data']['searchEngine']) && !is_null($requestBody['data']['searchEngine'])) ? (new SearchEngineResponse(
+					$this->apiClient, 
+					new SearchEngine(
+						$this->apiClient, 
+						$requestBody['data']['searchEngine']['data']['id'], 
+						$requestBody['data']['searchEngine']['data']['name'], 
+						$requestBody['data']['searchEngine']['data']['class_name'], 
+						$requestBody['data']['searchEngine']['data']['created_at'], 
+						$requestBody['data']['searchEngine']['data']['updated_at'], 
+						(isset($requestBody['data']['searchEngine']['data']['projects_count']) ? $requestBody['data']['searchEngine']['data']['projects_count'] : null)
 					)
 				)) : null)
 			)
@@ -299,7 +351,31 @@ class ProjectManager
 						$requestBody['data']['dataStream']['data']['feed_url'], 
 						$requestBody['data']['dataStream']['data']['created_at'], 
 						$requestBody['data']['dataStream']['data']['updated_at'], 
-						null
+						null, 
+						((isset($requestBody['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+							$this->apiClient, 
+							new DataStreamDecoder(
+								$this->apiClient, 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+							)
+						)) : null)
+					)
+				)) : null), 
+				((isset($requestBody['data']['searchEngine']) && !is_null($requestBody['data']['searchEngine'])) ? (new SearchEngineResponse(
+					$this->apiClient, 
+					new SearchEngine(
+						$this->apiClient, 
+						$requestBody['data']['searchEngine']['data']['id'], 
+						$requestBody['data']['searchEngine']['data']['name'], 
+						$requestBody['data']['searchEngine']['data']['class_name'], 
+						$requestBody['data']['searchEngine']['data']['created_at'], 
+						$requestBody['data']['searchEngine']['data']['updated_at'], 
+						(isset($requestBody['data']['searchEngine']['data']['projects_count']) ? $requestBody['data']['searchEngine']['data']['projects_count'] : null)
 					)
 				)) : null)
 			)
@@ -381,7 +457,31 @@ class ProjectManager
 						$requestBody['data']['dataStream']['data']['feed_url'], 
 						$requestBody['data']['dataStream']['data']['created_at'], 
 						$requestBody['data']['dataStream']['data']['updated_at'], 
-						null
+						null, 
+						((isset($requestBody['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+							$this->apiClient, 
+							new DataStreamDecoder(
+								$this->apiClient, 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+							)
+						)) : null)
+					)
+				)) : null), 
+				((isset($requestBody['data']['searchEngine']) && !is_null($requestBody['data']['searchEngine'])) ? (new SearchEngineResponse(
+					$this->apiClient, 
+					new SearchEngine(
+						$this->apiClient, 
+						$requestBody['data']['searchEngine']['data']['id'], 
+						$requestBody['data']['searchEngine']['data']['name'], 
+						$requestBody['data']['searchEngine']['data']['class_name'], 
+						$requestBody['data']['searchEngine']['data']['created_at'], 
+						$requestBody['data']['searchEngine']['data']['updated_at'], 
+						(isset($requestBody['data']['searchEngine']['data']['projects_count']) ? $requestBody['data']['searchEngine']['data']['projects_count'] : null)
 					)
 				)) : null)
 			)

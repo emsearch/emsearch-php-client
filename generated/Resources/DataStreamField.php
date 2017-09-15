@@ -73,6 +73,11 @@ class DataStreamField
 	public $updated_at;
 
 	/**
+	 * @var DataStreamResponse
+	 */
+	public $dataStream;
+
+	/**
 	 * DataStreamField resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
@@ -85,8 +90,9 @@ class DataStreamField
 	 * @param boolean $to_retrieve
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
+	 * @param DataStreamResponse $dataStream
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $data_stream_id = null, $name = null, $path = null, $versioned = null, $searchable = null, $to_retrieve = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $id = null, $data_stream_id = null, $name = null, $path = null, $versioned = null, $searchable = null, $to_retrieve = null, $created_at = null, $updated_at = null, $dataStream = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;
@@ -98,6 +104,7 @@ class DataStreamField
 		$this->to_retrieve = $to_retrieve;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
+		$this->dataStream = $dataStream;
 	}
 	/**
 	 * Update a data stream field
@@ -166,7 +173,56 @@ class DataStreamField
 				$requestBody['data']['searchable'], 
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				((isset($requestBody['data']['dataStream']) && !is_null($requestBody['data']['dataStream'])) ? (new DataStreamResponse(
+					$this->apiClient, 
+					new DataStream(
+						$this->apiClient, 
+						$requestBody['data']['dataStream']['data']['id'], 
+						$requestBody['data']['dataStream']['data']['data_stream_decoder_id'], 
+						$requestBody['data']['dataStream']['data']['name'], 
+						$requestBody['data']['dataStream']['data']['feed_url'], 
+						$requestBody['data']['dataStream']['data']['created_at'], 
+						$requestBody['data']['dataStream']['data']['updated_at'], 
+						((isset($requestBody['data']['dataStream']['data']['project']) && !is_null($requestBody['data']['dataStream']['data']['project'])) ? (new ProjectResponse(
+							$this->apiClient, 
+							new Project(
+								$this->apiClient, 
+								$requestBody['data']['dataStream']['data']['project']['data']['id'], 
+								$requestBody['data']['dataStream']['data']['project']['data']['search_engine_id'], 
+								$requestBody['data']['dataStream']['data']['project']['data']['data_stream_id'], 
+								$requestBody['data']['dataStream']['data']['project']['data']['name'], 
+								$requestBody['data']['dataStream']['data']['project']['data']['created_at'], 
+								$requestBody['data']['dataStream']['data']['project']['data']['updated_at'], 
+								null, 
+								((isset($requestBody['data']['dataStream']['data']['project']['data']['searchEngine']) && !is_null($requestBody['data']['dataStream']['data']['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
+									$this->apiClient, 
+									new SearchEngine(
+										$this->apiClient, 
+										$requestBody['data']['dataStream']['data']['project']['data']['searchEngine']['data']['id'], 
+										$requestBody['data']['dataStream']['data']['project']['data']['searchEngine']['data']['name'], 
+										$requestBody['data']['dataStream']['data']['project']['data']['searchEngine']['data']['class_name'], 
+										$requestBody['data']['dataStream']['data']['project']['data']['searchEngine']['data']['created_at'], 
+										$requestBody['data']['dataStream']['data']['project']['data']['searchEngine']['data']['updated_at'], 
+										(isset($requestBody['data']['dataStream']['data']['project']['data']['searchEngine']['data']['projects_count']) ? $requestBody['data']['dataStream']['data']['project']['data']['searchEngine']['data']['projects_count'] : null)
+									)
+								)) : null)
+							)
+						)) : null), 
+						((isset($requestBody['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+							$this->apiClient, 
+							new DataStreamDecoder(
+								$this->apiClient, 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+								$requestBody['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+							)
+						)) : null)
+					)
+				)) : null)
 			)
 		);
 

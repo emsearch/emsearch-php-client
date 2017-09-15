@@ -2,27 +2,28 @@
 
 namespace emsearch\Api\Managers;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\DataStreamListResponse;
+use emsearch\Api\Resources\SearchUseCase;
+use emsearch\Api\Resources\SearchUseCaseSearchResponse;
 use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\DataStreamResponse;
-use emsearch\Api\Resources\DataStream;
+use emsearch\Api\Resources\SearchUseCaseListResponse;
+use emsearch\Api\Resources\SearchUseCaseResponse;
 use emsearch\Api\Resources\ProjectResponse;
 use emsearch\Api\Resources\Project;
-use emsearch\Api\Resources\SearchEngineResponse;
-use emsearch\Api\Resources\SearchEngine;
+use emsearch\Api\Resources\DataStreamResponse;
+use emsearch\Api\Resources\DataStream;
 use emsearch\Api\Resources\DataStreamDecoderResponse;
 use emsearch\Api\Resources\DataStreamDecoder;
+use emsearch\Api\Resources\SearchEngineResponse;
+use emsearch\Api\Resources\SearchEngine;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
 /**
- * DataStream manager class
+ * SearchUseCase manager class
  * 
  * @package emsearch\Api\Managers
  */
-class DataStreamManager 
+class SearchUseCaseManager 
 {
 	/**
 	 * API client
@@ -32,7 +33,7 @@ class DataStreamManager
 	protected $apiClient;
 
 	/**
-	 * DataStream manager class constructor
+	 * SearchUseCase manager class constructor
 	 *
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 */
@@ -52,7 +53,76 @@ class DataStreamManager
 	}
 
 	/**
-	 * Show data stream list
+	 * Perform search with the specified search use case
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param string $searchUseCaseId Search use case UUID
+	 * @param string $query_string
+	 * @param string $i18n_lang_id
+	 * @param int $page
+	 * @param int $limit
+	 * 
+	 * @return SearchUseCaseSearchResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function search($searchUseCaseId, $query_string, $i18n_lang_id = null, $page = null, $limit = null)
+	{
+		$routePath = '/api/searchUseCase/{searchUseCaseId}/search';
+
+		$pathReplacements = [
+			'{searchUseCaseId}' => $searchUseCaseId,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$queryParameters = [];
+		$queryParameters['query_string'] = $query_string;
+
+		if (!is_null($i18n_lang_id)) {
+			$queryParameters['i18n_lang_id'] = $i18n_lang_id;
+		}
+
+		if (!is_null($page)) {
+			$queryParameters['page'] = $page;
+		}
+
+		if (!is_null($limit)) {
+			$queryParameters['limit'] = $limit;
+		}
+
+		$requestOptions = [];
+		$requestOptions['query'] = $queryParameters;
+
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new SearchUseCaseSearchResponse(
+			$this->apiClient, 
+			$requestBody['data']
+		);
+
+		return $response;
+	}
+	
+	/**
+	 * Show search use case list
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
@@ -62,13 +132,13 @@ class DataStreamManager
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return DataStreamListResponse
+	 * @return SearchUseCaseListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
 	public function all($include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routeUrl = '/api/dataStream';
+		$routeUrl = '/api/searchUseCase';
 
 		$queryParameters = [];
 
@@ -113,17 +183,17 @@ class DataStreamManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamListResponse(
+		$response = new SearchUseCaseListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new DataStream(
+				return new SearchUseCase(
 					$this->apiClient, 
 					$data['id'], 
-					$data['data_stream_decoder_id'], 
+					(isset($data['project_id']) ? $data['project_id'] : null), 
 					$data['name'], 
-					$data['feed_url'], 
 					$data['created_at'], 
 					$data['updated_at'], 
+					(isset($data['search_use_case_fields_count']) ? $data['search_use_case_fields_count'] : null), 
 					((isset($data['project']) && !is_null($data['project'])) ? (new ProjectResponse(
 						$this->apiClient, 
 						new Project(
@@ -136,7 +206,28 @@ class DataStreamManager
 							$data['project']['data']['updated_at'], 
 							((isset($data['project']['data']['dataStream']) && !is_null($data['project']['data']['dataStream'])) ? (new DataStreamResponse(
 								$this->apiClient, 
-								null
+								new DataStream(
+									$this->apiClient, 
+									$data['project']['data']['dataStream']['data']['id'], 
+									$data['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
+									$data['project']['data']['dataStream']['data']['name'], 
+									$data['project']['data']['dataStream']['data']['feed_url'], 
+									$data['project']['data']['dataStream']['data']['created_at'], 
+									$data['project']['data']['dataStream']['data']['updated_at'], 
+									null, 
+									((isset($data['project']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($data['project']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+										$this->apiClient, 
+										new DataStreamDecoder(
+											$this->apiClient, 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+										)
+									)) : null)
+								)
 							)) : null), 
 							((isset($data['project']['data']['searchEngine']) && !is_null($data['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
 								$this->apiClient, 
@@ -150,18 +241,6 @@ class DataStreamManager
 									(isset($data['project']['data']['searchEngine']['data']['projects_count']) ? $data['projects_count'] : null)
 								)
 							)) : null)
-						)
-					)) : null), 
-					((isset($data['dataStreamDecoder']) && !is_null($data['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-						$this->apiClient, 
-						new DataStreamDecoder(
-							$this->apiClient, 
-							$data['dataStreamDecoder']['data']['id'], 
-							$data['dataStreamDecoder']['data']['name'], 
-							$data['dataStreamDecoder']['data']['class_name'], 
-							$data['dataStreamDecoder']['data']['file_mime_type'], 
-							$data['dataStreamDecoder']['data']['created_at'], 
-							$data['dataStreamDecoder']['data']['updated_at']
 						)
 					)) : null)
 				); 
@@ -184,28 +263,24 @@ class DataStreamManager
 	}
 	
 	/**
-	 * Create and store new data stream
-	 * 
-	 * Only one data stream per project is allowed.
+	 * Create and store new search use case
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $data_stream_decoder_id Format: uuid.
+	 * @param string $project_id Format: uuid.
 	 * @param string $name
-	 * @param string $feed_url Format: url.
 	 * 
-	 * @return DataStreamResponse
+	 * @return SearchUseCaseResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($data_stream_decoder_id, $name, $feed_url)
+	public function create($project_id, $name)
 	{
-		$routeUrl = '/api/dataStream';
+		$routeUrl = '/api/searchUseCase';
 
 		$bodyParameters = [];
-		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
+		$bodyParameters['project_id'] = $project_id;
 		$bodyParameters['name'] = $name;
-		$bodyParameters['feed_url'] = $feed_url;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -228,16 +303,16 @@ class DataStreamManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamResponse(
+		$response = new SearchUseCaseResponse(
 			$this->apiClient, 
-			new DataStream(
+			new SearchUseCase(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
+				(isset($requestBody['data']['project_id']) ? $requestBody['data']['project_id'] : null), 
 				$requestBody['data']['name'], 
-				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
+				(isset($requestBody['data']['search_use_case_fields_count']) ? $requestBody['data']['search_use_case_fields_count'] : null), 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
@@ -248,7 +323,31 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
-						null, 
+						((isset($requestBody['data']['project']['data']['dataStream']) && !is_null($requestBody['data']['project']['data']['dataStream'])) ? (new DataStreamResponse(
+							$this->apiClient, 
+							new DataStream(
+								$this->apiClient, 
+								$requestBody['data']['project']['data']['dataStream']['data']['id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['name'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['feed_url'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['created_at'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['updated_at'], 
+								null, 
+								((isset($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+									$this->apiClient, 
+									new DataStreamDecoder(
+										$this->apiClient, 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+									)
+								)) : null)
+							)
+						)) : null), 
 						((isset($requestBody['data']['project']['data']['searchEngine']) && !is_null($requestBody['data']['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
 							$this->apiClient, 
 							new SearchEngine(
@@ -262,18 +361,6 @@ class DataStreamManager
 							)
 						)) : null)
 					)
-				)) : null), 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
 				)) : null)
 			)
 		);
@@ -282,23 +369,23 @@ class DataStreamManager
 	}
 	
 	/**
-	 * Get specified data stream
+	 * Get specified search use case
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
-	 * @param string $dataStreamId Data stream UUID
+	 * @param string $searchUseCaseId Search use case UUID
 	 * @param string $include Include responses : {include1},{include2,{include3}[...]
 	 * 
-	 * @return DataStreamResponse
+	 * @return SearchUseCaseResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function get($dataStreamId, $include = null)
+	public function get($searchUseCaseId, $include = null)
 	{
-		$routePath = '/api/dataStream/{dataStreamId}';
+		$routePath = '/api/searchUseCase/{searchUseCaseId}';
 
 		$pathReplacements = [
-			'{dataStreamId}' => $dataStreamId,
+			'{searchUseCaseId}' => $searchUseCaseId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
@@ -330,16 +417,16 @@ class DataStreamManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamResponse(
+		$response = new SearchUseCaseResponse(
 			$this->apiClient, 
-			new DataStream(
+			new SearchUseCase(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
+				(isset($requestBody['data']['project_id']) ? $requestBody['data']['project_id'] : null), 
 				$requestBody['data']['name'], 
-				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
+				(isset($requestBody['data']['search_use_case_fields_count']) ? $requestBody['data']['search_use_case_fields_count'] : null), 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
@@ -350,7 +437,31 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
-						null, 
+						((isset($requestBody['data']['project']['data']['dataStream']) && !is_null($requestBody['data']['project']['data']['dataStream'])) ? (new DataStreamResponse(
+							$this->apiClient, 
+							new DataStream(
+								$this->apiClient, 
+								$requestBody['data']['project']['data']['dataStream']['data']['id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['name'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['feed_url'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['created_at'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['updated_at'], 
+								null, 
+								((isset($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+									$this->apiClient, 
+									new DataStreamDecoder(
+										$this->apiClient, 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+									)
+								)) : null)
+							)
+						)) : null), 
 						((isset($requestBody['data']['project']['data']['searchEngine']) && !is_null($requestBody['data']['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
 							$this->apiClient, 
 							new SearchEngine(
@@ -364,18 +475,6 @@ class DataStreamManager
 							)
 						)) : null)
 					)
-				)) : null), 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
 				)) : null)
 			)
 		);
@@ -384,33 +483,31 @@ class DataStreamManager
 	}
 	
 	/**
-	 * Update a data stream
+	 * Update a search use case
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $dataStreamId Data stream UUID
-	 * @param string $data_stream_decoder_id Format: uuid.
+	 * @param string $searchUseCaseId Search use case UUID
+	 * @param string $project_id Format: uuid.
 	 * @param string $name
-	 * @param string $feed_url Format: url.
 	 * 
-	 * @return DataStreamResponse
+	 * @return SearchUseCaseResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($dataStreamId, $data_stream_decoder_id, $name, $feed_url)
+	public function update($searchUseCaseId, $project_id, $name)
 	{
-		$routePath = '/api/dataStream/{dataStreamId}';
+		$routePath = '/api/searchUseCase/{searchUseCaseId}';
 
 		$pathReplacements = [
-			'{dataStreamId}' => $dataStreamId,
+			'{searchUseCaseId}' => $searchUseCaseId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
+		$bodyParameters['project_id'] = $project_id;
 		$bodyParameters['name'] = $name;
-		$bodyParameters['feed_url'] = $feed_url;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -433,16 +530,16 @@ class DataStreamManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamResponse(
+		$response = new SearchUseCaseResponse(
 			$this->apiClient, 
-			new DataStream(
+			new SearchUseCase(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
+				(isset($requestBody['data']['project_id']) ? $requestBody['data']['project_id'] : null), 
 				$requestBody['data']['name'], 
-				$requestBody['data']['feed_url'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
+				(isset($requestBody['data']['search_use_case_fields_count']) ? $requestBody['data']['search_use_case_fields_count'] : null), 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
 					$this->apiClient, 
 					new Project(
@@ -453,7 +550,31 @@ class DataStreamManager
 						$requestBody['data']['project']['data']['name'], 
 						$requestBody['data']['project']['data']['created_at'], 
 						$requestBody['data']['project']['data']['updated_at'], 
-						null, 
+						((isset($requestBody['data']['project']['data']['dataStream']) && !is_null($requestBody['data']['project']['data']['dataStream'])) ? (new DataStreamResponse(
+							$this->apiClient, 
+							new DataStream(
+								$this->apiClient, 
+								$requestBody['data']['project']['data']['dataStream']['data']['id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['name'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['feed_url'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['created_at'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['updated_at'], 
+								null, 
+								((isset($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+									$this->apiClient, 
+									new DataStreamDecoder(
+										$this->apiClient, 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+									)
+								)) : null)
+							)
+						)) : null), 
 						((isset($requestBody['data']['project']['data']['searchEngine']) && !is_null($requestBody['data']['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
 							$this->apiClient, 
 							new SearchEngine(
@@ -467,18 +588,6 @@ class DataStreamManager
 							)
 						)) : null)
 					)
-				)) : null), 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
 				)) : null)
 			)
 		);
@@ -487,22 +596,22 @@ class DataStreamManager
 	}
 	
 	/**
-	 * Delete specified data stream
+	 * Delete specified search use case
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
-	 * @param string $dataStreamId Data stream UUID
+	 * @param string $searchUseCaseId Search use case UUID
 	 * 
 	 * @return ErrorResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function delete($dataStreamId)
+	public function delete($searchUseCaseId)
 	{
-		$routePath = '/api/dataStream/{dataStreamId}';
+		$routePath = '/api/searchUseCase/{searchUseCaseId}';
 
 		$pathReplacements = [
-			'{dataStreamId}' => $dataStreamId,
+			'{searchUseCaseId}' => $searchUseCaseId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);

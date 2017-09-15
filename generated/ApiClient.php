@@ -7,14 +7,19 @@ use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Middleware;
+use emsearch\Api\Managers\SearchUseCaseManager;
 use emsearch\Api\Managers\MeManager;
 use emsearch\Api\Managers\ProjectManager;
+use emsearch\Api\Managers\SyncTaskManager;
 use emsearch\Api\Managers\DataStreamManager;
 use emsearch\Api\Managers\DataStreamFieldManager;
 use emsearch\Api\Managers\DataStreamHasI18nLangManager;
+use emsearch\Api\Managers\UserHasProjectManager;
 use emsearch\Api\Managers\DataStreamDecoderManager;
 use emsearch\Api\Managers\DataStreamPresetManager;
 use emsearch\Api\Managers\DataStreamPresetFieldManager;
+use emsearch\Api\Managers\I18nLangManager;
+use emsearch\Api\Managers\SearchEngineManager;
 
 /**
  * emsearch API client class (version 1.0)
@@ -52,6 +57,13 @@ class ApiClient
 	protected $globalHeaders = [];
 
 	/**
+	 * SearchUseCase manager
+	 *
+	 * @var SearchUseCaseManager
+	 */
+	protected $searchUseCaseManager;
+
+	/**
 	 * Me manager
 	 *
 	 * @var MeManager
@@ -64,6 +76,13 @@ class ApiClient
 	 * @var ProjectManager
 	 */
 	protected $projectManager;
+
+	/**
+	 * SyncTask manager
+	 *
+	 * @var SyncTaskManager
+	 */
+	protected $syncTaskManager;
 
 	/**
 	 * DataStream manager
@@ -87,6 +106,13 @@ class ApiClient
 	protected $dataStreamHasI18nLangManager;
 
 	/**
+	 * UserHasProject manager
+	 *
+	 * @var UserHasProjectManager
+	 */
+	protected $userHasProjectManager;
+
+	/**
 	 * DataStreamDecoder manager
 	 *
 	 * @var DataStreamDecoderManager
@@ -106,6 +132,20 @@ class ApiClient
 	 * @var DataStreamPresetFieldManager
 	 */
 	protected $dataStreamPresetFieldManager;
+
+	/**
+	 * I18nLang manager
+	 *
+	 * @var I18nLangManager
+	 */
+	protected $i18nLangManager;
+
+	/**
+	 * SearchEngine manager
+	 *
+	 * @var SearchEngineManager
+	 */
+	protected $searchEngineManager;
 
 	/**
 	 * API Client class constructor
@@ -141,14 +181,19 @@ class ApiClient
 			'base_uri' => $apiBaseUrl
 		]);
 
+		$this->searchUseCaseManager = new SearchUseCaseManager($this);
 		$this->meManager = new MeManager($this);
 		$this->projectManager = new ProjectManager($this);
+		$this->syncTaskManager = new SyncTaskManager($this);
 		$this->dataStreamManager = new DataStreamManager($this);
 		$this->dataStreamFieldManager = new DataStreamFieldManager($this);
 		$this->dataStreamHasI18nLangManager = new DataStreamHasI18nLangManager($this);
+		$this->userHasProjectManager = new UserHasProjectManager($this);
 		$this->dataStreamDecoderManager = new DataStreamDecoderManager($this);
 		$this->dataStreamPresetManager = new DataStreamPresetManager($this);
 		$this->dataStreamPresetFieldManager = new DataStreamPresetFieldManager($this);
+		$this->i18nLangManager = new I18nLangManager($this);
+		$this->searchEngineManager = new SearchEngineManager($this);
 	}
 
 	/**
@@ -182,6 +227,16 @@ class ApiClient
 	}
 
 	/**
+	 * Return the SearchUseCase manager
+	 *
+	 * @return SearchUseCaseManager
+	 */
+	public function SearchUseCaseManager()
+	{
+		return $this->searchUseCaseManager;
+	}
+	
+	/**
 	 * Return the Me manager
 	 *
 	 * @return MeManager
@@ -199,6 +254,16 @@ class ApiClient
 	public function ProjectManager()
 	{
 		return $this->projectManager;
+	}
+	
+	/**
+	 * Return the SyncTask manager
+	 *
+	 * @return SyncTaskManager
+	 */
+	public function SyncTaskManager()
+	{
+		return $this->syncTaskManager;
 	}
 	
 	/**
@@ -232,6 +297,16 @@ class ApiClient
 	}
 	
 	/**
+	 * Return the UserHasProject manager
+	 *
+	 * @return UserHasProjectManager
+	 */
+	public function UserHasProjectManager()
+	{
+		return $this->userHasProjectManager;
+	}
+	
+	/**
 	 * Return the DataStreamDecoder manager
 	 *
 	 * @return DataStreamDecoderManager
@@ -259,5 +334,25 @@ class ApiClient
 	public function DataStreamPresetFieldManager()
 	{
 		return $this->dataStreamPresetFieldManager;
+	}
+	
+	/**
+	 * Return the I18nLang manager
+	 *
+	 * @return I18nLangManager
+	 */
+	public function I18nLangManager()
+	{
+		return $this->i18nLangManager;
+	}
+	
+	/**
+	 * Return the SearchEngine manager
+	 *
+	 * @return SearchEngineManager
+	 */
+	public function SearchEngineManager()
+	{
+		return $this->searchEngineManager;
 	}
 }

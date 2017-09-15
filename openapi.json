@@ -12,6 +12,10 @@
     "paths": {
         "\/api\/searchUseCase\/{searchUseCaseId}\/search": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCase",
+                    "Resource:SearchUseCase"
+                ],
                 "summary": "Perform search with the specified search use case",
                 "operationId": "search",
                 "parameters": [
@@ -63,10 +67,24 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "Search response",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseSearchResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -83,6 +101,9 @@
                         "description": "A User",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/MeIndexExampleResponse"
                                 }
@@ -90,7 +111,14 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -595,9 +623,12 @@
         },
         "\/api\/project\/{projectId}\/userHasProject": {
             "get": {
+                "tags": [
+                    "Resource:Project"
+                ],
                 "summary": "Project relationship between users and projects list",
                 "description": "You can specify a GET parameter `user_role_id` to filter results.",
-                "operationId": "index",
+                "operationId": "getProjectHasUsers",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -619,14 +650,40 @@
                             ],
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTask list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserHasProjectListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1296,9 +1353,12 @@
         },
         "\/api\/syncTask": {
             "get": {
+                "tags": [
+                    "Manager:SyncTask"
+                ],
                 "summary": "Sync task list",
                 "description": "You can specify a GET parameter `root` (return only root tasks if true, children only if false) to filter results.<br \/>\nFilter results with `sync_task_status_id` GET parameter.",
-                "operationId": "index",
+                "operationId": "all",
                 "parameters": [
                     {
                         "name": "root",
@@ -1338,13 +1398,31 @@
                             "type": "string",
                             "description": "Must be a valid date according to the strtotime PHP function."
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncTask list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncTaskIndexExampleResponse"
                                 }
@@ -1352,13 +1430,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SyncTask"
+                ],
                 "summary": "Create and store new sync task",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -1401,18 +1489,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A SyncTask",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTask\/{syncTaskId}": {
             "get": {
+                "tags": [
+                    "Manager:SyncTask"
+                ],
                 "summary": "Get specified sync task",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "syncTaskId",
@@ -1422,20 +1527,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTask",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SyncTask",
+                    "Resource:SyncTask"
+                ],
                 "summary": "Update a specified sync task",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskId",
@@ -1489,16 +1615,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTask",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SyncTask",
+                    "Resource:SyncTask"
+                ],
                 "summary": "Delete specified sync task",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "syncTaskId",
@@ -1512,16 +1656,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SyncTask",
+                    "Resource:SyncTask"
+                ],
                 "summary": "Update a specified sync task",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskId",
@@ -1575,10 +1730,24 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTask",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1644,9 +1813,12 @@
         },
         "\/api\/project\/{projectId}\/syncTask": {
             "get": {
+                "tags": [
+                    "Resource:Project"
+                ],
                 "summary": "Project sync task list",
-                "description": "You can specify a GET parameter `root` (return only root tasks if true, children only if false) to filter results.",
-                "operationId": "index",
+                "description": "You can specify a GET parameter `root` (return only root tasks if true, children only if false) to filter results",
+                "operationId": "getSyncTasks",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -1664,14 +1836,40 @@
                         "schema": {
                             "type": "boolean"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTask list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2666,7 +2864,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "A DataStreamResponse",
+                        "description": "A DataStream",
                         "content": {
                             "application\/json": {
                                 "schema": {
@@ -4066,8 +4264,11 @@
         },
         "\/api\/i18nLang\/{i18nLangId}\/dataStream": {
             "get": {
+                "tags": [
+                    "Resource:DataStream"
+                ],
                 "summary": "I18n lang data streams list",
-                "operationId": "index",
+                "operationId": "getDataStreams",
                 "parameters": [
                     {
                         "name": "i18nLangId",
@@ -4077,6 +4278,18 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
@@ -4105,13 +4318,36 @@
         },
         "\/api\/userHasProject": {
             "get": {
+                "tags": [
+                    "Manager:UserHasProject"
+                ],
                 "summary": "List of relationships between users and projects",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A UserHasProject list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserHasProjectListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/UserHasProjectIndexExampleResponse"
                                 }
@@ -4119,14 +4355,24 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:UserHasProject"
+                ],
                 "summary": "Create and store new relationship between a user and a project",
                 "description": "<aside class=\"notice\">Only one relationship per user\/project is allowed and only one user can be <code>Owner<\/code>of a project.<\/aside>",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -4159,18 +4405,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A UserHasProject",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserHasProjectResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/userHasProject\/{userId},{projectId}": {
             "get": {
+                "tags": [
+                    "Manager:UserHasProject"
+                ],
                 "summary": "Get specified relationship between a user and a project",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "userId",
@@ -4189,13 +4452,19 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A UserHasProject",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserHasProjectResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/UserHasProjectShowExampleResponse"
                                 }
@@ -4203,14 +4472,25 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:UserHasProject",
+                    "Resource:UserHasProject"
+                ],
                 "summary": "Update a specified relationship between a user and a project",
                 "description": "<aside class=\"notice\">Only one relationship per user\/project is allowed and only one user can be <code>Owner<\/code>of a project.<\/aside>",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "userId",
@@ -4263,16 +4543,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated UserHasProject",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserHasProjectResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:UserHasProject",
+                    "Resource:UserHasProject"
+                ],
                 "summary": "Delete specified relationship between a user and a project",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "userId",
@@ -4295,17 +4593,28 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:UserHasProject",
+                    "Resource:UserHasProject"
+                ],
                 "summary": "Update a specified relationship between a user and a project",
                 "description": "<aside class=\"notice\">Only one relationship per user\/project is allowed and only one user can be <code>Owner<\/code>of a project.<\/aside>",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "userId",
@@ -4358,10 +4667,24 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated UserHasProject",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserHasProjectResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -5418,13 +5741,36 @@
         },
         "\/api\/i18nLang": {
             "get": {
+                "tags": [
+                    "Manager:I18nLang"
+                ],
                 "summary": "Show i18n lang list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A I18nLang list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/I18nLangListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/I18nLangIndexExampleResponse"
                                 }
@@ -5432,13 +5778,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:I18nLang"
+                ],
                 "summary": "Create and store new i18n lang",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -5462,18 +5818,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A I18nLangResponse",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/I18nLangResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/i18nLang\/{i18nLangId}": {
             "get": {
+                "tags": [
+                    "Manager:I18nLang"
+                ],
                 "summary": "Get specified i18n lang",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "i18nLangId",
@@ -5483,20 +5856,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A I18nLang",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/I18nLangResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:I18nLang",
+                    "Resource:I18nLang"
+                ],
                 "summary": "Update a i18n lang",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "i18nLangId",
@@ -5526,17 +5920,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated I18nLang",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/I18nLangResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:I18nLang",
+                    "Resource:I18nLang"
+                ],
                 "summary": "Delete specified i18n Lang",
                 "description": "<aside class=\"warning\">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.<\/aside>",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "i18nLangId",
@@ -5550,16 +5962,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:I18nLang",
+                    "Resource:I18nLang"
+                ],
                 "summary": "Update a i18n lang",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "i18nLangId",
@@ -5589,32 +6012,83 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated I18nLang",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/I18nLangResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/i18nLang\/search": {
             "get": {
+                "tags": [
+                    "Manager:I18nLang"
+                ],
                 "summary": "Show i18n lang list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A I18nLang list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/I18nLangListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/i18nLang\/{i18nLangId}\/syncTaskTypeVersion": {
             "get": {
+                "tags": [
+                    "Resource:I18nLang"
+                ],
                 "summary": "I18n lang sync task type versions list",
-                "operationId": "index",
+                "operationId": "getSyncTaskTypeVersions",
                 "parameters": [
                     {
                         "name": "i18nLangId",
@@ -5624,27 +6098,76 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTaskTypeVersion list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeVersionListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchEngine": {
             "get": {
+                "tags": [
+                    "Manager:SearchEngine"
+                ],
                 "summary": "Show search engine list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SearchEngine list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchEngineListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SearchEngineIndexExampleResponse"
                                 }
@@ -5652,13 +6175,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SearchEngine"
+                ],
                 "summary": "Create and store new search engine",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -5682,18 +6215,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A SearchEngine",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchEngineResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchEngine\/{searchEngineId}": {
             "get": {
+                "tags": [
+                    "Manager:SearchEngine"
+                ],
                 "summary": "Get specified search engine",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "searchEngineId",
@@ -5703,20 +6253,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchEngine",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchEngineResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SearchEngine",
+                    "Resource:SearchEngine"
+                ],
                 "summary": "Update a search engine",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchEngineId",
@@ -5751,17 +6322,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchEngine",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchEngineResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SearchEngine",
+                    "Resource:SearchEngine"
+                ],
                 "summary": "Delete specified search engine",
                 "description": "<aside class=\"warning\">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.<\/aside>",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "searchEngineId",
@@ -5775,16 +6364,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SearchEngine",
+                    "Resource:SearchEngine"
+                ],
                 "summary": "Update a search engine",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchEngineId",
@@ -5819,18 +6419,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchEngine",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchEngineResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchEngine\/{searchEngineId}\/project": {
             "get": {
+                "tags": [
+                    "Resource:SearchEngine"
+                ],
                 "summary": "Search engine project list",
-                "operationId": "index",
+                "operationId": "getProjects",
                 "parameters": [
                     {
                         "name": "searchEngineId",
@@ -5840,6 +6457,21 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
@@ -5868,8 +6500,11 @@
         },
         "\/api\/project\/{projectId}\/searchUseCase": {
             "get": {
+                "tags": [
+                    "Resource:Project"
+                ],
                 "summary": "Project search use case list",
-                "operationId": "index",
+                "operationId": "getSearchUseCases",
                 "parameters": [
                     {
                         "name": "projectId",
@@ -5879,27 +6514,76 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCase list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCase": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCase"
+                ],
                 "summary": "Show search use case list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SearchUseCase list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SearchUseCaseIndexExampleResponse"
                                 }
@@ -5907,13 +6591,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SearchUseCase"
+                ],
                 "summary": "Create and store new search use case",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -5939,18 +6633,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The created SearchUseCase",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCase\/{searchUseCaseId}": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCase"
+                ],
                 "summary": "Get specified search use case",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -5960,20 +6671,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCase",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SearchUseCase",
+                    "Resource:SearchUseCase"
+                ],
                 "summary": "Update a search use case",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -6010,16 +6742,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCase",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SearchUseCase",
+                    "Resource:SearchUseCase"
+                ],
                 "summary": "Delete specified search use case",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -6033,16 +6783,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SearchUseCase",
+                    "Resource:SearchUseCase"
+                ],
                 "summary": "Update a search use case",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -6079,10 +6840,24 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCase",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -7319,8 +8094,11 @@
         },
         "\/api\/dataStreamPreset\/{dataStreamPresetId}\/searchUseCasePreset": {
             "get": {
+                "tags": [
+                    "Resource:DataStream"
+                ],
                 "summary": "Data stream preset search use case preset list",
-                "operationId": "index",
+                "operationId": "getSearchUseCasePresets",
                 "parameters": [
                     {
                         "name": "dataStreamPresetId",
@@ -7330,23 +8108,52 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCasePreset list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/dataStreamPreset\/{dataStreamPresetId}\/widgetPreset": {
             "get": {
+                "tags": [
+                    "Resource:DataStream"
+                ],
                 "summary": "Data stream preset widget preset list",
                 "description": "(Through the related search use case presets)",
-                "operationId": "index",
+                "operationId": "getWidgetPresets",
                 "parameters": [
                     {
                         "name": "dataStreamPresetId",
@@ -7356,14 +8163,40 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A WidgetPreset list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetPresetListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -7525,6 +8358,9 @@
                     },
                     "dataStream": {
                         "$ref": "#\/components\/schemas\/DataStreamResponse"
+                    },
+                    "searchEngine": {
+                        "$ref": "#\/components\/schemas\/SearchEngineResponse"
                     }
                 }
             },
@@ -7556,6 +8392,66 @@
                 },
                 "example": {
                     "$ref": "#\/components\/examples\/ProjectIndexExampleResponse"
+                }
+            },
+            "SearchEngine": {
+                "required": [
+                    "id",
+                    "name",
+                    "class_name",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "class_name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "projects_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "SearchEngineResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SearchEngine"
+                    }
+                }
+            },
+            "SearchEngineListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SearchEngine"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
                 }
             },
             "DataStream": {
@@ -7593,6 +8489,9 @@
                     },
                     "project": {
                         "$ref": "#\/components\/schemas\/ProjectResponse"
+                    },
+                    "dataStreamDecoder": {
+                        "$ref": "#\/components\/schemas\/DataStreamDecoderResponse"
                     }
                 }
             },
@@ -7666,6 +8565,9 @@
                     "updated_at": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "dataStream": {
+                        "$ref": "#\/components\/schemas\/DataStreamResponse"
                     }
                 }
             },
@@ -7876,6 +8778,9 @@
                     "updated_at": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "dataStreamDecoder": {
+                        "$ref": "#\/components\/schemas\/DataStreamDecoderResponse"
                     }
                 }
             },
@@ -7949,6 +8854,9 @@
                     "updated_at": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "dataStreamPreset": {
+                        "$ref": "#\/components\/schemas\/DataStreamPresetResponse"
                     }
                 }
             },
@@ -7976,6 +8884,479 @@
                     },
                     "meta": {
                         "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SearchUseCasePreset": {
+                "required": [
+                    "id",
+                    "data_stream_preset_id",
+                    "name",
+                    "created_at",
+                    "updated_at",
+                    "search_use_case_preset_fields_count"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "data_stream_preset_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "search_use_case_preset_fields_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "dataStreamPreset": {
+                        "$ref": "#\/components\/schemas\/DataStreamPresetResponse"
+                    }
+                }
+            },
+            "SearchUseCasePresetResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SearchUseCasePreset"
+                    }
+                }
+            },
+            "SearchUseCasePresetListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SearchUseCasePreset"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "WidgetPreset": {
+                "required": [
+                    "id",
+                    "search_use_case_preset_id",
+                    "name",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "search_use_case_preset_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "searchUseCasePreset": {
+                        "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                    }
+                }
+            },
+            "WidgetPresetResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/WidgetPreset"
+                    }
+                }
+            },
+            "WidgetPresetListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/WidgetPreset"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SyncTaskTypeVersion": {
+                "required": [
+                    "sync_task_type_id",
+                    "i18n_lang_id",
+                    "description",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "sync_task_type_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "i18n_lang_id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "SyncTaskTypeVersionResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SyncTaskTypeVersion"
+                    }
+                }
+            },
+            "SyncTaskTypeVersionListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SyncTaskTypeVersion"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "User": {
+                "required": [
+                    "id",
+                    "user_group_id",
+                    "name",
+                    "email",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "user_group_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "UserResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/User"
+                    }
+                }
+            },
+            "UserListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/User"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SearchUseCase": {
+                "required": [
+                    "id",
+                    "data_stream_preset_id",
+                    "name",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "search_use_case_fields_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "project": {
+                        "$ref": "#\/components\/schemas\/ProjectResponse"
+                    }
+                }
+            },
+            "SearchUseCaseResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SearchUseCase"
+                    }
+                }
+            },
+            "SearchUseCaseListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SearchUseCase"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SyncTask": {
+                "required": [
+                    "id",
+                    "sync_task_type_id",
+                    "sync_task_status_id",
+                    "created_by_user_id",
+                    "project_id",
+                    "planned_at",
+                    "created_at",
+                    "updated_at",
+                    "sync_task_logs_count",
+                    "children_sync_tasks_count"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "sync_task_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "sync_task_type_id": {
+                        "type": "string"
+                    },
+                    "sync_task_status_id": {
+                        "type": "string"
+                    },
+                    "created_by_user_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "planned_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "sync_task_logs_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "children_sync_tasks_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "createdByUser": {
+                        "$ref": "#\/components\/schemas\/UserResponse"
+                    },
+                    "project": {
+                        "$ref": "#\/components\/schemas\/ProjectResponse"
+                    }
+                }
+            },
+            "SyncTaskResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SyncTask"
+                    }
+                }
+            },
+            "SyncTaskListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SyncTask"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "UserHasProject": {
+                "required": [
+                    "user_id",
+                    "project_id",
+                    "user_role_id",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "user_role_id": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "user": {
+                        "$ref": "#\/components\/schemas\/UserResponse"
+                    },
+                    "project": {
+                        "$ref": "#\/components\/schemas\/ProjectResponse"
+                    }
+                }
+            },
+            "UserHasProjectResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/UserHasProject"
+                    }
+                }
+            },
+            "UserHasProjectListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/UserHasProject"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SearchUseCaseSearchResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "description": "Search response data"
                     }
                 }
             }
@@ -8040,38 +9421,21 @@
                         "user_group_id": "Developer",
                         "name": "John Doe",
                         "email": "john.doe@domain.tld",
-                        "created_at": "2017-08-18 10:21:59",
-                        "updated_at": "2017-08-18 10:21:59"
+                        "created_at": "2017-09-14 13:08:35",
+                        "updated_at": "2017-09-14 13:08:35"
                     }
                 }
             },
             "MeProjectIndexExampleResponse": {
                 "value": {
-                    "data": [
-                        {
-                            "id": "4abf48c4-ef8d-4e6b-a19c-0dfda32f3753",
-                            "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
-                            "data_stream_id": null,
-                            "name": "Test from SDK",
-                            "created_at": "2017-09-11 10:35:11",
-                            "updated_at": "2017-09-11 10:35:11"
-                        },
-                        {
-                            "id": "c775a69b-43b9-407c-9c42-bb98f81b554a",
-                            "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
-                            "data_stream_id": "7bbdd757-ec74-404b-bf72-263fb156feb4",
-                            "name": "E-monsite Blog",
-                            "created_at": "2017-09-11 09:48:44",
-                            "updated_at": "2017-09-11 09:48:44"
-                        }
-                    ],
+                    "data": [],
                     "meta": {
                         "pagination": {
-                            "total": 2,
-                            "count": 2,
+                            "total": 0,
+                            "count": 0,
                             "per_page": 10,
                             "current_page": 1,
-                            "total_pages": 1,
+                            "total_pages": 0,
                             "links": []
                         }
                     }
@@ -8128,32 +9492,32 @@
                             "user_group_id": "Developer",
                             "name": "John Doe",
                             "email": "john.doe@domain.tld",
-                            "created_at": "2017-08-18 10:21:59",
-                            "updated_at": "2017-08-18 10:21:59"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "509dd5c0-1389-11e7-93ae-92361f002671",
                             "user_group_id": "Support",
                             "name": "Alan Smithee",
                             "email": "alan.smithee@domain.tld",
-                            "created_at": "2017-08-18 10:21:59",
-                            "updated_at": "2017-08-18 10:21:59"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "605c7610-1389-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "John Smith",
                             "email": "john.smith@domain.tld",
-                            "created_at": "2017-08-18 10:21:59",
-                            "updated_at": "2017-08-18 10:21:59"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "Mickey Mouse",
                             "email": "mickey.mouse@domain.tld",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
@@ -8176,46 +9540,30 @@
                             "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project 1",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
-                        },
-                        {
-                            "id": "4abf48c4-ef8d-4e6b-a19c-0dfda32f3753",
-                            "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
-                            "data_stream_id": null,
-                            "name": "Test from SDK",
-                            "created_at": "2017-09-11 10:35:11",
-                            "updated_at": "2017-09-11 10:35:11"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "data_stream_id": null,
                             "name": "John Smith Sample Project 2",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
-                        },
-                        {
-                            "id": "c775a69b-43b9-407c-9c42-bb98f81b554a",
-                            "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
-                            "data_stream_id": "7bbdd757-ec74-404b-bf72-263fb156feb4",
-                            "name": "E-monsite Blog",
-                            "created_at": "2017-09-11 09:48:44",
-                            "updated_at": "2017-09-11 09:48:44"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 5,
-                            "count": 5,
+                            "total": 3,
+                            "count": 3,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -8231,8 +9579,8 @@
                         "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                         "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                         "name": "John Smith Sample Project 1",
-                        "created_at": "2017-08-18 10:22:00",
-                        "updated_at": "2017-08-18 10:22:00"
+                        "created_at": "2017-09-14 13:08:35",
+                        "updated_at": "2017-09-14 13:08:35"
                     }
                 }
             },
@@ -8266,9 +9614,9 @@
                             "sync_task_status_id": "Planned",
                             "created_by_user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": "2017-08-18 10:32:00",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00",
+                            "planned_at": "2017-09-14 13:18:35",
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35",
                             "sync_task_logs_count": 1,
                             "children_sync_tasks_count": 0
                         },
@@ -8279,9 +9627,9 @@
                             "sync_task_status_id": "Planned",
                             "created_by_user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "planned_at": "2017-08-18 10:42:00",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00",
+                            "planned_at": "2017-09-14 13:28:35",
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35",
                             "sync_task_logs_count": 0,
                             "children_sync_tasks_count": 0
                         }
@@ -8356,71 +9704,71 @@
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "en_US",
                             "description": "Comparison and verification of downloaded data.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "fr_FR",
                             "description": "Comparaison et v\u00e9rification des donn\u00e9es t\u00e9l\u00e9charg\u00e9es.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "en_US",
                             "description": "Downloading the provided data feed url of the data stream.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "fr_FR",
                             "description": "T\u00e9l\u00e9chargement des donn\u00e9es fournies par l'url du flux de donn\u00e9es.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "en_US",
                             "description": "Data breakdown for creation, edition or deletion.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "fr_FR",
                             "description": "Ventilation des donn\u00e9es pour la cr\u00e9ation, modification ou suppression.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "en_US",
                             "description": "Deleting records.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "fr_FR",
                             "description": "Suppression d'enregistrements.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "en_US",
                             "description": "Creating new records.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "fr_FR",
                             "description": "Cr\u00e9ation des nouveaux enregistrements.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         }
                     ],
                     "meta": {
@@ -8483,43 +9831,43 @@
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is complete.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est termin\u00e9e",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is in progress.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est en cours.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is planned.",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est plannifi\u00e9e",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         }
                     ],
                     "meta": {
@@ -8547,30 +9895,22 @@
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "John Smith Sample Project Data Stream",
                             "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "605d712c-1934-11e7-93ae-92361f002671",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "Mickey Mouse Sample Project Data Stream",
                             "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
-                        },
-                        {
-                            "id": "7bbdd757-ec74-404b-bf72-263fb156feb4",
-                            "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
-                            "name": "E-monsite Blog - E-monsite | Blog",
-                            "feed_url": "http:\/\/e-monsite.com\/blog\/do\/datastream\/",
-                            "created_at": "2017-09-11 09:48:44",
-                            "updated_at": "2017-09-11 09:48:44"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 3,
-                            "count": 3,
+                            "total": 2,
+                            "count": 2,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -8583,17 +9923,6 @@
                 "value": {
                     "data": [
                         {
-                            "id": "03a1b191-682b-42f2-92d3-4f71fee4c5c4",
-                            "data_stream_id": "7bbdd757-ec74-404b-bf72-263fb156feb4",
-                            "name": "seo_image_url",
-                            "path": "seo_image_url",
-                            "versioned": true,
-                            "searchable": false,
-                            "to_retrieve": true,
-                            "created_at": "2017-09-11 09:48:44",
-                            "updated_at": "2017-09-11 09:48:44"
-                        },
-                        {
                             "id": "145ca4a6-60af-11e7-907b-a6006ad3dba0",
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "name": "title",
@@ -8601,8 +9930,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145ca730-60af-11e7-907b-a6006ad3dba0",
@@ -8612,8 +9941,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145ca848-60af-11e7-907b-a6006ad3dba0",
@@ -8623,8 +9952,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145ca9ba-60af-11e7-907b-a6006ad3dba0",
@@ -8634,8 +9963,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145cac44-60af-11e7-907b-a6006ad3dba0",
@@ -8645,8 +9974,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145cad20-60af-11e7-907b-a6006ad3dba0",
@@ -8656,8 +9985,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145cade8-60af-11e7-907b-a6006ad3dba0",
@@ -8667,8 +9996,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145caeb0-60af-11e7-907b-a6006ad3dba0",
@@ -8678,8 +10007,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "145cb13a-60af-11e7-907b-a6006ad3dba0",
@@ -8689,17 +10018,28 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
+                        },
+                        {
+                            "id": "145cb27a-60af-11e7-907b-a6006ad3dba0",
+                            "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
+                            "name": "rating_count",
+                            "path": "rating_count",
+                            "versioned": false,
+                            "searchable": false,
+                            "to_retrieve": true,
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 32,
+                            "total": 22,
                             "count": 10,
                             "per_page": 10,
                             "current_page": 1,
-                            "total_pages": 4,
+                            "total_pages": 3,
                             "links": {
                                 "next": "https:\/\/emsearch.ryan.ems-dev.net\/api\/dataStreamField?page=2"
                             }
@@ -8713,32 +10053,26 @@
                         {
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "en",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
-                        },
-                        {
-                            "data_stream_id": "7bbdd757-ec74-404b-bf72-263fb156feb4",
-                            "i18n_lang_id": "fr",
-                            "created_at": "2017-09-11 09:48:45",
-                            "updated_at": "2017-09-11 09:48:45"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 4,
-                            "count": 4,
+                            "total": 3,
+                            "count": 3,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -8756,59 +10090,45 @@
                 "value": {
                     "data": [
                         {
-                            "user_id": "41abdec2-1389-11e7-93ae-92361f002671",
-                            "project_id": "4abf48c4-ef8d-4e6b-a19c-0dfda32f3753",
-                            "user_role_id": "Owner",
-                            "created_at": "2017-09-11 10:35:11",
-                            "updated_at": "2017-09-11 10:35:11"
-                        },
-                        {
-                            "user_id": "41abdec2-1389-11e7-93ae-92361f002671",
-                            "project_id": "c775a69b-43b9-407c-9c42-bb98f81b554a",
-                            "user_role_id": "Owner",
-                            "created_at": "2017-09-11 09:48:44",
-                            "updated_at": "2017-09-11 09:48:44"
-                        },
-                        {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 7,
-                            "count": 7,
+                            "total": 5,
+                            "count": 5,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -8830,8 +10150,8 @@
                             "name": "Emonsite",
                             "class_name": "EmonsiteDecoder",
                             "file_mime_type": "application\/json",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56"
+                            "created_at": "2017-09-14 13:08:25",
+                            "updated_at": "2017-09-14 13:08:25"
                         }
                     ],
                     "meta": {
@@ -8853,8 +10173,8 @@
                             "id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
@@ -8880,8 +10200,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cb642-5bf3-11e7-907b-a6006ad3dba0",
@@ -8891,8 +10211,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cba20-5bf3-11e7-907b-a6006ad3dba0",
@@ -8902,8 +10222,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cc15a-5bf3-11e7-907b-a6006ad3dba0",
@@ -8913,8 +10233,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cc34e-5bf3-11e7-907b-a6006ad3dba0",
@@ -8924,8 +10244,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cc4ca-5bf3-11e7-907b-a6006ad3dba0",
@@ -8935,8 +10255,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cc650-5bf3-11e7-907b-a6006ad3dba0",
@@ -8946,8 +10266,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cc7c2-5bf3-11e7-907b-a6006ad3dba0",
@@ -8957,8 +10277,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9cc92a-5bf3-11e7-907b-a6006ad3dba0",
@@ -8968,8 +10288,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "eb9ccec0-5bf3-11e7-907b-a6006ad3dba0",
@@ -8979,8 +10299,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
@@ -9062,9 +10382,9 @@
                             "id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "name": "Algolia",
                             "class_name": "AlgoliaSearchEngine",
-                            "created_at": "2017-08-18 10:21:56",
-                            "updated_at": "2017-08-18 10:21:56",
-                            "projects_count": 5
+                            "created_at": "2017-09-14 13:08:24",
+                            "updated_at": "2017-09-14 13:08:24",
+                            "projects_count": 3
                         }
                     ],
                     "meta": {
@@ -9086,31 +10406,23 @@
                             "id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project Default Search Use Case",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00",
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35",
                             "search_use_case_fields_count": 3
                         },
                         {
                             "id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project Default Search Use Case",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00",
-                            "search_use_case_fields_count": 3
-                        },
-                        {
-                            "id": "f0a38b41-d632-4f45-b816-80cc75fa8d5e",
-                            "project_id": "c775a69b-43b9-407c-9c42-bb98f81b554a",
-                            "name": "E-monsite Blog - E-monsite | Blog - E-monsite | Blog - Summary",
-                            "created_at": "2017-09-11 09:48:51",
-                            "updated_at": "2017-09-11 09:48:51",
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35",
                             "search_use_case_fields_count": 3
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 3,
-                            "count": 3,
+                            "total": 2,
+                            "count": 2,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -9128,8 +10440,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -9137,8 +10449,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -9146,8 +10458,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -9155,8 +10467,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -9164,8 +10476,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -9173,41 +10485,14 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
-                        },
-                        {
-                            "search_use_case_id": "f0a38b41-d632-4f45-b816-80cc75fa8d5e",
-                            "data_stream_field_id": "2703e023-4dc8-4a50-9a94-4312324988ad",
-                            "name": "tags",
-                            "searchable": 1,
-                            "to_retrieve": 1,
-                            "created_at": "2017-09-11 09:48:51",
-                            "updated_at": "2017-09-11 09:48:51"
-                        },
-                        {
-                            "search_use_case_id": "f0a38b41-d632-4f45-b816-80cc75fa8d5e",
-                            "data_stream_field_id": "99c606ee-061f-4c81-981a-ccf53238d2e0",
-                            "name": "url",
-                            "searchable": 0,
-                            "to_retrieve": 1,
-                            "created_at": "2017-09-11 09:48:51",
-                            "updated_at": "2017-09-11 09:48:51"
-                        },
-                        {
-                            "search_use_case_id": "f0a38b41-d632-4f45-b816-80cc75fa8d5e",
-                            "data_stream_field_id": "d3910b5e-cfe6-4b48-9268-cd7f3eea9e7e",
-                            "name": "title",
-                            "searchable": 1,
-                            "to_retrieve": 1,
-                            "created_at": "2017-09-11 09:48:51",
-                            "updated_at": "2017-09-11 09:48:51"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 9,
-                            "count": 9,
+                            "total": 6,
+                            "count": 6,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -9223,16 +10508,16 @@
                             "id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00",
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35",
                             "search_use_case_preset_fields_count": 3
                         },
                         {
                             "id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00",
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35",
                             "search_use_case_preset_fields_count": 2
                         }
                     ],
@@ -9257,8 +10542,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -9266,8 +10551,8 @@
                             "name": "tags",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -9275,8 +10560,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -9284,8 +10569,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -9293,8 +10578,8 @@
                             "name": "image_url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
@@ -9313,31 +10598,24 @@
                 "value": {
                     "data": [
                         {
-                            "id": "58b074fe-74fb-4a0c-bd21-47ee03ec900b",
-                            "search_use_case_id": "f0a38b41-d632-4f45-b816-80cc75fa8d5e",
-                            "name": "E-monsite Blog - E-monsite | Blog - Summary Widget",
-                            "created_at": "2017-09-11 09:48:51",
-                            "updated_at": "2017-09-11 09:48:51"
-                        },
-                        {
                             "id": "a2fb4304-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "b070b438-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 3,
-                            "count": 3,
+                            "total": 2,
+                            "count": 2,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -9353,15 +10631,15 @@
                             "id": "0f85eb82-776a-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         },
                         {
                             "id": "6be0a102-7769-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2017-08-18 10:22:00",
-                            "updated_at": "2017-08-18 10:22:00"
+                            "created_at": "2017-09-14 13:08:35",
+                            "updated_at": "2017-09-14 13:08:35"
                         }
                     ],
                     "meta": {

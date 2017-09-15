@@ -8,6 +8,10 @@ use emsearch\Api\Resources\DataStreamPresetFieldListResponse;
 use emsearch\Api\Resources\ErrorResponse;
 use emsearch\Api\Resources\DataStreamPresetFieldResponse;
 use emsearch\Api\Resources\DataStreamPresetField;
+use emsearch\Api\Resources\DataStreamPresetResponse;
+use emsearch\Api\Resources\DataStreamPreset;
+use emsearch\Api\Resources\DataStreamDecoderResponse;
+use emsearch\Api\Resources\DataStreamDecoder;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
@@ -120,7 +124,30 @@ class DataStreamPresetFieldManager
 					$data['searchable'], 
 					$data['to_retrieve'], 
 					$data['created_at'], 
-					$data['updated_at']
+					$data['updated_at'], 
+					((isset($data['dataStreamPreset']) && !is_null($data['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+						$this->apiClient, 
+						new DataStreamPreset(
+							$this->apiClient, 
+							$data['dataStreamPreset']['data']['id'], 
+							$data['dataStreamPreset']['data']['data_stream_decoder_id'], 
+							$data['dataStreamPreset']['data']['name'], 
+							$data['dataStreamPreset']['data']['created_at'], 
+							$data['dataStreamPreset']['data']['updated_at'], 
+							((isset($data['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($data['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+								$this->apiClient, 
+								new DataStreamDecoder(
+									$this->apiClient, 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+									$data['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+								)
+							)) : null)
+						)
+					)) : null)
 				); 
 			}, $requestBody['data']), 
 			new Meta(
@@ -201,7 +228,30 @@ class DataStreamPresetFieldManager
 				$requestBody['data']['searchable'], 
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				((isset($requestBody['data']['dataStreamPreset']) && !is_null($requestBody['data']['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+					$this->apiClient, 
+					new DataStreamPreset(
+						$this->apiClient, 
+						$requestBody['data']['dataStreamPreset']['data']['id'], 
+						$requestBody['data']['dataStreamPreset']['data']['data_stream_decoder_id'], 
+						$requestBody['data']['dataStreamPreset']['data']['name'], 
+						$requestBody['data']['dataStreamPreset']['data']['created_at'], 
+						$requestBody['data']['dataStreamPreset']['data']['updated_at'], 
+						((isset($requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+							$this->apiClient, 
+							new DataStreamDecoder(
+								$this->apiClient, 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+							)
+						)) : null)
+					)
+				)) : null)
 			)
 		);
 
@@ -269,7 +319,30 @@ class DataStreamPresetFieldManager
 				$requestBody['data']['searchable'], 
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				((isset($requestBody['data']['dataStreamPreset']) && !is_null($requestBody['data']['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+					$this->apiClient, 
+					new DataStreamPreset(
+						$this->apiClient, 
+						$requestBody['data']['dataStreamPreset']['data']['id'], 
+						$requestBody['data']['dataStreamPreset']['data']['data_stream_decoder_id'], 
+						$requestBody['data']['dataStreamPreset']['data']['name'], 
+						$requestBody['data']['dataStreamPreset']['data']['created_at'], 
+						$requestBody['data']['dataStreamPreset']['data']['updated_at'], 
+						((isset($requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+							$this->apiClient, 
+							new DataStreamDecoder(
+								$this->apiClient, 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+							)
+						)) : null)
+					)
+				)) : null)
 			)
 		);
 
@@ -344,7 +417,30 @@ class DataStreamPresetFieldManager
 				$requestBody['data']['searchable'], 
 				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['updated_at'], 
+				((isset($requestBody['data']['dataStreamPreset']) && !is_null($requestBody['data']['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+					$this->apiClient, 
+					new DataStreamPreset(
+						$this->apiClient, 
+						$requestBody['data']['dataStreamPreset']['data']['id'], 
+						$requestBody['data']['dataStreamPreset']['data']['data_stream_decoder_id'], 
+						$requestBody['data']['dataStreamPreset']['data']['name'], 
+						$requestBody['data']['dataStreamPreset']['data']['created_at'], 
+						$requestBody['data']['dataStreamPreset']['data']['updated_at'], 
+						((isset($requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+							$this->apiClient, 
+							new DataStreamDecoder(
+								$this->apiClient, 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+								$requestBody['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+							)
+						)) : null)
+					)
+				)) : null)
 			)
 		);
 

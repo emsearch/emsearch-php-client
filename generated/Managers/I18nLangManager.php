@@ -4,21 +4,19 @@ namespace emsearch\Api\Managers;
 
 use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\DataStreamPresetListResponse;
+use emsearch\Api\Resources\I18nLangListResponse;
 use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\DataStreamPresetResponse;
-use emsearch\Api\Resources\DataStreamPreset;
-use emsearch\Api\Resources\DataStreamDecoderResponse;
-use emsearch\Api\Resources\DataStreamDecoder;
+use emsearch\Api\Resources\I18nLangResponse;
+use emsearch\Api\Resources\I18nLang;
 use emsearch\Api\Resources\Meta;
 use emsearch\Api\Resources\Pagination;
 
 /**
- * DataStreamPreset manager class
+ * I18nLang manager class
  * 
  * @package emsearch\Api\Managers
  */
-class DataStreamPresetManager 
+class I18nLangManager 
 {
 	/**
 	 * API client
@@ -28,7 +26,7 @@ class DataStreamPresetManager
 	protected $apiClient;
 
 	/**
-	 * DataStreamPreset manager class constructor
+	 * I18nLang manager class constructor
 	 *
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 */
@@ -48,7 +46,7 @@ class DataStreamPresetManager
 	}
 
 	/**
-	 * Show data stream preset list
+	 * Show i18n lang list
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
@@ -58,13 +56,13 @@ class DataStreamPresetManager
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return DataStreamPresetListResponse
+	 * @return I18nLangListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
 	public function all($include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routeUrl = '/api/dataStreamPreset';
+		$routeUrl = '/api/i18nLang/search';
 
 		$queryParameters = [];
 
@@ -109,28 +107,13 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetListResponse(
+		$response = new I18nLangListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new DataStreamPreset(
+				return new I18nLang(
 					$this->apiClient, 
 					$data['id'], 
-					$data['data_stream_decoder_id'], 
-					$data['name'], 
-					$data['created_at'], 
-					$data['updated_at'], 
-					((isset($data['dataStreamDecoder']) && !is_null($data['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-						$this->apiClient, 
-						new DataStreamDecoder(
-							$this->apiClient, 
-							$data['dataStreamDecoder']['data']['id'], 
-							$data['dataStreamDecoder']['data']['name'], 
-							$data['dataStreamDecoder']['data']['class_name'], 
-							$data['dataStreamDecoder']['data']['file_mime_type'], 
-							$data['dataStreamDecoder']['data']['created_at'], 
-							$data['dataStreamDecoder']['data']['updated_at']
-						)
-					)) : null)
+					$data['description']
 				); 
 			}, $requestBody['data']), 
 			new Meta(
@@ -151,24 +134,24 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Create and store new data stream preset
+	 * Create and store new i18n lang
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $data_stream_decoder_id Format: uuid.
-	 * @param string $name
+	 * @param string $id
+	 * @param string $description
 	 * 
-	 * @return DataStreamPresetResponse
+	 * @return I18nLangResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($data_stream_decoder_id, $name)
+	public function create($id, $description)
 	{
-		$routeUrl = '/api/dataStreamPreset';
+		$routeUrl = '/api/i18nLang';
 
 		$bodyParameters = [];
-		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
-		$bodyParameters['name'] = $name;
+		$bodyParameters['id'] = $id;
+		$bodyParameters['description'] = $description;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -191,27 +174,12 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetResponse(
+		$response = new I18nLangResponse(
 			$this->apiClient, 
-			new DataStreamPreset(
+			new I18nLang(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
-				$requestBody['data']['name'], 
-				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at'], 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
-				)) : null)
+				$requestBody['data']['description']
 			)
 		);
 
@@ -219,23 +187,23 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Get specified data stream preset
+	 * Get specified i18n lang
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
-	 * @param string $dataStreamPresetId Data stream preset UUID
+	 * @param string $i18nLangId I18n lang UUID
 	 * @param string $include Include responses : {include1},{include2,{include3}[...]
 	 * 
-	 * @return DataStreamPresetResponse
+	 * @return I18nLangResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function get($dataStreamPresetId, $include = null)
+	public function get($i18nLangId, $include = null)
 	{
-		$routePath = '/api/dataStreamPreset/{dataStreamPresetId}';
+		$routePath = '/api/i18nLang/{i18nLangId}';
 
 		$pathReplacements = [
-			'{dataStreamPresetId}' => $dataStreamPresetId,
+			'{i18nLangId}' => $i18nLangId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
@@ -267,27 +235,12 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetResponse(
+		$response = new I18nLangResponse(
 			$this->apiClient, 
-			new DataStreamPreset(
+			new I18nLang(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
-				$requestBody['data']['name'], 
-				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at'], 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
-				)) : null)
+				$requestBody['data']['description']
 			)
 		);
 
@@ -295,31 +248,29 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Update a data stream preset
+	 * Update a i18n lang
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $dataStreamPresetId Data stream preset UUID
-	 * @param string $data_stream_decoder_id Format: uuid.
-	 * @param string $name
+	 * @param string $i18nLangId I18n lang UUID
+	 * @param string $description
 	 * 
-	 * @return DataStreamPresetResponse
+	 * @return I18nLangResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($dataStreamPresetId, $data_stream_decoder_id, $name)
+	public function update($i18nLangId, $description)
 	{
-		$routePath = '/api/dataStreamPreset/{dataStreamPresetId}';
+		$routePath = '/api/i18nLang/{i18nLangId}';
 
 		$pathReplacements = [
-			'{dataStreamPresetId}' => $dataStreamPresetId,
+			'{i18nLangId}' => $i18nLangId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
-		$bodyParameters['name'] = $name;
+		$bodyParameters['description'] = $description;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -342,27 +293,12 @@ class DataStreamPresetManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new DataStreamPresetResponse(
+		$response = new I18nLangResponse(
 			$this->apiClient, 
-			new DataStreamPreset(
+			new I18nLang(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['data_stream_decoder_id'], 
-				$requestBody['data']['name'], 
-				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at'], 
-				((isset($requestBody['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-					$this->apiClient, 
-					new DataStreamDecoder(
-						$this->apiClient, 
-						$requestBody['data']['dataStreamDecoder']['data']['id'], 
-						$requestBody['data']['dataStreamDecoder']['data']['name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['class_name'], 
-						$requestBody['data']['dataStreamDecoder']['data']['file_mime_type'], 
-						$requestBody['data']['dataStreamDecoder']['data']['created_at'], 
-						$requestBody['data']['dataStreamDecoder']['data']['updated_at']
-					)
-				)) : null)
+				$requestBody['data']['description']
 			)
 		);
 
@@ -370,22 +306,24 @@ class DataStreamPresetManager
 	}
 	
 	/**
-	 * Delete specified data stream preset
+	 * Delete specified i18n Lang
+	 * 
+	 * <aside class="warning">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.</aside>
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
-	 * @param string $dataStreamPresetId Data stream preset UUID
+	 * @param string $i18nLangId I18n lang UUID
 	 * 
 	 * @return ErrorResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function delete($dataStreamPresetId)
+	public function delete($i18nLangId)
 	{
-		$routePath = '/api/dataStreamPreset/{dataStreamPresetId}';
+		$routePath = '/api/i18nLang/{i18nLangId}';
 
 		$pathReplacements = [
-			'{dataStreamPresetId}' => $dataStreamPresetId,
+			'{i18nLangId}' => $i18nLangId,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
