@@ -8323,6 +8323,54 @@
                     }
                 }
             },
+            "SearchPagination": {
+                "required": [
+                    "total",
+                    "count",
+                    "per_page",
+                    "current_page",
+                    "total_pages"
+                ],
+                "properties": {
+                    "total": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 434
+                    },
+                    "count": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 10
+                    },
+                    "per_page": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 10
+                    },
+                    "current_page": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "total_pages": {
+                        "minimum": 0,
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 44
+                    }
+                }
+            },
+            "SearchMeta": {
+                "properties": {
+                    "pagination": {
+                        "$ref": "#\/components\/schemas\/SearchPagination"
+                    }
+                }
+            },
             "Project": {
                 "required": [
                     "id",
@@ -9360,7 +9408,7 @@
                         "description": "Search response data"
                     },
                     "meta": {
-                        "$ref": "#\/components\/schemas\/Meta"
+                        "$ref": "#\/components\/schemas\/SearchMeta"
                     }
                 }
             }

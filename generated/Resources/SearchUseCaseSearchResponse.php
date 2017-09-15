@@ -27,7 +27,7 @@ class SearchUseCaseSearchResponse
 	public $data;
 
 	/**
-	 * @var Meta
+	 * @var SearchMeta
 	 */
 	public $meta;
 
@@ -36,7 +36,7 @@ class SearchUseCaseSearchResponse
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 * @param object $data Search response data
-	 * @param Meta $meta
+	 * @param SearchMeta $meta
 	 */
 	public function __construct(ApiClient $apiClient, $data = null, $meta = null)
 	{

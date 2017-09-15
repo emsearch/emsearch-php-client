@@ -150,16 +150,15 @@ class SearchUseCase
 		$response = new SearchUseCaseSearchResponse(
 			$this->apiClient, 
 			$requestBody['data'], 
-			new Meta(
+			new SearchMeta(
 				$this->apiClient, 
-				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new SearchPagination(
 					$this->apiClient, 
 					$requestBody['meta']['pagination']['total'], 
 					$requestBody['meta']['pagination']['count'], 
 					$requestBody['meta']['pagination']['per_page'], 
 					$requestBody['meta']['pagination']['current_page'], 
-					$requestBody['meta']['pagination']['total_pages'], 
-					$requestBody['meta']['pagination']['links']
+					$requestBody['meta']['pagination']['total_pages']
 				)) : null)
 			)
 		);
