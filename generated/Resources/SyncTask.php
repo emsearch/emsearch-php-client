@@ -329,4 +329,264 @@ class SyncTask
 
 		return $response;
 	}
+	
+	/**
+	 * Sync task sync task children list
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param string $search Search words
+	 * @param int $page Format: int32. Pagination : Page number
+	 * @param int $limit Format: int32. Pagination : Maximum entries per page
+	 * @param string $order_by Order by : {field},[asc|desc]
+	 * 
+	 * @return SyncTaskListResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function getChildrenSyncTasks($search = null, $page = null, $limit = null, $order_by = null)
+	{
+		$routePath = '/api/syncTask/{syncTaskId}/children';
+
+		$pathReplacements = [
+			'{syncTaskId}' => $this->id,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$queryParameters = [];
+
+		if (!is_null($search)) {
+			$queryParameters['search'] = $search;
+		}
+
+		if (!is_null($page)) {
+			$queryParameters['page'] = $page;
+		}
+
+		if (!is_null($limit)) {
+			$queryParameters['limit'] = $limit;
+		}
+
+		if (!is_null($order_by)) {
+			$queryParameters['order_by'] = $order_by;
+		}
+
+		$requestOptions = [];
+		$requestOptions['query'] = $queryParameters;
+
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new SyncTaskListResponse(
+			$this->apiClient, 
+			array_map(function($data) {
+				return new SyncTask(
+					$this->apiClient, 
+					$data['id'], 
+					(isset($data['sync_task_id']) ? $data['sync_task_id'] : null), 
+					$data['sync_task_type_id'], 
+					$data['sync_task_status_id'], 
+					$data['created_by_user_id'], 
+					$data['project_id'], 
+					$data['planned_at'], 
+					$data['created_at'], 
+					$data['updated_at'], 
+					$data['sync_task_logs_count'], 
+					$data['children_sync_tasks_count'], 
+					((isset($data['createdByUser']) && !is_null($data['createdByUser'])) ? (new UserResponse(
+						$this->apiClient, 
+						new User(
+							$this->apiClient, 
+							$data['createdByUser']['data']['id'], 
+							$data['createdByUser']['data']['user_group_id'], 
+							$data['createdByUser']['data']['name'], 
+							$data['createdByUser']['data']['email'], 
+							$data['createdByUser']['data']['created_at'], 
+							$data['createdByUser']['data']['updated_at']
+						)
+					)) : null), 
+					((isset($data['project']) && !is_null($data['project'])) ? (new ProjectResponse(
+						$this->apiClient, 
+						new Project(
+							$this->apiClient, 
+							$data['project']['data']['id'], 
+							$data['project']['data']['search_engine_id'], 
+							$data['project']['data']['data_stream_id'], 
+							$data['project']['data']['name'], 
+							$data['project']['data']['created_at'], 
+							$data['project']['data']['updated_at'], 
+							((isset($data['project']['data']['dataStream']) && !is_null($data['project']['data']['dataStream'])) ? (new DataStreamResponse(
+								$this->apiClient, 
+								new DataStream(
+									$this->apiClient, 
+									$data['project']['data']['dataStream']['data']['id'], 
+									$data['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
+									$data['project']['data']['dataStream']['data']['name'], 
+									$data['project']['data']['dataStream']['data']['feed_url'], 
+									$data['project']['data']['dataStream']['data']['created_at'], 
+									$data['project']['data']['dataStream']['data']['updated_at'], 
+									null, 
+									((isset($data['project']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($data['project']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+										$this->apiClient, 
+										new DataStreamDecoder(
+											$this->apiClient, 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+											$data['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+										)
+									)) : null)
+								)
+							)) : null), 
+							((isset($data['project']['data']['searchEngine']) && !is_null($data['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
+								$this->apiClient, 
+								new SearchEngine(
+									$this->apiClient, 
+									$data['project']['data']['searchEngine']['data']['id'], 
+									$data['project']['data']['searchEngine']['data']['name'], 
+									$data['project']['data']['searchEngine']['data']['class_name'], 
+									$data['project']['data']['searchEngine']['data']['created_at'], 
+									$data['project']['data']['searchEngine']['data']['updated_at'], 
+									(isset($data['project']['data']['searchEngine']['data']['projects_count']) ? $data['projects_count'] : null)
+								)
+							)) : null)
+						)
+					)) : null)
+				); 
+			}, $requestBody['data']), 
+			new Meta(
+				$this->apiClient, 
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)) : null)
+			)
+		);
+
+		return $response;
+	}
+	
+	/**
+	 * Sync task sync task logs list
+	 * 
+	 * You can specify a GET parameter `public` to filter results (Only allowed for `Developer` and `Support` users).
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param boolean $public
+	 * @param string $search Search words
+	 * @param int $page Format: int32. Pagination : Page number
+	 * @param int $limit Format: int32. Pagination : Maximum entries per page
+	 * @param string $order_by Order by : {field},[asc|desc]
+	 * 
+	 * @return SyncTaskLogListResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function getLogs($public = null, $search = null, $page = null, $limit = null, $order_by = null)
+	{
+		$routePath = '/api/syncTask/{syncTaskId}/syncTaskLog';
+
+		$pathReplacements = [
+			'{syncTaskId}' => $this->id,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$queryParameters = [];
+
+		if (!is_null($public)) {
+			$queryParameters['public'] = $public;
+		}
+
+		if (!is_null($search)) {
+			$queryParameters['search'] = $search;
+		}
+
+		if (!is_null($page)) {
+			$queryParameters['page'] = $page;
+		}
+
+		if (!is_null($limit)) {
+			$queryParameters['limit'] = $limit;
+		}
+
+		if (!is_null($order_by)) {
+			$queryParameters['order_by'] = $order_by;
+		}
+
+		$requestOptions = [];
+		$requestOptions['query'] = $queryParameters;
+
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new SyncTaskLogListResponse(
+			$this->apiClient, 
+			array_map(function($data) {
+				return new SyncTaskLog(
+					$this->apiClient, 
+					$data['id'], 
+					$data['sync_task_status_id'], 
+					$data['sync_task_id'], 
+					$data['entry'], 
+					$data['public'], 
+					$data['created_at'], 
+					$data['updated_at']
+				); 
+			}, $requestBody['data']), 
+			new Meta(
+				$this->apiClient, 
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)) : null)
+			)
+		);
+
+		return $response;
+	}
 }

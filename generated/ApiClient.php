@@ -9,8 +9,15 @@ use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Middleware;
 use emsearch\Api\Managers\SearchUseCaseManager;
 use emsearch\Api\Managers\MeManager;
+use emsearch\Api\Managers\UserGroupManager;
+use emsearch\Api\Managers\UserManager;
 use emsearch\Api\Managers\ProjectManager;
+use emsearch\Api\Managers\SyncItemManager;
 use emsearch\Api\Managers\SyncTaskManager;
+use emsearch\Api\Managers\SyncTaskTypeManager;
+use emsearch\Api\Managers\SyncTaskTypeVersionManager;
+use emsearch\Api\Managers\SyncTaskStatusManager;
+use emsearch\Api\Managers\SyncTaskStatusVersionManager;
 use emsearch\Api\Managers\DataStreamManager;
 use emsearch\Api\Managers\DataStreamFieldManager;
 use emsearch\Api\Managers\DataStreamHasI18nLangManager;
@@ -20,6 +27,11 @@ use emsearch\Api\Managers\DataStreamPresetManager;
 use emsearch\Api\Managers\DataStreamPresetFieldManager;
 use emsearch\Api\Managers\I18nLangManager;
 use emsearch\Api\Managers\SearchEngineManager;
+use emsearch\Api\Managers\SearchUseCaseFieldManager;
+use emsearch\Api\Managers\SearchUseCasePresetManager;
+use emsearch\Api\Managers\SearchUseCasePresetFieldManager;
+use emsearch\Api\Managers\WidgetManager;
+use emsearch\Api\Managers\WidgetPresetManager;
 
 /**
  * emsearch API client class (version 1.0)
@@ -71,6 +83,20 @@ class ApiClient
 	protected $meManager;
 
 	/**
+	 * UserGroup manager
+	 *
+	 * @var UserGroupManager
+	 */
+	protected $userGroupManager;
+
+	/**
+	 * User manager
+	 *
+	 * @var UserManager
+	 */
+	protected $userManager;
+
+	/**
 	 * Project manager
 	 *
 	 * @var ProjectManager
@@ -78,11 +104,46 @@ class ApiClient
 	protected $projectManager;
 
 	/**
+	 * SyncItem manager
+	 *
+	 * @var SyncItemManager
+	 */
+	protected $syncItemManager;
+
+	/**
 	 * SyncTask manager
 	 *
 	 * @var SyncTaskManager
 	 */
 	protected $syncTaskManager;
+
+	/**
+	 * SyncTaskType manager
+	 *
+	 * @var SyncTaskTypeManager
+	 */
+	protected $syncTaskTypeManager;
+
+	/**
+	 * SyncTaskTypeVersion manager
+	 *
+	 * @var SyncTaskTypeVersionManager
+	 */
+	protected $syncTaskTypeVersionManager;
+
+	/**
+	 * SyncTaskStatus manager
+	 *
+	 * @var SyncTaskStatusManager
+	 */
+	protected $syncTaskStatusManager;
+
+	/**
+	 * SyncTaskStatusVersion manager
+	 *
+	 * @var SyncTaskStatusVersionManager
+	 */
+	protected $syncTaskStatusVersionManager;
 
 	/**
 	 * DataStream manager
@@ -148,6 +209,41 @@ class ApiClient
 	protected $searchEngineManager;
 
 	/**
+	 * SearchUseCaseField manager
+	 *
+	 * @var SearchUseCaseFieldManager
+	 */
+	protected $searchUseCaseFieldManager;
+
+	/**
+	 * SearchUseCasePreset manager
+	 *
+	 * @var SearchUseCasePresetManager
+	 */
+	protected $searchUseCasePresetManager;
+
+	/**
+	 * SearchUseCasePresetField manager
+	 *
+	 * @var SearchUseCasePresetFieldManager
+	 */
+	protected $searchUseCasePresetFieldManager;
+
+	/**
+	 * Widget manager
+	 *
+	 * @var WidgetManager
+	 */
+	protected $widgetManager;
+
+	/**
+	 * WidgetPreset manager
+	 *
+	 * @var WidgetPresetManager
+	 */
+	protected $widgetPresetManager;
+
+	/**
 	 * API Client class constructor
 	 *
 	 * @param string $bearerToken Bearer authentication access token
@@ -183,8 +279,15 @@ class ApiClient
 
 		$this->searchUseCaseManager = new SearchUseCaseManager($this);
 		$this->meManager = new MeManager($this);
+		$this->userGroupManager = new UserGroupManager($this);
+		$this->userManager = new UserManager($this);
 		$this->projectManager = new ProjectManager($this);
+		$this->syncItemManager = new SyncItemManager($this);
 		$this->syncTaskManager = new SyncTaskManager($this);
+		$this->syncTaskTypeManager = new SyncTaskTypeManager($this);
+		$this->syncTaskTypeVersionManager = new SyncTaskTypeVersionManager($this);
+		$this->syncTaskStatusManager = new SyncTaskStatusManager($this);
+		$this->syncTaskStatusVersionManager = new SyncTaskStatusVersionManager($this);
 		$this->dataStreamManager = new DataStreamManager($this);
 		$this->dataStreamFieldManager = new DataStreamFieldManager($this);
 		$this->dataStreamHasI18nLangManager = new DataStreamHasI18nLangManager($this);
@@ -194,6 +297,11 @@ class ApiClient
 		$this->dataStreamPresetFieldManager = new DataStreamPresetFieldManager($this);
 		$this->i18nLangManager = new I18nLangManager($this);
 		$this->searchEngineManager = new SearchEngineManager($this);
+		$this->searchUseCaseFieldManager = new SearchUseCaseFieldManager($this);
+		$this->searchUseCasePresetManager = new SearchUseCasePresetManager($this);
+		$this->searchUseCasePresetFieldManager = new SearchUseCasePresetFieldManager($this);
+		$this->widgetManager = new WidgetManager($this);
+		$this->widgetPresetManager = new WidgetPresetManager($this);
 	}
 
 	/**
@@ -247,6 +355,26 @@ class ApiClient
 	}
 	
 	/**
+	 * Return the UserGroup manager
+	 *
+	 * @return UserGroupManager
+	 */
+	public function UserGroupManager()
+	{
+		return $this->userGroupManager;
+	}
+	
+	/**
+	 * Return the User manager
+	 *
+	 * @return UserManager
+	 */
+	public function UserManager()
+	{
+		return $this->userManager;
+	}
+	
+	/**
 	 * Return the Project manager
 	 *
 	 * @return ProjectManager
@@ -257,6 +385,16 @@ class ApiClient
 	}
 	
 	/**
+	 * Return the SyncItem manager
+	 *
+	 * @return SyncItemManager
+	 */
+	public function SyncItemManager()
+	{
+		return $this->syncItemManager;
+	}
+	
+	/**
 	 * Return the SyncTask manager
 	 *
 	 * @return SyncTaskManager
@@ -264,6 +402,46 @@ class ApiClient
 	public function SyncTaskManager()
 	{
 		return $this->syncTaskManager;
+	}
+	
+	/**
+	 * Return the SyncTaskType manager
+	 *
+	 * @return SyncTaskTypeManager
+	 */
+	public function SyncTaskTypeManager()
+	{
+		return $this->syncTaskTypeManager;
+	}
+	
+	/**
+	 * Return the SyncTaskTypeVersion manager
+	 *
+	 * @return SyncTaskTypeVersionManager
+	 */
+	public function SyncTaskTypeVersionManager()
+	{
+		return $this->syncTaskTypeVersionManager;
+	}
+	
+	/**
+	 * Return the SyncTaskStatus manager
+	 *
+	 * @return SyncTaskStatusManager
+	 */
+	public function SyncTaskStatusManager()
+	{
+		return $this->syncTaskStatusManager;
+	}
+	
+	/**
+	 * Return the SyncTaskStatusVersion manager
+	 *
+	 * @return SyncTaskStatusVersionManager
+	 */
+	public function SyncTaskStatusVersionManager()
+	{
+		return $this->syncTaskStatusVersionManager;
 	}
 	
 	/**
@@ -354,5 +532,55 @@ class ApiClient
 	public function SearchEngineManager()
 	{
 		return $this->searchEngineManager;
+	}
+	
+	/**
+	 * Return the SearchUseCaseField manager
+	 *
+	 * @return SearchUseCaseFieldManager
+	 */
+	public function SearchUseCaseFieldManager()
+	{
+		return $this->searchUseCaseFieldManager;
+	}
+	
+	/**
+	 * Return the SearchUseCasePreset manager
+	 *
+	 * @return SearchUseCasePresetManager
+	 */
+	public function SearchUseCasePresetManager()
+	{
+		return $this->searchUseCasePresetManager;
+	}
+	
+	/**
+	 * Return the SearchUseCasePresetField manager
+	 *
+	 * @return SearchUseCasePresetFieldManager
+	 */
+	public function SearchUseCasePresetFieldManager()
+	{
+		return $this->searchUseCasePresetFieldManager;
+	}
+	
+	/**
+	 * Return the Widget manager
+	 *
+	 * @return WidgetManager
+	 */
+	public function WidgetManager()
+	{
+		return $this->widgetManager;
+	}
+	
+	/**
+	 * Return the WidgetPreset manager
+	 *
+	 * @return WidgetPresetManager
+	 */
+	public function WidgetPresetManager()
+	{
+		return $this->widgetPresetManager;
 	}
 }

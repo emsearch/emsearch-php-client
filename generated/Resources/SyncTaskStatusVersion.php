@@ -6,11 +6,11 @@ use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
 
 /**
- * SyncTaskTypeVersion resource class
+ * SyncTaskStatusVersion resource class
  * 
  * @package emsearch\Api\Resources
  */
-class SyncTaskTypeVersion 
+class SyncTaskStatusVersion 
 {
 	/**
 	 * API client
@@ -24,7 +24,7 @@ class SyncTaskTypeVersion
 	 * 
 	 * @var string
 	 */
-	public $sync_task_type_id;
+	public $sync_task_status_id;
 
 	/**
 	 * @var string
@@ -51,50 +51,50 @@ class SyncTaskTypeVersion
 	public $updated_at;
 
 	/**
-	 * SyncTaskTypeVersion resource class constructor
+	 * SyncTaskStatusVersion resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
-	 * @param string $sync_task_type_id Format: uuid.
+	 * @param string $sync_task_status_id Format: uuid.
 	 * @param string $i18n_lang_id
 	 * @param string $description
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
 	 */
-	public function __construct(ApiClient $apiClient, $sync_task_type_id = null, $i18n_lang_id = null, $description = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $sync_task_status_id = null, $i18n_lang_id = null, $description = null, $created_at = null, $updated_at = null)
 	{
 		$this->apiClient = $apiClient;
-		$this->sync_task_type_id = $sync_task_type_id;
+		$this->sync_task_status_id = $sync_task_status_id;
 		$this->i18n_lang_id = $i18n_lang_id;
 		$this->description = $description;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
 	}
 	/**
-	 * Update a specified sync task type version
+	 * Update a specified sync task status version
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $sync_task_type_id
+	 * @param string $sync_task_status_id
 	 * @param string $i18n_lang_id
 	 * @param string $description
 	 * 
-	 * @return SyncTaskTypeVersionResponse
+	 * @return SyncTaskStatusVersionResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($sync_task_type_id, $i18n_lang_id, $description)
+	public function update($sync_task_status_id, $i18n_lang_id, $description)
 	{
-		$routePath = '/api/syncTaskTypeVersion/{syncTaskTypeId},{i18nLangId}';
+		$routePath = '/api/syncTaskStatusVersion/{syncTaskStatusId},{i18nLangId}';
 
 		$pathReplacements = [
-			'{syncTaskTypeId}' => $this->sync_task_type_id,
+			'{syncTaskStatusId}' => $this->sync_task_status_id,
 			'{i18nLangId}' => $this->i18n_lang_id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['sync_task_type_id'] = $sync_task_type_id;
+		$bodyParameters['sync_task_status_id'] = $sync_task_status_id;
 		$bodyParameters['i18n_lang_id'] = $i18n_lang_id;
 		$bodyParameters['description'] = $description;
 
@@ -119,15 +119,15 @@ class SyncTaskTypeVersion
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new SyncTaskTypeVersionResponse(
+		$response = new SyncTaskStatusVersionResponse(
 			$this->apiClient, 
-			new SyncTaskTypeVersion(
+			new SyncTaskStatusVersion(
 				$this->apiClient, 
-				$requestBody['data']['sync_task_type_id'], 
+				$requestBody['data']['sync_task_status_id'], 
 				$requestBody['data']['i18n_lang_id'], 
-				$requestBody['data']['description'], 
-				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				(isset($requestBody['data']['description']) ? $requestBody['data']['description'] : null), 
+				(isset($requestBody['data']['created_at']) ? $requestBody['data']['created_at'] : null), 
+				(isset($requestBody['data']['updated_at']) ? $requestBody['data']['updated_at'] : null)
 			)
 		);
 
@@ -135,7 +135,7 @@ class SyncTaskTypeVersion
 	}
 	
 	/**
-	 * Delete specified sync task type version
+	 * Delete specified sync task status version
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
@@ -145,10 +145,10 @@ class SyncTaskTypeVersion
 	 */
 	public function delete()
 	{
-		$routePath = '/api/syncTaskTypeVersion/{syncTaskTypeId},{i18nLangId}';
+		$routePath = '/api/syncTaskStatusVersion/{syncTaskStatusId},{i18nLangId}';
 
 		$pathReplacements = [
-			'{syncTaskTypeId}' => $this->sync_task_type_id,
+			'{syncTaskStatusId}' => $this->sync_task_status_id,
 			'{i18nLangId}' => $this->i18n_lang_id,
 		];
 

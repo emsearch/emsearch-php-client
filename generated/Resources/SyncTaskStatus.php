@@ -6,11 +6,11 @@ use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
 
 /**
- * User resource class
+ * SyncTaskStatus resource class
  * 
  * @package emsearch\Api\Resources
  */
-class User 
+class SyncTaskStatus 
 {
 	/**
 	 * API client
@@ -20,95 +20,71 @@ class User
 	protected $apiClient;
 
 	/**
-	 * Format: uuid.
-	 * 
 	 * @var string
 	 */
 	public $id;
 
 	/**
-	 * Format: uuid.
+	 * Format: int32.
 	 * 
-	 * @var string
+	 * @var int
 	 */
-	public $user_group_id;
+	public $sync_tasks_count;
 
 	/**
-	 * @var string
-	 */
-	public $name;
-
-	/**
-	 * Format: email.
+	 * Format: int32.
 	 * 
-	 * @var string
+	 * @var int
 	 */
-	public $email;
+	public $sync_task_logs_count;
 
 	/**
-	 * Format: date-time.
+	 * Format: int32.
 	 * 
-	 * @var string
+	 * @var int
 	 */
-	public $created_at;
+	public $sync_task_status_versions_count;
 
 	/**
-	 * Format: date-time.
-	 * 
-	 * @var string
-	 */
-	public $updated_at;
-
-	/**
-	 * User resource class constructor
+	 * SyncTaskStatus resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
-	 * @param string $id Format: uuid.
-	 * @param string $user_group_id Format: uuid.
-	 * @param string $name
-	 * @param string $email Format: email.
-	 * @param string $created_at Format: date-time.
-	 * @param string $updated_at Format: date-time.
+	 * @param string $id
+	 * @param int $sync_tasks_count Format: int32.
+	 * @param int $sync_task_logs_count Format: int32.
+	 * @param int $sync_task_status_versions_count Format: int32.
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $user_group_id = null, $name = null, $email = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $id = null, $sync_tasks_count = null, $sync_task_logs_count = null, $sync_task_status_versions_count = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;
-		$this->user_group_id = $user_group_id;
-		$this->name = $name;
-		$this->email = $email;
-		$this->created_at = $created_at;
-		$this->updated_at = $updated_at;
+		$this->sync_tasks_count = $sync_tasks_count;
+		$this->sync_task_logs_count = $sync_task_logs_count;
+		$this->sync_task_status_versions_count = $sync_task_status_versions_count;
 	}
 	/**
-	 * Update a specified user
+	 * Update a sync task status
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $user_group_id
-	 * @param string $name
-	 * @param string $email Format: email.
-	 * @param string $password Format: password.
+	 * @param string $id
 	 * 
-	 * @return UserResponse
+	 * @return SyncTaskStatusResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($user_group_id, $name, $email, $password)
+	public function update($id)
 	{
-		$routePath = '/api/user/{userId}';
+		$routePath = '/api/syncTaskStatus/{syncTaskStatusId}';
 
 		$pathReplacements = [
-			'{userId}' => $this->id,
+			'{syncTaskStatusId}' => $this->id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['user_group_id'] = $user_group_id;
-		$bodyParameters['name'] = $name;
-		$bodyParameters['email'] = $email;
-		$bodyParameters['password'] = $password;
+		$bodyParameters['id'] = $id;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -131,16 +107,14 @@ class User
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new UserResponse(
+		$response = new SyncTaskStatusResponse(
 			$this->apiClient, 
-			new User(
+			new SyncTaskStatus(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['user_group_id'], 
-				$requestBody['data']['name'], 
-				$requestBody['data']['email'], 
-				$requestBody['data']['created_at'], 
-				$requestBody['data']['updated_at']
+				$requestBody['data']['sync_tasks_count'], 
+				$requestBody['data']['sync_task_logs_count'], 
+				$requestBody['data']['sync_task_status_versions_count']
 			)
 		);
 
@@ -148,10 +122,10 @@ class User
 	}
 	
 	/**
-	 * Delete specified user
+	 * Delete specified sync task status
 	 * 
-	 * All relationships between the user and his projects will be automatically deleted too.<br />
-	 * All projects owned by the user will be automatically deleted too.
+	 * The sync task status versions will be automatically deleted too.<br />
+	 * <aside class="warning">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.</aside>
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
@@ -161,10 +135,10 @@ class User
 	 */
 	public function delete()
 	{
-		$routePath = '/api/user/{userId}';
+		$routePath = '/api/syncTaskStatus/{syncTaskStatusId}';
 
 		$pathReplacements = [
-			'{userId}' => $this->id,
+			'{syncTaskStatusId}' => $this->id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
@@ -201,42 +175,30 @@ class User
 	}
 	
 	/**
-	 * User project list
-	 * 
-	 * You can specify a GET parameter `user_role_id` to filter results.
+	 * Sync task status sync task status versions list
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
-	 * @param string $user_role_id
-	 * @param string $include Include responses : {include1},{include2,{include3}[...]
 	 * @param string $search Search words
 	 * @param int $page Format: int32. Pagination : Page number
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return ProjectListResponse
+	 * @return SyncTaskStatusVersionListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function index($user_role_id = null, $include = null, $search = null, $page = null, $limit = null, $order_by = null)
+	public function getVersions($search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routePath = '/api/user/{userId}/project';
+		$routePath = '/api/syncTaskStatus/{syncTaskStatusId}/version';
 
 		$pathReplacements = [
-			'{userId}' => $this->id,
+			'{syncTaskStatusId}' => $this->id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$queryParameters = [];
-
-		if (!is_null($user_role_id)) {
-			$queryParameters['user_role_id'] = $user_role_id;
-		}
-
-		if (!is_null($include)) {
-			$queryParameters['include'] = $include;
-		}
 
 		if (!is_null($search)) {
 			$queryParameters['search'] = $search;
@@ -275,57 +237,16 @@ class User
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ProjectListResponse(
+		$response = new SyncTaskStatusVersionListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new Project(
+				return new SyncTaskStatusVersion(
 					$this->apiClient, 
-					$data['id'], 
-					$data['search_engine_id'], 
-					$data['data_stream_id'], 
-					$data['name'], 
-					$data['created_at'], 
-					$data['updated_at'], 
-					((isset($data['dataStream']) && !is_null($data['dataStream'])) ? (new DataStreamResponse(
-						$this->apiClient, 
-						new DataStream(
-							$this->apiClient, 
-							$data['dataStream']['data']['id'], 
-							$data['dataStream']['data']['data_stream_decoder_id'], 
-							$data['dataStream']['data']['name'], 
-							$data['dataStream']['data']['feed_url'], 
-							$data['dataStream']['data']['created_at'], 
-							$data['dataStream']['data']['updated_at'], 
-							((isset($data['dataStream']['data']['project']) && !is_null($data['dataStream']['data']['project'])) ? (new ProjectResponse(
-								$this->apiClient, 
-								null
-							)) : null), 
-							((isset($data['dataStream']['data']['dataStreamDecoder']) && !is_null($data['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
-								$this->apiClient, 
-								new DataStreamDecoder(
-									$this->apiClient, 
-									$data['dataStream']['data']['dataStreamDecoder']['data']['id'], 
-									$data['dataStream']['data']['dataStreamDecoder']['data']['name'], 
-									$data['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
-									$data['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
-									$data['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
-									$data['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
-								)
-							)) : null)
-						)
-					)) : null), 
-					((isset($data['searchEngine']) && !is_null($data['searchEngine'])) ? (new SearchEngineResponse(
-						$this->apiClient, 
-						new SearchEngine(
-							$this->apiClient, 
-							$data['searchEngine']['data']['id'], 
-							$data['searchEngine']['data']['name'], 
-							$data['searchEngine']['data']['class_name'], 
-							$data['searchEngine']['data']['created_at'], 
-							$data['searchEngine']['data']['updated_at'], 
-							(isset($data['searchEngine']['data']['projects_count']) ? $data['projects_count'] : null)
-						)
-					)) : null)
+					$data['sync_task_status_id'], 
+					$data['i18n_lang_id'], 
+					(isset($data['description']) ? $data['description'] : null), 
+					(isset($data['created_at']) ? $data['created_at'] : null), 
+					(isset($data['updated_at']) ? $data['updated_at'] : null)
 				); 
 			}, $requestBody['data']), 
 			new Meta(

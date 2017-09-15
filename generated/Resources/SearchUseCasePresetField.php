@@ -6,11 +6,11 @@ use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
 
 /**
- * WidgetPreset resource class
+ * SearchUseCasePresetField resource class
  * 
  * @package emsearch\Api\Resources
  */
-class WidgetPreset 
+class SearchUseCasePresetField 
 {
 	/**
 	 * API client
@@ -24,19 +24,29 @@ class WidgetPreset
 	 * 
 	 * @var string
 	 */
-	public $id;
+	public $search_use_case_preset_id;
 
 	/**
 	 * Format: uuid.
 	 * 
 	 * @var string
 	 */
-	public $search_use_case_preset_id;
+	public $data_stream_preset_field_id;
 
 	/**
 	 * @var string
 	 */
 	public $name;
+
+	/**
+	 * @var boolean
+	 */
+	public $searchable;
+
+	/**
+	 * @var boolean
+	 */
+	public $to_retrieve;
 
 	/**
 	 * Format: date-time.
@@ -58,51 +68,69 @@ class WidgetPreset
 	public $searchUseCasePreset;
 
 	/**
-	 * WidgetPreset resource class constructor
+	 * @var DataStreamPresetFieldResponse
+	 */
+	public $dataStreamPresetField;
+
+	/**
+	 * SearchUseCasePresetField resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
-	 * @param string $id Format: uuid.
 	 * @param string $search_use_case_preset_id Format: uuid.
+	 * @param string $data_stream_preset_field_id Format: uuid.
 	 * @param string $name
+	 * @param boolean $searchable
+	 * @param boolean $to_retrieve
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
 	 * @param SearchUseCasePresetResponse $searchUseCasePreset
+	 * @param DataStreamPresetFieldResponse $dataStreamPresetField
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $search_use_case_preset_id = null, $name = null, $created_at = null, $updated_at = null, $searchUseCasePreset = null)
+	public function __construct(ApiClient $apiClient, $search_use_case_preset_id = null, $data_stream_preset_field_id = null, $name = null, $searchable = null, $to_retrieve = null, $created_at = null, $updated_at = null, $searchUseCasePreset = null, $dataStreamPresetField = null)
 	{
 		$this->apiClient = $apiClient;
-		$this->id = $id;
 		$this->search_use_case_preset_id = $search_use_case_preset_id;
+		$this->data_stream_preset_field_id = $data_stream_preset_field_id;
 		$this->name = $name;
+		$this->searchable = $searchable;
+		$this->to_retrieve = $to_retrieve;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
 		$this->searchUseCasePreset = $searchUseCasePreset;
+		$this->dataStreamPresetField = $dataStreamPresetField;
 	}
 	/**
-	 * Update a widget preset
+	 * Update a specified search use case preset field
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
 	 * @param string $search_use_case_preset_id Format: uuid.
+	 * @param string $data_stream_preset_field_id Format: uuid.
 	 * @param string $name
+	 * @param boolean $searchable
+	 * @param boolean $to_retrieve
 	 * 
-	 * @return WidgetPresetResponse
+	 * @return SearchUseCasePresetFieldResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($search_use_case_preset_id, $name)
+	public function update($search_use_case_preset_id, $data_stream_preset_field_id, $name, $searchable, $to_retrieve)
 	{
-		$routePath = '/api/widgetPreset/{widgetPresetId}';
+		$routePath = '/api/searchUseCasePresetField/{searchUseCasePresetId},{dataStreamPresetFieldId}';
 
 		$pathReplacements = [
-			'{widgetPresetId}' => $this->id,
+			'{searchUseCasePresetId}' => $this->search_use_case_preset_id,
+			'{dataStreamPresetFieldId}' => $this->data_stream_preset_field_id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
 		$bodyParameters['search_use_case_preset_id'] = $search_use_case_preset_id;
+		$bodyParameters['data_stream_preset_field_id'] = $data_stream_preset_field_id;
 		$bodyParameters['name'] = $name;
+		$bodyParameters['searchable'] = $searchable;
+		$bodyParameters['to_retrieve'] = $to_retrieve;
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -125,13 +153,15 @@ class WidgetPreset
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new WidgetPresetResponse(
+		$response = new SearchUseCasePresetFieldResponse(
 			$this->apiClient, 
-			new WidgetPreset(
+			new SearchUseCasePresetField(
 				$this->apiClient, 
-				$requestBody['data']['id'], 
 				$requestBody['data']['search_use_case_preset_id'], 
+				$requestBody['data']['data_stream_preset_field_id'], 
 				$requestBody['data']['name'], 
+				$requestBody['data']['searchable'], 
+				$requestBody['data']['to_retrieve'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['searchUseCasePreset']) && !is_null($requestBody['data']['searchUseCasePreset'])) ? (new SearchUseCasePresetResponse(
@@ -168,6 +198,44 @@ class WidgetPreset
 							)
 						)) : null)
 					)
+				)) : null), 
+				((isset($requestBody['data']['dataStreamPresetField']) && !is_null($requestBody['data']['dataStreamPresetField'])) ? (new DataStreamPresetFieldResponse(
+					$this->apiClient, 
+					new DataStreamPresetField(
+						$this->apiClient, 
+						$requestBody['data']['dataStreamPresetField']['data']['id'], 
+						$requestBody['data']['dataStreamPresetField']['data']['data_stream_preset_id'], 
+						$requestBody['data']['dataStreamPresetField']['data']['name'], 
+						$requestBody['data']['dataStreamPresetField']['data']['path'], 
+						$requestBody['data']['dataStreamPresetField']['data']['versioned'], 
+						$requestBody['data']['dataStreamPresetField']['data']['searchable'], 
+						$requestBody['data']['dataStreamPresetField']['data']['to_retrieve'], 
+						$requestBody['data']['dataStreamPresetField']['data']['created_at'], 
+						$requestBody['data']['dataStreamPresetField']['data']['updated_at'], 
+						((isset($requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']) && !is_null($requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+							$this->apiClient, 
+							new DataStreamPreset(
+								$this->apiClient, 
+								$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['id'], 
+								$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['data_stream_decoder_id'], 
+								$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['name'], 
+								$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['created_at'], 
+								$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['updated_at'], 
+								((isset($requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+									$this->apiClient, 
+									new DataStreamDecoder(
+										$this->apiClient, 
+										$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+										$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+										$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+										$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+										$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+										$requestBody['data']['dataStreamPresetField']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+									)
+								)) : null)
+							)
+						)) : null)
+					)
 				)) : null)
 			)
 		);
@@ -176,7 +244,7 @@ class WidgetPreset
 	}
 	
 	/**
-	 * Delete specified widget preset
+	 * Delete specified search use case preset field
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
@@ -186,10 +254,11 @@ class WidgetPreset
 	 */
 	public function delete()
 	{
-		$routePath = '/api/widgetPreset/{widgetPresetId}';
+		$routePath = '/api/searchUseCasePresetField/{searchUseCasePresetId},{dataStreamPresetFieldId}';
 
 		$pathReplacements = [
-			'{widgetPresetId}' => $this->id,
+			'{searchUseCasePresetId}' => $this->search_use_case_preset_id,
+			'{dataStreamPresetFieldId}' => $this->data_stream_preset_field_id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);

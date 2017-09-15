@@ -327,4 +327,350 @@ class SearchUseCase
 
 		return $response;
 	}
+	
+	/**
+	 * Search use case search use case fields list
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param string $search Search words
+	 * @param int $page Format: int32. Pagination : Page number
+	 * @param int $limit Format: int32. Pagination : Maximum entries per page
+	 * @param string $order_by Order by : {field},[asc|desc]
+	 * 
+	 * @return SearchUseCaseFieldListResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function getFields($search = null, $page = null, $limit = null, $order_by = null)
+	{
+		$routePath = '/api/searchUseCase/{searchUseCaseId}/searchUseCaseField';
+
+		$pathReplacements = [
+			'{searchUseCaseId}' => $this->id,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$queryParameters = [];
+
+		if (!is_null($search)) {
+			$queryParameters['search'] = $search;
+		}
+
+		if (!is_null($page)) {
+			$queryParameters['page'] = $page;
+		}
+
+		if (!is_null($limit)) {
+			$queryParameters['limit'] = $limit;
+		}
+
+		if (!is_null($order_by)) {
+			$queryParameters['order_by'] = $order_by;
+		}
+
+		$requestOptions = [];
+		$requestOptions['query'] = $queryParameters;
+
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new SearchUseCaseFieldListResponse(
+			$this->apiClient, 
+			array_map(function($data) {
+				return new SearchUseCaseField(
+					$this->apiClient, 
+					$data['search_use_case_id'], 
+					$data['data_stream_field_id'], 
+					$data['name'], 
+					$data['searchable'], 
+					$data['to_retrieve'], 
+					$data['created_at'], 
+					$data['updated_at'], 
+					((isset($data['searchUseCase']) && !is_null($data['searchUseCase'])) ? (new SearchUseCaseResponse(
+						$this->apiClient, 
+						new SearchUseCase(
+							$this->apiClient, 
+							$data['searchUseCase']['data']['id'], 
+							(isset($data['searchUseCase']['data']['project_id']) ? $data['project_id'] : null), 
+							$data['searchUseCase']['data']['name'], 
+							$data['searchUseCase']['data']['created_at'], 
+							$data['searchUseCase']['data']['updated_at'], 
+							(isset($data['searchUseCase']['data']['search_use_case_fields_count']) ? $data['search_use_case_fields_count'] : null), 
+							((isset($data['searchUseCase']['data']['project']) && !is_null($data['searchUseCase']['data']['project'])) ? (new ProjectResponse(
+								$this->apiClient, 
+								new Project(
+									$this->apiClient, 
+									$data['searchUseCase']['data']['project']['data']['id'], 
+									$data['searchUseCase']['data']['project']['data']['search_engine_id'], 
+									$data['searchUseCase']['data']['project']['data']['data_stream_id'], 
+									$data['searchUseCase']['data']['project']['data']['name'], 
+									$data['searchUseCase']['data']['project']['data']['created_at'], 
+									$data['searchUseCase']['data']['project']['data']['updated_at'], 
+									((isset($data['searchUseCase']['data']['project']['data']['dataStream']) && !is_null($data['searchUseCase']['data']['project']['data']['dataStream'])) ? (new DataStreamResponse(
+										$this->apiClient, 
+										new DataStream(
+											$this->apiClient, 
+											$data['searchUseCase']['data']['project']['data']['dataStream']['data']['id'], 
+											$data['searchUseCase']['data']['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
+											$data['searchUseCase']['data']['project']['data']['dataStream']['data']['name'], 
+											$data['searchUseCase']['data']['project']['data']['dataStream']['data']['feed_url'], 
+											$data['searchUseCase']['data']['project']['data']['dataStream']['data']['created_at'], 
+											$data['searchUseCase']['data']['project']['data']['dataStream']['data']['updated_at'], 
+											null, 
+											((isset($data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+												$this->apiClient, 
+												new DataStreamDecoder(
+													$this->apiClient, 
+													$data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+													$data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+													$data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+													$data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+													$data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+													$data['searchUseCase']['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+												)
+											)) : null)
+										)
+									)) : null), 
+									((isset($data['searchUseCase']['data']['project']['data']['searchEngine']) && !is_null($data['searchUseCase']['data']['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
+										$this->apiClient, 
+										new SearchEngine(
+											$this->apiClient, 
+											$data['searchUseCase']['data']['project']['data']['searchEngine']['data']['id'], 
+											$data['searchUseCase']['data']['project']['data']['searchEngine']['data']['name'], 
+											$data['searchUseCase']['data']['project']['data']['searchEngine']['data']['class_name'], 
+											$data['searchUseCase']['data']['project']['data']['searchEngine']['data']['created_at'], 
+											$data['searchUseCase']['data']['project']['data']['searchEngine']['data']['updated_at'], 
+											(isset($data['searchUseCase']['data']['project']['data']['searchEngine']['data']['projects_count']) ? $data['projects_count'] : null)
+										)
+									)) : null)
+								)
+							)) : null)
+						)
+					)) : null), 
+					((isset($data['dataStreamField']) && !is_null($data['dataStreamField'])) ? (new DataStreamFieldResponse(
+						$this->apiClient, 
+						new DataStreamField(
+							$this->apiClient, 
+							$data['dataStreamField']['data']['id'], 
+							$data['dataStreamField']['data']['data_stream_id'], 
+							$data['dataStreamField']['data']['name'], 
+							$data['dataStreamField']['data']['path'], 
+							$data['dataStreamField']['data']['versioned'], 
+							$data['dataStreamField']['data']['searchable'], 
+							$data['dataStreamField']['data']['to_retrieve'], 
+							$data['dataStreamField']['data']['created_at'], 
+							$data['dataStreamField']['data']['updated_at'], 
+							((isset($data['dataStreamField']['data']['dataStream']) && !is_null($data['dataStreamField']['data']['dataStream'])) ? (new DataStreamResponse(
+								$this->apiClient, 
+								new DataStream(
+									$this->apiClient, 
+									$data['dataStreamField']['data']['dataStream']['data']['id'], 
+									$data['dataStreamField']['data']['dataStream']['data']['data_stream_decoder_id'], 
+									$data['dataStreamField']['data']['dataStream']['data']['name'], 
+									$data['dataStreamField']['data']['dataStream']['data']['feed_url'], 
+									$data['dataStreamField']['data']['dataStream']['data']['created_at'], 
+									$data['dataStreamField']['data']['dataStream']['data']['updated_at'], 
+									((isset($data['dataStreamField']['data']['dataStream']['data']['project']) && !is_null($data['dataStreamField']['data']['dataStream']['data']['project'])) ? (new ProjectResponse(
+										$this->apiClient, 
+										new Project(
+											$this->apiClient, 
+											$data['dataStreamField']['data']['dataStream']['data']['project']['data']['id'], 
+											$data['dataStreamField']['data']['dataStream']['data']['project']['data']['search_engine_id'], 
+											$data['dataStreamField']['data']['dataStream']['data']['project']['data']['data_stream_id'], 
+											$data['dataStreamField']['data']['dataStream']['data']['project']['data']['name'], 
+											$data['dataStreamField']['data']['dataStream']['data']['project']['data']['created_at'], 
+											$data['dataStreamField']['data']['dataStream']['data']['project']['data']['updated_at'], 
+											null, 
+											((isset($data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine']) && !is_null($data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
+												$this->apiClient, 
+												new SearchEngine(
+													$this->apiClient, 
+													$data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine']['data']['id'], 
+													$data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine']['data']['name'], 
+													$data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine']['data']['class_name'], 
+													$data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine']['data']['created_at'], 
+													$data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine']['data']['updated_at'], 
+													(isset($data['dataStreamField']['data']['dataStream']['data']['project']['data']['searchEngine']['data']['projects_count']) ? $data['projects_count'] : null)
+												)
+											)) : null)
+										)
+									)) : null), 
+									((isset($data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+										$this->apiClient, 
+										new DataStreamDecoder(
+											$this->apiClient, 
+											$data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+											$data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+											$data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+											$data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+											$data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+											$data['dataStreamField']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+										)
+									)) : null)
+								)
+							)) : null)
+						)
+					)) : null)
+				); 
+			}, $requestBody['data']), 
+			new Meta(
+				$this->apiClient, 
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)) : null)
+			)
+		);
+
+		return $response;
+	}
+	
+	/**
+	 * Search use case widget list
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param string $search Search words
+	 * @param int $page Format: int32. Pagination : Page number
+	 * @param int $limit Format: int32. Pagination : Maximum entries per page
+	 * @param string $order_by Order by : {field},[asc|desc]
+	 * 
+	 * @return WidgetListResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function getWidgets($search = null, $page = null, $limit = null, $order_by = null)
+	{
+		$routePath = '/api/searchUseCase/{searchUseCaseId}/widget';
+
+		$pathReplacements = [
+			'{searchUseCaseId}' => $this->id,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$queryParameters = [];
+
+		if (!is_null($search)) {
+			$queryParameters['search'] = $search;
+		}
+
+		if (!is_null($page)) {
+			$queryParameters['page'] = $page;
+		}
+
+		if (!is_null($limit)) {
+			$queryParameters['limit'] = $limit;
+		}
+
+		if (!is_null($order_by)) {
+			$queryParameters['order_by'] = $order_by;
+		}
+
+		$requestOptions = [];
+		$requestOptions['query'] = $queryParameters;
+
+		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new WidgetListResponse(
+			$this->apiClient, 
+			array_map(function($data) {
+				return new Widget(
+					$this->apiClient, 
+					$data['id'], 
+					$data['search_use_case_id'], 
+					$data['name'], 
+					$data['created_at'], 
+					$data['updated_at'], 
+					((isset($data['searchUseCase']) && !is_null($data['searchUseCase'])) ? (new SearchUseCasePresetResponse(
+						$this->apiClient, 
+						new SearchUseCasePreset(
+							$this->apiClient, 
+							$data['searchUseCase']['data']['id'], 
+							$data['searchUseCase']['data']['data_stream_preset_id'], 
+							$data['searchUseCase']['data']['name'], 
+							$data['searchUseCase']['data']['created_at'], 
+							$data['searchUseCase']['data']['updated_at'], 
+							$data['searchUseCase']['data']['search_use_case_preset_fields_count'], 
+							((isset($data['searchUseCase']['data']['dataStreamPreset']) && !is_null($data['searchUseCase']['data']['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+								$this->apiClient, 
+								new DataStreamPreset(
+									$this->apiClient, 
+									$data['searchUseCase']['data']['dataStreamPreset']['data']['id'], 
+									$data['searchUseCase']['data']['dataStreamPreset']['data']['data_stream_decoder_id'], 
+									$data['searchUseCase']['data']['dataStreamPreset']['data']['name'], 
+									$data['searchUseCase']['data']['dataStreamPreset']['data']['created_at'], 
+									$data['searchUseCase']['data']['dataStreamPreset']['data']['updated_at'], 
+									((isset($data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+										$this->apiClient, 
+										new DataStreamDecoder(
+											$this->apiClient, 
+											$data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+											$data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+											$data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+											$data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+											$data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+											$data['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+										)
+									)) : null)
+								)
+							)) : null)
+						)
+					)) : null)
+				); 
+			}, $requestBody['data']), 
+			new Meta(
+				$this->apiClient, 
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)) : null)
+			)
+		);
+
+		return $response;
+	}
 }

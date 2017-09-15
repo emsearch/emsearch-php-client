@@ -275,13 +275,33 @@
         },
         "\/api\/userGroup": {
             "get": {
+                "tags": [
+                    "Manager:UserGroup"
+                ],
                 "summary": "Show User group list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A UserGroup list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserGroupListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/UserGroupIndexExampleResponse"
                                 }
@@ -289,15 +309,25 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/userGroup\/{userGroupId}": {
             "get": {
+                "tags": [
+                    "Manager:UserGroup"
+                ],
                 "summary": "Get specified User group",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "userGroupId",
@@ -311,23 +341,57 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A UserGroup",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserGroupResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/user": {
             "get": {
+                "tags": [
+                    "Manager:User"
+                ],
                 "summary": "User list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A User list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/UserIndexExampleResponse"
                                 }
@@ -335,13 +399,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:User"
+                ],
                 "summary": "Create and store new user",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -381,18 +455,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The created User",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/user\/{userId}": {
             "get": {
+                "tags": [
+                    "Manager:User"
+                ],
                 "summary": "Get specified user",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "userId",
@@ -406,16 +497,34 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A User",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:User",
+                    "Resource:User"
+                ],
                 "summary": "Update a specified user",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "userId",
@@ -466,17 +575,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated User",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:User",
+                    "Resource:User"
+                ],
                 "summary": "Delete specified user",
                 "description": "All relationships between the user and his projects will be automatically deleted too.<br \/>\nAll projects owned by the user will be automatically deleted too.",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "userId",
@@ -490,16 +617,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:User",
+                    "Resource:User"
+                ],
                 "summary": "Update a specified user",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "userId",
@@ -550,18 +688,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated User",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/userGroup\/{userGroupId}\/user": {
             "get": {
+                "tags": [
+                    "Resource:UserGroup"
+                ],
                 "summary": "User group user list",
-                "operationId": "index",
+                "operationId": "getUsers",
                 "parameters": [
                     {
                         "name": "userGroupId",
@@ -571,20 +726,49 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A User list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/user\/{userId}\/userHasProject": {
             "get": {
+                "tags": [
+                    "Resource:User"
+                ],
                 "summary": "User relationship between users and projects list",
                 "description": "You can specify a GET parameter `user_role_id` to filter results.",
                 "operationId": "index",
@@ -609,14 +793,43 @@
                             ],
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A UserHasProject list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/UserHasProjectListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -690,6 +903,9 @@
         },
         "\/api\/user\/{userId}\/project": {
             "get": {
+                "tags": [
+                    "Resource:User"
+                ],
                 "summary": "User project list",
                 "description": "You can specify a GET parameter `user_role_id` to filter results.",
                 "operationId": "index",
@@ -1083,13 +1299,33 @@
         },
         "\/api\/syncItem": {
             "get": {
+                "tags": [
+                    "Manager:SyncItem"
+                ],
                 "summary": "Sync item list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncItem list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncItemListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncItemIndexExampleResponse"
                                 }
@@ -1097,13 +1333,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SyncItem"
+                ],
                 "summary": "Create and store new sync item",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -1131,18 +1377,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The created SyncItem",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncItemResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncItem\/{syncItemId},{projectId}": {
             "get": {
+                "tags": [
+                    "Manager:SyncItem"
+                ],
                 "summary": "Get specified sync item",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "syncItemId",
@@ -1165,9 +1428,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncItem",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncItemResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncItemShowExampleResponse"
                                 }
@@ -1175,13 +1441,24 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SyncItem",
+                    "Resource:SyncItem"
+                ],
                 "summary": "Update a specified sync item",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncItemId",
@@ -1229,16 +1506,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncItem",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncItemResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SyncItem",
+                    "Resource:SyncItem"
+                ],
                 "summary": "Delete specified sync item",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "syncItemId",
@@ -1261,16 +1556,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SyncItem",
+                    "Resource:SyncItem"
+                ],
                 "summary": "Update a specified sync item",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncItemId",
@@ -1318,10 +1624,24 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncItem",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncItemResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1754,8 +2074,11 @@
         },
         "\/api\/syncTask\/{syncTaskId}\/children": {
             "get": {
+                "tags": [
+                    "Resource:SyncTask"
+                ],
                 "summary": "Sync task sync task children list",
-                "operationId": "index",
+                "operationId": "getChildrenSyncTasks",
                 "parameters": [
                     {
                         "name": "syncTaskId",
@@ -1765,23 +2088,52 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTask list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTask\/{syncTaskId}\/syncTaskLog": {
             "get": {
+                "tags": [
+                    "Resource:SyncTask"
+                ],
                 "summary": "Sync task sync task logs list",
                 "description": "You can specify a GET parameter `public` to filter results (Only allowed for `Developer` and `Support` users).",
-                "operationId": "index",
+                "operationId": "getLogs",
                 "parameters": [
                     {
                         "name": "syncTaskId",
@@ -1799,14 +2151,40 @@
                         "schema": {
                             "type": "boolean"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTaskLog list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskLogListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1876,13 +2254,33 @@
         },
         "\/api\/syncTaskType": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskType"
+                ],
                 "summary": "Show sync task type list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncTaskType list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncTaskTypeIndexExampleResponse"
                                 }
@@ -1890,13 +2288,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SyncTaskType"
+                ],
                 "summary": "Create and store new sync task type",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -1916,18 +2324,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A SyncTaskType",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskType\/{syncTaskTypeId}": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskType"
+                ],
                 "summary": "Get specified sync task type",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -1941,16 +2366,34 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTaskType",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SyncTaskType",
+                    "Resource:SyncTaskType"
+                ],
                 "summary": "Update a sync task type",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -1981,17 +2424,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskType",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SyncTaskType",
+                    "Resource:SyncTaskType"
+                ],
                 "summary": "Delete specified sync task type",
                 "description": "The sync task type versions will be automatically deleted too.<br \/>\n<aside class=\"warning\">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.<\/aside>",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -2005,16 +2466,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SyncTaskType",
+                    "Resource:SyncTaskType"
+                ],
                 "summary": "Update a sync task type",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -2045,23 +2517,57 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskType",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskTypeVersion": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskTypeVersion"
+                ],
                 "summary": "Sync task type version item list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncTaskTypeVersion list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeVersionListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncTaskTypeVersionIndexExampleResponse"
                                 }
@@ -2069,13 +2575,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SyncTaskTypeVersion"
+                ],
                 "summary": "Create and store new sync task type version",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -2104,18 +2620,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeVersionResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskTypeVersion\/{syncTaskTypeId},{i18nLangId}": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskTypeVersion"
+                ],
                 "summary": "Get specified sync task type version",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -2138,9 +2671,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncTaskTypeVersion",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeVersionResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncTaskTypeVersionShowExampleResponse"
                                 }
@@ -2148,13 +2684,24 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SyncTaskTypeVersion",
+                    "Resource:SyncTaskTypeVersion"
+                ],
                 "summary": "Update a specified sync task type version",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -2203,16 +2750,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskTypeVersion",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeVersionResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SyncTaskTypeVersion",
+                    "Resource:SyncTaskTypeVersion"
+                ],
                 "summary": "Delete specified sync task type version",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -2235,16 +2800,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SyncTaskTypeVersion",
+                    "Resource:SyncTaskTypeVersion"
+                ],
                 "summary": "Update a specified sync task type version",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -2293,18 +2869,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskTypeVersion",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeVersionResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskType\/{syncTaskTypeId}\/version": {
             "get": {
+                "tags": [
+                    "Resource:SyncTaskType"
+                ],
                 "summary": "Sync task type sync task type versions list",
-                "operationId": "index",
+                "operationId": "getVersions",
                 "parameters": [
                     {
                         "name": "syncTaskTypeId",
@@ -2314,27 +2907,73 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTaskStatusType list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskTypeVersionListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskStatus": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskStatus"
+                ],
                 "summary": "Show sync task status list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncTaskStatus list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncTaskStatusIndexExampleResponse"
                                 }
@@ -2342,13 +2981,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SyncTaskStatus"
+                ],
                 "summary": "Create and store new sync task status",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -2368,18 +3017,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A SyncTaskStatus",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskStatus\/{syncTaskStatusId}": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskStatus"
+                ],
                 "summary": "Get specified sync task status",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2393,16 +3059,34 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTaskStatus",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SyncTaskStatus",
+                    "Resource:SyncTaskStatus"
+                ],
                 "summary": "Update a sync task status",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2433,17 +3117,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskStatus",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SyncTaskStatus",
+                    "Resource:SyncTaskStatus"
+                ],
                 "summary": "Delete specified sync task status",
                 "description": "The sync task status versions will be automatically deleted too.<br \/>\n<aside class=\"warning\">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.<\/aside>",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2457,16 +3159,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SyncTaskStatus",
+                    "Resource:SyncTaskStatus"
+                ],
                 "summary": "Update a sync task status",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2497,23 +3210,57 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskStatus",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskStatusVersion": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskStatusVersion"
+                ],
                 "summary": "Sync task status version item list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncTaskStatusVersion list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusVersionListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncTaskStatusVersionIndexExampleResponse"
                                 }
@@ -2521,13 +3268,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SyncTaskStatusVersion"
+                ],
                 "summary": "Create and store new sync task status version",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -2556,18 +3313,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A SyncTaskStatusVersion",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusVersionResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskStatusVersion\/{syncTaskStatusId},{i18nLangId}": {
             "get": {
+                "tags": [
+                    "Manager:SyncTaskStatusVersion"
+                ],
                 "summary": "Get specified sync task status version",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2590,9 +3364,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SyncTaskStatusVersion",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusVersionResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SyncTaskStatusVersionShowExampleResponse"
                                 }
@@ -2600,13 +3377,24 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SyncTaskStatusVersion",
+                    "Resource:SyncTaskStatusVersion"
+                ],
                 "summary": "Update a specified sync task status version",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2655,16 +3443,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskStatusVersion",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusVersionResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SyncTaskStatusVersion",
+                    "Resource:SyncTaskStatusVersion"
+                ],
                 "summary": "Delete specified sync task status version",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2687,16 +3493,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SyncTaskStatusVersion",
+                    "Resource:SyncTaskStatusVersion"
+                ],
                 "summary": "Update a specified sync task status version",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2745,18 +3562,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SyncTaskStatusVersion",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusVersionResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/syncTaskStatus\/{syncTaskStatusId}\/version": {
             "get": {
+                "tags": [
+                    "Resource:SyncTaskStatus"
+                ],
                 "summary": "Sync task status sync task status versions list",
-                "operationId": "index",
+                "operationId": "getVersions",
                 "parameters": [
                     {
                         "name": "syncTaskStatusId",
@@ -2766,14 +3600,40 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SyncTaskStatusVersion list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskStatusVersionListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -6864,13 +7724,36 @@
         },
         "\/api\/searchUseCaseField": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCaseField"
+                ],
                 "summary": "Show search use case field list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SearchUseCaseField list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseFieldListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SearchUseCaseFieldIndexExampleResponse"
                                 }
@@ -6878,13 +7761,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SearchUseCaseField"
+                ],
                 "summary": "Create and store new search use case field",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -6923,18 +7816,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The created SearchUseCaseField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCaseField\/{searchUseCaseId},{dataStreamFieldId}": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCaseField"
+                ],
                 "summary": "Get specified search use case field",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -6953,20 +7863,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCaseField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SearchUseCaseField",
+                    "Resource:SearchUseCaseField"
+                ],
                 "summary": "Update a specified search use case field",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -7025,16 +7956,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCaseField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SearchUseCaseField",
+                    "Resource:SearchUseCaseField"
+                ],
                 "summary": "Delete specified search use case field",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -7057,16 +8006,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SearchUseCaseField",
+                    "Resource:SearchUseCaseField"
+                ],
                 "summary": "Update a specified search use case field",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -7125,18 +8085,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCaseField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCase\/{searchUseCaseId}\/searchUseCaseField": {
             "get": {
+                "tags": [
+                    "Resource:SearchUseCase"
+                ],
                 "summary": "Search use case search use case fields list",
-                "operationId": "index",
+                "operationId": "getFields",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -7146,27 +8123,76 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCaseField list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCaseFieldListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCasePreset": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCasePreset"
+                ],
                 "summary": "Show search use case preset list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SearchUseCasePreset list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SearchUseCasePresetIndexExampleResponse"
                                 }
@@ -7174,13 +8200,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SearchUseCasePreset"
+                ],
                 "summary": "Create and store new search use case preset",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -7206,18 +8242,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The created SearchUseCasePreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCasePreset\/{searchUseCasePresetId}": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCasePreset"
+                ],
                 "summary": "Get specified search use case preset",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7227,20 +8280,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCasePreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SearchUseCasePreset",
+                    "Resource:SearchUseCasePreset"
+                ],
                 "summary": "Update a search use case preset",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7277,16 +8351,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCasePreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SearchUseCasePreset",
+                    "Resource:SearchUseCasePreset"
+                ],
                 "summary": "Delete specified search use case preset",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7300,16 +8392,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SearchUseCasePreset",
+                    "Resource:SearchUseCasePreset"
+                ],
                 "summary": "Update a search use case preset",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7346,23 +8449,60 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCasePreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCasePresetField": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCasePresetField"
+                ],
                 "summary": "Show search use case preset field list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A SearchUseCasePresetField list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetFieldListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/SearchUseCasePresetFieldIndexExampleResponse"
                                 }
@@ -7370,13 +8510,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:SearchUseCasePresetField"
+                ],
                 "summary": "Create and store new search use case preset field",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -7415,18 +8565,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The created SearchUseCasePresetField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCasePresetField\/{searchUseCasePresetId},{dataStreamPresetFieldId}": {
             "get": {
+                "tags": [
+                    "Manager:SearchUseCasePresetField"
+                ],
                 "summary": "Get specified search use case preset field",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7445,20 +8612,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCasePresetField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:SearchUseCasePresetField",
+                    "Resource:SearchUseCasePresetField"
+                ],
                 "summary": "Update a specified search use case preset field",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7517,16 +8705,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCasePresetField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:SearchUseCasePresetField",
+                    "Resource:SearchUseCasePresetField"
+                ],
                 "summary": "Delete specified search use case preset field",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7549,16 +8755,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:SearchUseCasePresetField",
+                    "Resource:SearchUseCasePresetField"
+                ],
                 "summary": "Update a specified search use case preset field",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7617,18 +8834,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated SearchUseCasePresetField",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetFieldResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCasePreset\/{searchUseCasePresetId}\/searchUseCasePresetField": {
             "get": {
+                "tags": [
+                    "Resource:SearchUseCasePreset"
+                ],
                 "summary": "Search use case preset search use case preset fields list",
-                "operationId": "index",
+                "operationId": "getFieldPresets",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -7638,27 +8872,76 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A SearchUseCasePresetField list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SearchUseCasePresetFieldListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/widget": {
             "get": {
+                "tags": [
+                    "Manager:Widget"
+                ],
                 "summary": "Show widget list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A Widget list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/WidgetIndexExampleResponse"
                                 }
@@ -7666,13 +8949,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:Widget"
+                ],
                 "summary": "Create and store new widget",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -7698,18 +8991,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A Widget",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/widget\/{widgetId}": {
             "get": {
+                "tags": [
+                    "Manager:Widget"
+                ],
                 "summary": "Get specified widget",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "widgetId",
@@ -7719,20 +9029,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A Widget",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:Widget",
+                    "Resource:Widget"
+                ],
                 "summary": "Update a widget",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "widgetId",
@@ -7769,16 +9100,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated Widget",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:Widget",
+                    "Resource:Widget"
+                ],
                 "summary": "Delete specified widget",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "widgetId",
@@ -7792,16 +9141,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:Widget",
+                    "Resource:Widget"
+                ],
                 "summary": "Update a widget",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "widgetId",
@@ -7838,18 +9198,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated Widget",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCase\/{searchUseCaseId}\/widget": {
             "get": {
+                "tags": [
+                    "Resource:SearchUseCase"
+                ],
                 "summary": "Search use case widget list",
-                "operationId": "index",
+                "operationId": "getWidgets",
                 "parameters": [
                     {
                         "name": "searchUseCaseId",
@@ -7859,27 +9236,76 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A Widget list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/widgetPreset": {
             "get": {
+                "tags": [
+                    "Manager:WidgetPreset"
+                ],
                 "summary": "Show widget preset list",
-                "operationId": "index",
+                "operationId": "all",
+                "parameters": [
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A WidgetPreset list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetPresetListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/WidgetPresetIndexExampleResponse"
                                 }
@@ -7887,13 +9313,23 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "post": {
+                "tags": [
+                    "Manager:WidgetPreset"
+                ],
                 "summary": "Create and store new widget preset",
-                "operationId": "store",
+                "operationId": "create",
                 "requestBody": {
                     "content": {
                         "application\/json": {
@@ -7919,18 +9355,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "A WidgetPreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/widgetPreset\/{widgetPresetId}": {
             "get": {
+                "tags": [
+                    "Manager:WidgetPreset"
+                ],
                 "summary": "Get specified widget preset",
-                "operationId": "show",
+                "operationId": "get",
                 "parameters": [
                     {
                         "name": "widgetPresetId",
@@ -7940,20 +9393,41 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A WidgetPreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "tags": [
+                    "Manager:WidgetPreset",
+                    "Resource:WidgetPreset"
+                ],
                 "summary": "Update a widget preset",
-                "operationId": "putUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "widgetPresetId",
@@ -7990,16 +9464,34 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated WidgetPreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "tags": [
+                    "Manager:WidgetPreset",
+                    "Resource:WidgetPreset"
+                ],
                 "summary": "Delete specified widget preset",
-                "operationId": "destroy",
+                "operationId": "delete",
                 "parameters": [
                     {
                         "name": "widgetPresetId",
@@ -8013,16 +9505,27 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": ""
+                        "description": "Empty response"
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
+                "tags": [
+                    "Manager:WidgetPreset",
+                    "Resource:WidgetPreset"
+                ],
                 "summary": "Update a widget preset",
-                "operationId": "patchUpdate",
+                "operationId": "update",
                 "parameters": [
                     {
                         "name": "widgetPresetId",
@@ -8059,18 +9562,35 @@
                 },
                 "responses": {
                     "201": {
-                        "description": ""
+                        "description": "The updated WidgetPreset",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetPresetResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/searchUseCasePreset\/{searchUseCasePresetId}\/widgetPreset": {
             "get": {
+                "tags": [
+                    "Resource:SearchUseCasePreset"
+                ],
                 "summary": "Search use case preset widget presets list",
-                "operationId": "index",
+                "operationId": "getWidgetPresets",
                 "parameters": [
                     {
                         "name": "searchUseCasePresetId",
@@ -8080,14 +9600,40 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "A WidgetPresetField list",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/WidgetPresetListResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -9178,6 +10724,48 @@
                     }
                 }
             },
+            "UserGroup": {
+                "required": [
+                    "id",
+                    "users_count"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "users_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "UserGroupResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/UserGroup"
+                    }
+                }
+            },
+            "UserGroupListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/UserGroup"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
             "SearchUseCase": {
                 "required": [
                     "id",
@@ -9409,6 +10997,488 @@
                     },
                     "meta": {
                         "$ref": "#\/components\/schemas\/SearchMeta"
+                    }
+                }
+            },
+            "SearchUseCaseField": {
+                "required": [
+                    "search_use_case_id",
+                    "data_stream_field_id",
+                    "name",
+                    "searchable",
+                    "to_retrieve",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "search_use_case_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "data_stream_field_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "searchable": {
+                        "type": "boolean"
+                    },
+                    "to_retrieve": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "searchUseCase": {
+                        "$ref": "#\/components\/schemas\/SearchUseCaseResponse"
+                    },
+                    "dataStreamField": {
+                        "$ref": "#\/components\/schemas\/DataStreamFieldResponse"
+                    }
+                }
+            },
+            "SearchUseCaseFieldResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SearchUseCaseField"
+                    }
+                }
+            },
+            "SearchUseCaseFieldListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SearchUseCaseField"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SearchUseCasePresetField": {
+                "required": [
+                    "search_use_case_preset_id",
+                    "data_stream_preset_field_id",
+                    "name",
+                    "searchable",
+                    "to_retrieve",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "search_use_case_preset_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "data_stream_preset_field_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "searchable": {
+                        "type": "boolean"
+                    },
+                    "to_retrieve": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "searchUseCasePreset": {
+                        "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                    },
+                    "dataStreamPresetField": {
+                        "$ref": "#\/components\/schemas\/DataStreamPresetFieldResponse"
+                    }
+                }
+            },
+            "SearchUseCasePresetFieldResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SearchUseCasePresetField"
+                    }
+                }
+            },
+            "SearchUseCasePresetFieldListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SearchUseCasePresetField"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "Widget": {
+                "required": [
+                    "id",
+                    "search_use_case_id",
+                    "name",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "search_use_case_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "searchUseCase": {
+                        "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                    }
+                }
+            },
+            "WidgetResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/Widget"
+                    }
+                }
+            },
+            "WidgetListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/Widget"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SyncItem": {
+                "required": [
+                    "item_id",
+                    "project_id",
+                    "item_signature",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "item_signature": {
+                        "type": "string",
+                        "format": "md5"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "searchUseCase": {
+                        "$ref": "#\/components\/schemas\/SearchUseCasePresetResponse"
+                    }
+                }
+            },
+            "SyncItemResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SyncItem"
+                    }
+                }
+            },
+            "SyncItemListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SyncItem"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SyncTaskStatus": {
+                "required": [
+                    "id",
+                    "sync_tasks_count",
+                    "sync_task_logs_count",
+                    "sync_task_status_versions_count"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "sync_tasks_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sync_task_logs_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sync_task_status_versions_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "SyncTaskStatusResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SyncTaskStatus"
+                    }
+                }
+            },
+            "SyncTaskStatusListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SyncTaskStatus"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SyncTaskStatusVersion": {
+                "required": [
+                    "sync_task_status_id",
+                    "i18n_lang_id",
+                    "sync_tasks_count",
+                    "sync_task_logs_count",
+                    "sync_task_status_versions_count"
+                ],
+                "properties": {
+                    "sync_task_status_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "i18n_lang_id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "SyncTaskStatusVersionResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SyncTaskStatusVersion"
+                    }
+                }
+            },
+            "SyncTaskStatusVersionListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SyncTaskStatusVersion"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SyncTaskLog": {
+                "required": [
+                    "id",
+                    "sync_task_status_id",
+                    "sync_task_id",
+                    "entry",
+                    "public",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "sync_task_status_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "sync_task_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "entry": {
+                        "type": "string"
+                    },
+                    "public": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "SyncTaskLogResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SyncTaskLog"
+                    }
+                }
+            },
+            "SyncTaskLogListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SyncTaskLog"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "SyncTaskType": {
+                "required": [
+                    "id",
+                    "sync_tasks_count",
+                    "sync_task_type_versions_count"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "sync_tasks_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sync_task_type_versions_count": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "SyncTaskTypeResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/SyncTaskType"
+                    }
+                }
+            },
+            "SyncTaskTypeListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/SyncTaskType"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
                     }
                 }
             }

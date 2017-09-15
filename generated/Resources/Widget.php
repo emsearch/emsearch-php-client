@@ -6,11 +6,11 @@ use emsearch\Api\ApiClient;
 use emsearch\Api\Exceptions\UnexpectedResponseException;
 
 /**
- * WidgetPreset resource class
+ * Widget resource class
  * 
  * @package emsearch\Api\Resources
  */
-class WidgetPreset 
+class Widget 
 {
 	/**
 	 * API client
@@ -31,7 +31,7 @@ class WidgetPreset
 	 * 
 	 * @var string
 	 */
-	public $search_use_case_preset_id;
+	public $search_use_case_id;
 
 	/**
 	 * @var string
@@ -55,53 +55,53 @@ class WidgetPreset
 	/**
 	 * @var SearchUseCasePresetResponse
 	 */
-	public $searchUseCasePreset;
+	public $searchUseCase;
 
 	/**
-	 * WidgetPreset resource class constructor
+	 * Widget resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 * @param string $id Format: uuid.
-	 * @param string $search_use_case_preset_id Format: uuid.
+	 * @param string $search_use_case_id Format: uuid.
 	 * @param string $name
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
-	 * @param SearchUseCasePresetResponse $searchUseCasePreset
+	 * @param SearchUseCasePresetResponse $searchUseCase
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $search_use_case_preset_id = null, $name = null, $created_at = null, $updated_at = null, $searchUseCasePreset = null)
+	public function __construct(ApiClient $apiClient, $id = null, $search_use_case_id = null, $name = null, $created_at = null, $updated_at = null, $searchUseCase = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;
-		$this->search_use_case_preset_id = $search_use_case_preset_id;
+		$this->search_use_case_id = $search_use_case_id;
 		$this->name = $name;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
-		$this->searchUseCasePreset = $searchUseCasePreset;
+		$this->searchUseCase = $searchUseCase;
 	}
 	/**
-	 * Update a widget preset
+	 * Update a widget
 	 * 
 	 * Excepted HTTP code : 201
 	 * 
-	 * @param string $search_use_case_preset_id Format: uuid.
+	 * @param string $search_use_case_id Format: uuid.
 	 * @param string $name
 	 * 
-	 * @return WidgetPresetResponse
+	 * @return WidgetResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($search_use_case_preset_id, $name)
+	public function update($search_use_case_id, $name)
 	{
-		$routePath = '/api/widgetPreset/{widgetPresetId}';
+		$routePath = '/api/widget/{widgetId}';
 
 		$pathReplacements = [
-			'{widgetPresetId}' => $this->id,
+			'{widgetId}' => $this->id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
 
 		$bodyParameters = [];
-		$bodyParameters['search_use_case_preset_id'] = $search_use_case_preset_id;
+		$bodyParameters['search_use_case_id'] = $search_use_case_id;
 		$bodyParameters['name'] = $name;
 
 		$requestOptions = [];
@@ -125,44 +125,44 @@ class WidgetPreset
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new WidgetPresetResponse(
+		$response = new WidgetResponse(
 			$this->apiClient, 
-			new WidgetPreset(
+			new Widget(
 				$this->apiClient, 
 				$requestBody['data']['id'], 
-				$requestBody['data']['search_use_case_preset_id'], 
+				$requestBody['data']['search_use_case_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
-				((isset($requestBody['data']['searchUseCasePreset']) && !is_null($requestBody['data']['searchUseCasePreset'])) ? (new SearchUseCasePresetResponse(
+				((isset($requestBody['data']['searchUseCase']) && !is_null($requestBody['data']['searchUseCase'])) ? (new SearchUseCasePresetResponse(
 					$this->apiClient, 
 					new SearchUseCasePreset(
 						$this->apiClient, 
-						$requestBody['data']['searchUseCasePreset']['data']['id'], 
-						$requestBody['data']['searchUseCasePreset']['data']['data_stream_preset_id'], 
-						$requestBody['data']['searchUseCasePreset']['data']['name'], 
-						$requestBody['data']['searchUseCasePreset']['data']['created_at'], 
-						$requestBody['data']['searchUseCasePreset']['data']['updated_at'], 
-						$requestBody['data']['searchUseCasePreset']['data']['search_use_case_preset_fields_count'], 
-						((isset($requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']) && !is_null($requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset'])) ? (new DataStreamPresetResponse(
+						$requestBody['data']['searchUseCase']['data']['id'], 
+						$requestBody['data']['searchUseCase']['data']['data_stream_preset_id'], 
+						$requestBody['data']['searchUseCase']['data']['name'], 
+						$requestBody['data']['searchUseCase']['data']['created_at'], 
+						$requestBody['data']['searchUseCase']['data']['updated_at'], 
+						$requestBody['data']['searchUseCase']['data']['search_use_case_preset_fields_count'], 
+						((isset($requestBody['data']['searchUseCase']['data']['dataStreamPreset']) && !is_null($requestBody['data']['searchUseCase']['data']['dataStreamPreset'])) ? (new DataStreamPresetResponse(
 							$this->apiClient, 
 							new DataStreamPreset(
 								$this->apiClient, 
-								$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['id'], 
-								$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['data_stream_decoder_id'], 
-								$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['name'], 
-								$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['created_at'], 
-								$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['updated_at'], 
-								((isset($requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+								$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['id'], 
+								$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['data_stream_decoder_id'], 
+								$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['name'], 
+								$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['created_at'], 
+								$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['updated_at'], 
+								((isset($requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
 									$this->apiClient, 
 									new DataStreamDecoder(
 										$this->apiClient, 
-										$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
-										$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
-										$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
-										$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
-										$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
-										$requestBody['data']['searchUseCasePreset']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
+										$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['id'], 
+										$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['name'], 
+										$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['class_name'], 
+										$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+										$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['created_at'], 
+										$requestBody['data']['searchUseCase']['data']['dataStreamPreset']['data']['dataStreamDecoder']['data']['updated_at']
 									)
 								)) : null)
 							)
@@ -176,7 +176,7 @@ class WidgetPreset
 	}
 	
 	/**
-	 * Delete specified widget preset
+	 * Delete specified widget
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
@@ -186,10 +186,10 @@ class WidgetPreset
 	 */
 	public function delete()
 	{
-		$routePath = '/api/widgetPreset/{widgetPresetId}';
+		$routePath = '/api/widget/{widgetId}';
 
 		$pathReplacements = [
-			'{widgetPresetId}' => $this->id,
+			'{widgetId}' => $this->id,
 		];
 
 		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
