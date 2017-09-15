@@ -2,6 +2,8 @@
 
 namespace emsearch\Api\Managers;
 
+use emsearch\Api\ApiClient;
+use emsearch\Api\Exceptions\UnexpectedResponseException;
 use emsearch\Api\Resources\SearchUseCase;
 use emsearch\Api\Resources\SearchUseCaseSearchResponse;
 use emsearch\Api\Resources\ErrorResponse;
