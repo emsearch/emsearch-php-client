@@ -9,6 +9,8 @@ use emsearch\Api\Resources\SearchUseCaseSearchResponse;
 use emsearch\Api\Resources\ErrorResponse;
 use emsearch\Api\Resources\SearchUseCaseListResponse;
 use emsearch\Api\Resources\SearchUseCaseResponse;
+use emsearch\Api\Resources\Meta;
+use emsearch\Api\Resources\Pagination;
 use emsearch\Api\Resources\ProjectResponse;
 use emsearch\Api\Resources\Project;
 use emsearch\Api\Resources\DataStreamResponse;
@@ -17,8 +19,6 @@ use emsearch\Api\Resources\DataStreamDecoderResponse;
 use emsearch\Api\Resources\DataStreamDecoder;
 use emsearch\Api\Resources\SearchEngineResponse;
 use emsearch\Api\Resources\SearchEngine;
-use emsearch\Api\Resources\Meta;
-use emsearch\Api\Resources\Pagination;
 
 /**
  * SearchUseCase manager class
@@ -117,7 +117,19 @@ class SearchUseCaseManager
 
 		$response = new SearchUseCaseSearchResponse(
 			$this->apiClient, 
-			$requestBody['data']
+			$requestBody['data'], 
+			new Meta(
+				$this->apiClient, 
+				((isset($requestBody['meta']['pagination']) && !is_null($requestBody['meta']['pagination'])) ? (new Pagination(
+					$this->apiClient, 
+					$requestBody['meta']['pagination']['total'], 
+					$requestBody['meta']['pagination']['count'], 
+					$requestBody['meta']['pagination']['per_page'], 
+					$requestBody['meta']['pagination']['current_page'], 
+					$requestBody['meta']['pagination']['total_pages'], 
+					$requestBody['meta']['pagination']['links']
+				)) : null)
+			)
 		);
 
 		return $response;
