@@ -15,12 +15,18 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "emsearch\\Api": "generated/"
+        "psr-4": {
+            "Emsearch\\Api\\": "generated/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Emsearch\\Api\\Tests\\": "tests/generated/"
         }
     },
     "require-dev": {
-		"rygilles/openapi-php-client-generator": "@dev"
+		"rygilles/openapi-php-client-generator": "@dev",
+        "phpunit/phpunit": "^6.3"
     },
     "require": {
         "guzzlehttp/guzzle": "^6.3"

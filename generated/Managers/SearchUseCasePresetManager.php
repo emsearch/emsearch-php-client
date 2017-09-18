@@ -1,24 +1,24 @@
 <?php
 
-namespace emsearch\Api\Managers;
+namespace Emsearch\Api\Managers;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\SearchUseCasePresetListResponse;
-use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\SearchUseCasePresetResponse;
-use emsearch\Api\Resources\SearchUseCasePreset;
-use emsearch\Api\Resources\DataStreamPresetResponse;
-use emsearch\Api\Resources\DataStreamPreset;
-use emsearch\Api\Resources\DataStreamDecoderResponse;
-use emsearch\Api\Resources\DataStreamDecoder;
-use emsearch\Api\Resources\Meta;
-use emsearch\Api\Resources\Pagination;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
+use Emsearch\Api\Resources\SearchUseCasePresetListResponse;
+use Emsearch\Api\Resources\ErrorResponse;
+use Emsearch\Api\Resources\SearchUseCasePresetResponse;
+use Emsearch\Api\Resources\SearchUseCasePreset;
+use Emsearch\Api\Resources\DataStreamPresetResponse;
+use Emsearch\Api\Resources\DataStreamPreset;
+use Emsearch\Api\Resources\DataStreamDecoderResponse;
+use Emsearch\Api\Resources\DataStreamDecoder;
+use Emsearch\Api\Resources\Meta;
+use Emsearch\Api\Resources\Pagination;
 
 /**
  * SearchUseCasePreset manager class
  * 
- * @package emsearch\Api\Managers
+ * @package Emsearch\Api\Managers
  */
 class SearchUseCasePresetManager 
 {

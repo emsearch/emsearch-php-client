@@ -1,20 +1,20 @@
 <?php
 
-namespace emsearch\Api\Managers;
+namespace Emsearch\Api\Managers;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\DataStreamHasI18nLangListResponse;
-use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\DataStreamHasI18nLangResponse;
-use emsearch\Api\Resources\DataStreamHasI18nLang;
-use emsearch\Api\Resources\Meta;
-use emsearch\Api\Resources\Pagination;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
+use Emsearch\Api\Resources\DataStreamHasI18nLangListResponse;
+use Emsearch\Api\Resources\ErrorResponse;
+use Emsearch\Api\Resources\DataStreamHasI18nLangResponse;
+use Emsearch\Api\Resources\DataStreamHasI18nLang;
+use Emsearch\Api\Resources\Meta;
+use Emsearch\Api\Resources\Pagination;
 
 /**
  * DataStreamHasI18nLang manager class
  * 
- * @package emsearch\Api\Managers
+ * @package Emsearch\Api\Managers
  */
 class DataStreamHasI18nLangManager 
 {

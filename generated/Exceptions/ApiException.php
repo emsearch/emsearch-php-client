@@ -1,13 +1,13 @@
 <?php
 
-namespace emsearch\Api\Exceptions;
+namespace Emsearch\Api\Exceptions;
 
 use RuntimeException;
 
 /**
  * Api Exception class
  * 
- * @package emsearch\Api\Exceptions
+ * @package Emsearch\Api\Exceptions
  */
 class ApiException extends RuntimeException
 {

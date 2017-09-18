@@ -1,20 +1,20 @@
 <?php
 
-namespace emsearch\Api\Managers;
+namespace Emsearch\Api\Managers;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\SyncTaskStatusListResponse;
-use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\SyncTaskStatusResponse;
-use emsearch\Api\Resources\SyncTaskStatus;
-use emsearch\Api\Resources\Meta;
-use emsearch\Api\Resources\Pagination;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
+use Emsearch\Api\Resources\SyncTaskStatusListResponse;
+use Emsearch\Api\Resources\ErrorResponse;
+use Emsearch\Api\Resources\SyncTaskStatusResponse;
+use Emsearch\Api\Resources\SyncTaskStatus;
+use Emsearch\Api\Resources\Meta;
+use Emsearch\Api\Resources\Pagination;
 
 /**
  * SyncTaskStatus manager class
  * 
- * @package emsearch\Api\Managers
+ * @package Emsearch\Api\Managers
  */
 class SyncTaskStatusManager 
 {

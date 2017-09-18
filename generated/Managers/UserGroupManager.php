@@ -1,20 +1,20 @@
 <?php
 
-namespace emsearch\Api\Managers;
+namespace Emsearch\Api\Managers;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\UserGroupListResponse;
-use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\UserGroupResponse;
-use emsearch\Api\Resources\UserGroup;
-use emsearch\Api\Resources\Meta;
-use emsearch\Api\Resources\Pagination;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
+use Emsearch\Api\Resources\UserGroupListResponse;
+use Emsearch\Api\Resources\ErrorResponse;
+use Emsearch\Api\Resources\UserGroupResponse;
+use Emsearch\Api\Resources\UserGroup;
+use Emsearch\Api\Resources\Meta;
+use Emsearch\Api\Resources\Pagination;
 
 /**
  * UserGroup manager class
  * 
- * @package emsearch\Api\Managers
+ * @package Emsearch\Api\Managers
  */
 class UserGroupManager 
 {

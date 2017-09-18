@@ -1,6 +1,6 @@
 <?php
 
-namespace emsearch\Api\Exceptions;
+namespace Emsearch\Api\Exceptions;
 
 use Exception;
 use Psr\Http\Message\ResponseInterface;
@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Api Unexpected Response Exception class
  * 
- * @package emsearch\Api\Exceptions
+ * @package Emsearch\Api\Exceptions
  */
 class UnexpectedResponseException extends ApiException
 {

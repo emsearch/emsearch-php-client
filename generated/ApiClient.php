@@ -1,42 +1,42 @@
 <?php
 
-namespace emsearch\Api;
+namespace Emsearch\Api;
 
 use GuzzleHttp\Client as GuzzleClient;
 use Psr\Http\Message\RequestInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Middleware;
-use emsearch\Api\Managers\SearchUseCaseManager;
-use emsearch\Api\Managers\MeManager;
-use emsearch\Api\Managers\UserGroupManager;
-use emsearch\Api\Managers\UserManager;
-use emsearch\Api\Managers\ProjectManager;
-use emsearch\Api\Managers\SyncItemManager;
-use emsearch\Api\Managers\SyncTaskManager;
-use emsearch\Api\Managers\SyncTaskTypeManager;
-use emsearch\Api\Managers\SyncTaskTypeVersionManager;
-use emsearch\Api\Managers\SyncTaskStatusManager;
-use emsearch\Api\Managers\SyncTaskStatusVersionManager;
-use emsearch\Api\Managers\DataStreamManager;
-use emsearch\Api\Managers\DataStreamFieldManager;
-use emsearch\Api\Managers\DataStreamHasI18nLangManager;
-use emsearch\Api\Managers\UserHasProjectManager;
-use emsearch\Api\Managers\DataStreamDecoderManager;
-use emsearch\Api\Managers\DataStreamPresetManager;
-use emsearch\Api\Managers\DataStreamPresetFieldManager;
-use emsearch\Api\Managers\I18nLangManager;
-use emsearch\Api\Managers\SearchEngineManager;
-use emsearch\Api\Managers\SearchUseCaseFieldManager;
-use emsearch\Api\Managers\SearchUseCasePresetManager;
-use emsearch\Api\Managers\SearchUseCasePresetFieldManager;
-use emsearch\Api\Managers\WidgetManager;
-use emsearch\Api\Managers\WidgetPresetManager;
+use Emsearch\Api\Managers\SearchUseCaseManager;
+use Emsearch\Api\Managers\MeManager;
+use Emsearch\Api\Managers\UserGroupManager;
+use Emsearch\Api\Managers\UserManager;
+use Emsearch\Api\Managers\ProjectManager;
+use Emsearch\Api\Managers\SyncItemManager;
+use Emsearch\Api\Managers\SyncTaskManager;
+use Emsearch\Api\Managers\SyncTaskTypeManager;
+use Emsearch\Api\Managers\SyncTaskTypeVersionManager;
+use Emsearch\Api\Managers\SyncTaskStatusManager;
+use Emsearch\Api\Managers\SyncTaskStatusVersionManager;
+use Emsearch\Api\Managers\DataStreamManager;
+use Emsearch\Api\Managers\DataStreamFieldManager;
+use Emsearch\Api\Managers\DataStreamHasI18nLangManager;
+use Emsearch\Api\Managers\UserHasProjectManager;
+use Emsearch\Api\Managers\DataStreamDecoderManager;
+use Emsearch\Api\Managers\DataStreamPresetManager;
+use Emsearch\Api\Managers\DataStreamPresetFieldManager;
+use Emsearch\Api\Managers\I18nLangManager;
+use Emsearch\Api\Managers\SearchEngineManager;
+use Emsearch\Api\Managers\SearchUseCaseFieldManager;
+use Emsearch\Api\Managers\SearchUseCasePresetManager;
+use Emsearch\Api\Managers\SearchUseCasePresetFieldManager;
+use Emsearch\Api\Managers\WidgetManager;
+use Emsearch\Api\Managers\WidgetPresetManager;
 
 /**
  * emsearch API client class (version 1.0)
  * 
- * @package emsearch\Api
+ * @package Emsearch\Api
  */
 class ApiClient 
 {

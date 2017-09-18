@@ -1,20 +1,20 @@
 <?php
 
-namespace emsearch\Api\Managers;
+namespace Emsearch\Api\Managers;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\SearchEngineListResponse;
-use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\SearchEngineResponse;
-use emsearch\Api\Resources\SearchEngine;
-use emsearch\Api\Resources\Meta;
-use emsearch\Api\Resources\Pagination;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
+use Emsearch\Api\Resources\SearchEngineListResponse;
+use Emsearch\Api\Resources\ErrorResponse;
+use Emsearch\Api\Resources\SearchEngineResponse;
+use Emsearch\Api\Resources\SearchEngine;
+use Emsearch\Api\Resources\Meta;
+use Emsearch\Api\Resources\Pagination;
 
 /**
  * SearchEngine manager class
  * 
- * @package emsearch\Api\Managers
+ * @package Emsearch\Api\Managers
  */
 class SearchEngineManager 
 {

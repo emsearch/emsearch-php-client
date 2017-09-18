@@ -28,8 +28,8 @@ allowing to specify the accepted language for errors eg.
 
 
 ```php
-/** @var \emsearch\Api\ApiClient $apiClient */
-$apiClient = new \emsearch\Api\ApiClient(
+/** @var \Emsearch\Api\ApiClient $apiClient */
+$apiClient = new \Emsearch\Api\ApiClient(
     $token,
     'https://emsearch-api-entry-point.tld',
     ['Accept-Language' => 'en']
@@ -41,10 +41,10 @@ $apiClient = new \emsearch\Api\ApiClient(
 Handle resources requesting with the main API client object like this :
 
 ```php
-/** @var \emsearch\Api\Resources\UserResponse $userResponse */
+/** @var \Emsearch\Api\Resources\UserResponse $userResponse */
 $userResponse = $apiClient->MeManager()->getUser();
 
-/** @var \emsearch\Api\Resources\User $me */
+/** @var \Emsearch\Api\Resources\User $me */
 $me = $userResponse->data;
 ```
 

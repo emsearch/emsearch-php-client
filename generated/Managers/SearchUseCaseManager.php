@@ -1,31 +1,31 @@
 <?php
 
-namespace emsearch\Api\Managers;
+namespace Emsearch\Api\Managers;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
-use emsearch\Api\Resources\SearchUseCase;
-use emsearch\Api\Resources\SearchUseCaseSearchResponse;
-use emsearch\Api\Resources\ErrorResponse;
-use emsearch\Api\Resources\SearchUseCaseListResponse;
-use emsearch\Api\Resources\SearchUseCaseResponse;
-use emsearch\Api\Resources\SearchMeta;
-use emsearch\Api\Resources\SearchPagination;
-use emsearch\Api\Resources\ProjectResponse;
-use emsearch\Api\Resources\Project;
-use emsearch\Api\Resources\DataStreamResponse;
-use emsearch\Api\Resources\DataStream;
-use emsearch\Api\Resources\DataStreamDecoderResponse;
-use emsearch\Api\Resources\DataStreamDecoder;
-use emsearch\Api\Resources\SearchEngineResponse;
-use emsearch\Api\Resources\SearchEngine;
-use emsearch\Api\Resources\Meta;
-use emsearch\Api\Resources\Pagination;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
+use Emsearch\Api\Resources\SearchUseCase;
+use Emsearch\Api\Resources\SearchUseCaseSearchResponse;
+use Emsearch\Api\Resources\ErrorResponse;
+use Emsearch\Api\Resources\SearchUseCaseListResponse;
+use Emsearch\Api\Resources\SearchUseCaseResponse;
+use Emsearch\Api\Resources\SearchMeta;
+use Emsearch\Api\Resources\SearchPagination;
+use Emsearch\Api\Resources\ProjectResponse;
+use Emsearch\Api\Resources\Project;
+use Emsearch\Api\Resources\DataStreamResponse;
+use Emsearch\Api\Resources\DataStream;
+use Emsearch\Api\Resources\DataStreamDecoderResponse;
+use Emsearch\Api\Resources\DataStreamDecoder;
+use Emsearch\Api\Resources\SearchEngineResponse;
+use Emsearch\Api\Resources\SearchEngine;
+use Emsearch\Api\Resources\Meta;
+use Emsearch\Api\Resources\Pagination;
 
 /**
  * SearchUseCase manager class
  * 
- * @package emsearch\Api\Managers
+ * @package Emsearch\Api\Managers
  */
 class SearchUseCaseManager 
 {

@@ -1,0 +1,25 @@
+<?php
+
+namespace Emsearch\Api\Tests\ManagersTests;
+
+use PHPUnit\Framework\TestCase;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
+
+/**
+ * UserGroup manager test class
+ * 
+ * @package Emsearch\Api\Tests\ManagersTests
+ */
+class UserGroupManagerTest extends TestCase
+{
+	public function allTest()
+	{
+		// @todo
+	}
+	
+	public function getTest()
+	{
+		// @todo
+	}
+}

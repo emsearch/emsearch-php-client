@@ -1,14 +1,14 @@
 <?php
 
-namespace emsearch\Api\Resources;
+namespace Emsearch\Api\Resources;
 
-use emsearch\Api\ApiClient;
-use emsearch\Api\Exceptions\UnexpectedResponseException;
+use Emsearch\Api\ApiClient;
+use Emsearch\Api\Exceptions\UnexpectedResponseException;
 
 /**
  * DataStreamPresetListResponse resource class
  * 
- * @package emsearch\Api\Resources
+ * @package Emsearch\Api\Resources
  */
 class DataStreamPresetListResponse 
 {
