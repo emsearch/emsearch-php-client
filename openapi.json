@@ -1,12 +1,12 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "emsearch API",
+        "title": "ems-search API",
         "version": "1.0"
     },
     "servers": [
         {
-            "url": "https:\/\/emsearch.ryan.ems-dev.net"
+            "url": "https:\/\/www.ems-search.com"
         }
     ],
     "paths": {
@@ -11543,8 +11543,8 @@
                         "user_group_id": "Developer",
                         "name": "John Doe",
                         "email": "john.doe@domain.tld",
-                        "created_at": "2017-09-14 13:08:35",
-                        "updated_at": "2017-09-14 13:08:35"
+                        "created_at": "2018-01-09 10:27:16",
+                        "updated_at": "2018-01-09 10:27:16"
                     }
                 }
             },
@@ -11557,7 +11557,7 @@
                             "count": 0,
                             "per_page": 10,
                             "current_page": 1,
-                            "total_pages": 0,
+                            "total_pages": 1,
                             "links": []
                         }
                     }
@@ -11572,7 +11572,7 @@
                             "count": 0,
                             "per_page": 10,
                             "current_page": 1,
-                            "total_pages": 0,
+                            "total_pages": 1,
                             "links": []
                         }
                     }
@@ -11614,32 +11614,32 @@
                             "user_group_id": "Developer",
                             "name": "John Doe",
                             "email": "john.doe@domain.tld",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:16",
+                            "updated_at": "2018-01-09 10:27:16"
                         },
                         {
                             "id": "509dd5c0-1389-11e7-93ae-92361f002671",
                             "user_group_id": "Support",
                             "name": "Alan Smithee",
                             "email": "alan.smithee@domain.tld",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:16",
+                            "updated_at": "2018-01-09 10:27:16"
                         },
                         {
                             "id": "605c7610-1389-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "John Smith",
                             "email": "john.smith@domain.tld",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "Mickey Mouse",
                             "email": "mickey.mouse@domain.tld",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -11659,27 +11659,27 @@
                     "data": [
                         {
                             "id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
+                            "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project 1",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "b6860dd2-138c-11e7-93ae-92361f002671",
-                            "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
+                            "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": null,
                             "name": "John Smith Sample Project 2",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
+                            "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -11698,98 +11698,25 @@
                 "value": {
                     "data": {
                         "id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                        "search_engine_id": "ee87e3b2-1388-11e7-93ae-92361f002671",
+                        "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                         "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                         "name": "John Smith Sample Project 1",
-                        "created_at": "2017-09-14 13:08:35",
-                        "updated_at": "2017-09-14 13:08:35"
+                        "created_at": "2018-01-09 10:27:17",
+                        "updated_at": "2018-01-09 10:27:17"
                     }
                 }
             },
             "SyncItemIndexExampleResponse": {
                 "value": {
-                    "data": [
-                        {
-                            "item_id": "4f72bc631fdb000000005224",
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "item_signature": "80bce7901713e6ce067b458b3cd6fedc",
-                            "created_at": "2017-09-15 12:03:57",
-                            "updated_at": "2017-09-15 12:03:57"
-                        },
-                        {
-                            "item_id": "4f72bc631fdb000000005224",
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "item_signature": "2aa41d49c19a1539c0e754368ab4ba5e",
-                            "created_at": "2017-09-15 12:03:59",
-                            "updated_at": "2017-09-15 12:03:59"
-                        },
-                        {
-                            "item_id": "4f72bc63f307000000002fc7",
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "item_signature": "a105ea325f43bed324be09412d9c84a6",
-                            "created_at": "2017-09-15 12:03:57",
-                            "updated_at": "2017-09-15 12:03:57"
-                        },
-                        {
-                            "item_id": "4f72bc63f307000000002fc7",
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "item_signature": "840d7825db1b1e73e868ed663d295dd3",
-                            "created_at": "2017-09-15 12:03:59",
-                            "updated_at": "2017-09-15 12:03:59"
-                        },
-                        {
-                            "item_id": "4f72bc640e6800000000aa73",
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "item_signature": "6b72932de7dda8f1dc8cd643364893e1",
-                            "created_at": "2017-09-15 12:03:57",
-                            "updated_at": "2017-09-15 12:03:57"
-                        },
-                        {
-                            "item_id": "4f72bc640e6800000000aa73",
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "item_signature": "a8d1631cfe746ed663934603ce683542",
-                            "created_at": "2017-09-15 12:03:59",
-                            "updated_at": "2017-09-15 12:03:59"
-                        },
-                        {
-                            "item_id": "4f72bc641f5f00000000ab92",
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "item_signature": "2832ee61c4da00a50b1b40088b8b5f1e",
-                            "created_at": "2017-09-15 12:03:57",
-                            "updated_at": "2017-09-15 12:03:57"
-                        },
-                        {
-                            "item_id": "4f72bc641f5f00000000ab92",
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "item_signature": "e088b3ffd2c6a817f220dd447fb10f41",
-                            "created_at": "2017-09-15 12:03:59",
-                            "updated_at": "2017-09-15 12:03:59"
-                        },
-                        {
-                            "item_id": "4f72bc643160000000000cea",
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "item_signature": "1e66e961fe69f7b35c230ce0be26e869",
-                            "created_at": "2017-09-15 12:03:57",
-                            "updated_at": "2017-09-15 12:03:57"
-                        },
-                        {
-                            "item_id": "4f72bc643160000000000cea",
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "item_signature": "840a9922d290d5af5b843a8738339920",
-                            "created_at": "2017-09-15 12:03:59",
-                            "updated_at": "2017-09-15 12:03:59"
-                        }
-                    ],
+                    "data": [],
                     "meta": {
                         "pagination": {
-                            "total": 1474,
-                            "count": 10,
+                            "total": 0,
+                            "count": 0,
                             "per_page": 10,
                             "current_page": 1,
-                            "total_pages": 148,
-                            "links": {
-                                "next": "https:\/\/emsearch.ryan.ems-dev.net\/api\/syncItem?page=2"
-                            }
+                            "total_pages": 1,
+                            "links": []
                         }
                     }
                 }
@@ -11801,142 +11728,11 @@
             },
             "SyncTaskIndexExampleResponse": {
                 "value": {
-                    "data": [
-                        {
-                            "id": "065a5812-1a60-4dee-b43a-8da621e6807e",
-                            "sync_task_id": "f542c0e4-729e-11e7-8cf7-a6006ad3dba0",
-                            "sync_task_type_id": "ItemsInsertion",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:55",
-                            "updated_at": "2017-09-15 12:04:00",
-                            "sync_task_logs_count": 7,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "09d4f6a0-41e4-45aa-a2e3-c2ae1edf692c",
-                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
-                            "sync_task_type_id": "DataStreamDownload",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:34",
-                            "updated_at": "2017-09-15 12:03:48",
-                            "sync_task_logs_count": 4,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "0bd05397-ab1f-4b36-a0fe-bc5047ec8ae6",
-                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
-                            "sync_task_type_id": "DataStreamPrepare",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:54",
-                            "updated_at": "2017-09-15 12:03:55",
-                            "sync_task_logs_count": 9,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "14a1ee3d-b279-4fdc-b9a7-98dd9b3c1861",
-                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
-                            "sync_task_type_id": "ItemsInsertion",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:54",
-                            "updated_at": "2017-09-15 12:03:58",
-                            "sync_task_logs_count": 7,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "1bbd1a41-3147-4b78-af5c-01ac035faced",
-                            "sync_task_id": "f542c0e4-729e-11e7-8cf7-a6006ad3dba0",
-                            "sync_task_type_id": "DataStreamCheck",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:54",
-                            "updated_at": "2017-09-15 12:03:54",
-                            "sync_task_logs_count": 3,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "8b0a60ca-8984-4c08-801a-93277acdeb69",
-                            "sync_task_id": "f542c0e4-729e-11e7-8cf7-a6006ad3dba0",
-                            "sync_task_type_id": "DataStreamDownload",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:34",
-                            "updated_at": "2017-09-15 12:03:54",
-                            "sync_task_logs_count": 4,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
-                            "sync_task_id": null,
-                            "sync_task_type_id": "Main",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": "605c7610-1389-11e7-93ae-92361f002671",
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": "2017-09-14 13:18:35",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-15 12:04:00",
-                            "sync_task_logs_count": 3,
-                            "children_sync_tasks_count": 4
-                        },
-                        {
-                            "id": "cb6347a6-5424-4ade-9fa4-071a993d24d0",
-                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
-                            "sync_task_type_id": "DataStreamCheck",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:48",
-                            "updated_at": "2017-09-15 12:03:54",
-                            "sync_task_logs_count": 3,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "f542c0e4-729e-11e7-8cf7-a6006ad3dba0",
-                            "sync_task_id": null,
-                            "sync_task_type_id": "Main",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": "82b5da82-138c-11e7-93ae-92361f002671",
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "planned_at": "2017-09-14 13:28:35",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-15 12:04:00",
-                            "sync_task_logs_count": 2,
-                            "children_sync_tasks_count": 4
-                        },
-                        {
-                            "id": "f8df31c4-9498-4938-bbce-dc5ce4641c24",
-                            "sync_task_id": "f542c0e4-729e-11e7-8cf7-a6006ad3dba0",
-                            "sync_task_type_id": "DataStreamPrepare",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2017-09-15 12:03:54",
-                            "updated_at": "2017-09-15 12:03:56",
-                            "sync_task_logs_count": 9,
-                            "children_sync_tasks_count": 0
-                        }
-                    ],
+                    "data": [],
                     "meta": {
                         "pagination": {
-                            "total": 10,
-                            "count": 10,
+                            "total": 0,
+                            "count": 0,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -11950,17 +11746,17 @@
                     "data": [
                         {
                             "id": "DataStreamCheck",
-                            "sync_tasks_count": 2,
+                            "sync_tasks_count": 0,
                             "sync_task_type_versions_count": 2
                         },
                         {
                             "id": "DataStreamDownload",
-                            "sync_tasks_count": 2,
+                            "sync_tasks_count": 0,
                             "sync_task_type_versions_count": 2
                         },
                         {
                             "id": "DataStreamPrepare",
-                            "sync_tasks_count": 2,
+                            "sync_tasks_count": 0,
                             "sync_task_type_versions_count": 2
                         },
                         {
@@ -11970,7 +11766,7 @@
                         },
                         {
                             "id": "ItemsInsertion",
-                            "sync_tasks_count": 2,
+                            "sync_tasks_count": 0,
                             "sync_task_type_versions_count": 2
                         },
                         {
@@ -11980,7 +11776,7 @@
                         },
                         {
                             "id": "Main",
-                            "sync_tasks_count": 2,
+                            "sync_tasks_count": 0,
                             "sync_task_type_versions_count": 2
                         }
                     ],
@@ -12003,71 +11799,71 @@
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "en_US",
                             "description": "Comparison and verification of downloaded data.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "fr_FR",
                             "description": "Comparaison et v\u00e9rification des donn\u00e9es t\u00e9l\u00e9charg\u00e9es.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "en_US",
                             "description": "Downloading the provided data feed url of the data stream.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "fr_FR",
                             "description": "T\u00e9l\u00e9chargement des donn\u00e9es fournies par l'url du flux de donn\u00e9es.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "en_US",
                             "description": "Data breakdown for creation, edition or deletion.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "fr_FR",
                             "description": "Ventilation des donn\u00e9es pour la cr\u00e9ation, modification ou suppression.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "en_US",
                             "description": "Deleting records.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "fr_FR",
                             "description": "Suppression d'enregistrements.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "en_US",
                             "description": "Creating new records.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "fr_FR",
                             "description": "Cr\u00e9ation des nouveaux enregistrements.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         }
                     ],
                     "meta": {
@@ -12094,27 +11890,39 @@
                     "data": [
                         {
                             "id": "Complete",
-                            "sync_tasks_count": 10,
-                            "sync_task_logs_count": 10,
+                            "sync_tasks_count": 0,
+                            "sync_task_logs_count": 0,
                             "sync_task_status_versions_count": 2
                         },
                         {
                             "id": "InProgress",
                             "sync_tasks_count": 0,
-                            "sync_task_logs_count": 40,
+                            "sync_task_logs_count": 0,
+                            "sync_task_status_versions_count": 2
+                        },
+                        {
+                            "id": "OnError",
+                            "sync_tasks_count": 0,
+                            "sync_task_logs_count": 0,
                             "sync_task_status_versions_count": 2
                         },
                         {
                             "id": "Planned",
                             "sync_tasks_count": 0,
-                            "sync_task_logs_count": 1,
+                            "sync_task_logs_count": 0,
+                            "sync_task_status_versions_count": 2
+                        },
+                        {
+                            "id": "Queued",
+                            "sync_tasks_count": 0,
+                            "sync_task_logs_count": 0,
                             "sync_task_status_versions_count": 2
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 3,
-                            "count": 3,
+                            "total": 5,
+                            "count": 5,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -12130,49 +11938,77 @@
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is complete.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est termin\u00e9e",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is in progress.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est en cours.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
+                        },
+                        {
+                            "sync_task_status_id": "OnError",
+                            "i18n_lang_id": "en_US",
+                            "description": "An error occurred.",
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
+                        },
+                        {
+                            "sync_task_status_id": "OnError",
+                            "i18n_lang_id": "fr_FR",
+                            "description": "Une erreur s'est produite.",
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is planned.",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est plannifi\u00e9e",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
+                        },
+                        {
+                            "sync_task_status_id": "Queued",
+                            "i18n_lang_id": "en_US",
+                            "description": "Items synchronization is in jobs queue.",
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
+                        },
+                        {
+                            "sync_task_status_id": "Queued",
+                            "i18n_lang_id": "fr_FR",
+                            "description": "La synchronisation des items est en file d'attente.",
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 6,
-                            "count": 6,
+                            "total": 10,
+                            "count": 10,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -12194,16 +12030,16 @@
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "John Smith Sample Project Data Stream",
                             "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "605d712c-1934-11e7-93ae-92361f002671",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "Mickey Mouse Sample Project Data Stream",
                             "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12229,8 +12065,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145ca730-60af-11e7-907b-a6006ad3dba0",
@@ -12240,8 +12076,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145ca848-60af-11e7-907b-a6006ad3dba0",
@@ -12251,8 +12087,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145ca9ba-60af-11e7-907b-a6006ad3dba0",
@@ -12262,8 +12098,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145cac44-60af-11e7-907b-a6006ad3dba0",
@@ -12273,8 +12109,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145cad20-60af-11e7-907b-a6006ad3dba0",
@@ -12284,8 +12120,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145cade8-60af-11e7-907b-a6006ad3dba0",
@@ -12295,8 +12131,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145caeb0-60af-11e7-907b-a6006ad3dba0",
@@ -12306,8 +12142,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145cb13a-60af-11e7-907b-a6006ad3dba0",
@@ -12317,8 +12153,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "145cb27a-60af-11e7-907b-a6006ad3dba0",
@@ -12328,8 +12164,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12352,26 +12188,20 @@
                         {
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
-                        },
-                        {
-                            "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
-                            "i18n_lang_id": "en",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 3,
-                            "count": 3,
+                            "total": 2,
+                            "count": 2,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -12392,36 +12222,36 @@
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12449,8 +12279,8 @@
                             "name": "Emonsite",
                             "class_name": "EmonsiteDecoder",
                             "file_mime_type": "application\/json",
-                            "created_at": "2017-09-14 13:08:25",
-                            "updated_at": "2017-09-14 13:08:25"
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11"
                         }
                     ],
                     "meta": {
@@ -12472,8 +12302,8 @@
                             "id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12499,8 +12329,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cb642-5bf3-11e7-907b-a6006ad3dba0",
@@ -12510,8 +12340,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cba20-5bf3-11e7-907b-a6006ad3dba0",
@@ -12521,8 +12351,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cc15a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12532,8 +12362,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cc34e-5bf3-11e7-907b-a6006ad3dba0",
@@ -12543,8 +12373,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cc4ca-5bf3-11e7-907b-a6006ad3dba0",
@@ -12554,8 +12384,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cc650-5bf3-11e7-907b-a6006ad3dba0",
@@ -12565,8 +12395,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cc7c2-5bf3-11e7-907b-a6006ad3dba0",
@@ -12576,8 +12406,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9cc92a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12587,8 +12417,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "eb9ccec0-5bf3-11e7-907b-a6006ad3dba0",
@@ -12598,8 +12428,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12678,18 +12508,34 @@
                 "value": {
                     "data": [
                         {
+                            "id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
+                            "name": "Elastic Search",
+                            "class_name": "ElasticSearchSearchEngine",
+                            "created_at": "2018-01-09 10:27:16",
+                            "updated_at": "2018-01-09 10:27:16",
+                            "projects_count": 3
+                        },
+                        {
+                            "id": "9f34afe4-ba3f-11e7-abc4-cec278b6b50a",
+                            "name": "Fake",
+                            "class_name": "FakeSearchEngine",
+                            "created_at": "2018-01-09 10:27:16",
+                            "updated_at": "2018-01-09 10:27:16",
+                            "projects_count": 0
+                        },
+                        {
                             "id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "name": "Algolia",
                             "class_name": "AlgoliaSearchEngine",
-                            "created_at": "2017-09-14 13:08:24",
-                            "updated_at": "2017-09-14 13:08:24",
-                            "projects_count": 3
+                            "created_at": "2018-01-09 10:27:11",
+                            "updated_at": "2018-01-09 10:27:11",
+                            "projects_count": 0
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 1,
-                            "count": 1,
+                            "total": 3,
+                            "count": 3,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -12705,16 +12551,16 @@
                             "id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project Default Search Use Case",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35",
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17",
                             "search_use_case_fields_count": 3
                         },
                         {
                             "id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project Default Search Use Case",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35",
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17",
                             "search_use_case_fields_count": 3
                         }
                     ],
@@ -12739,8 +12585,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12748,8 +12594,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12757,8 +12603,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12766,8 +12612,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12775,8 +12621,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12784,8 +12630,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12807,16 +12653,16 @@
                             "id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35",
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17",
                             "search_use_case_preset_fields_count": 3
                         },
                         {
                             "id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35",
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17",
                             "search_use_case_preset_fields_count": 2
                         }
                     ],
@@ -12841,8 +12687,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12850,8 +12696,8 @@
                             "name": "tags",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12859,8 +12705,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -12868,8 +12714,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -12877,8 +12723,8 @@
                             "name": "image_url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12900,15 +12746,15 @@
                             "id": "a2fb4304-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "b070b438-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {
@@ -12930,15 +12776,15 @@
                             "id": "0f85eb82-776a-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         },
                         {
                             "id": "6be0a102-7769-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2017-09-14 13:08:35",
-                            "updated_at": "2017-09-14 13:08:35"
+                            "created_at": "2018-01-09 10:27:17",
+                            "updated_at": "2018-01-09 10:27:17"
                         }
                     ],
                     "meta": {

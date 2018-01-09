@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Emsearch\Api\ApiClient;
 
 /**
- * emsearch API client test class (test for version 1.0)
+ * ems-search API client test class (test for version 1.0)
  * 
  * @package Emsearch\Api\Tests
  */

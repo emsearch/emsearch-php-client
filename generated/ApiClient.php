@@ -34,7 +34,7 @@ use Emsearch\Api\Managers\WidgetManager;
 use Emsearch\Api\Managers\WidgetPresetManager;
 
 /**
- * emsearch API client class (version 1.0)
+ * ems-search API client class (version 1.0)
  * 
  * @package Emsearch\Api
  */
@@ -250,7 +250,7 @@ class ApiClient
 	 * @param string $apiBaseUrl API base url for requests
 	 * @param string[] $globalHeaders Map of global headers to use with every requests
 	 */
-	public function __construct($bearerToken, $apiBaseUrl = 'https://emsearch.ryan.ems-dev.net', $globalHeaders = [])
+	public function __construct($bearerToken, $apiBaseUrl = 'https://www.ems-search.com', $globalHeaders = [])
 	{
 		$this->apiBaseUrl = $apiBaseUrl;
 		$this->globalHeaders = $globalHeaders;
