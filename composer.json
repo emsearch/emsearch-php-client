@@ -2,18 +2,21 @@
     "name": "emsearch/emsearch-php-client",
     "description": "emsearch Api PHP Client",
     "type": "library",
+    "license": "MIT",
+	"keywords": [
+		"ems-search",
+		"emsearch",
+		"PHP",
+		"SDK"
+	],
+	"homepage": "https://github.com/emsearch/emsearch-php-client",
     "authors": [
         {
             "name": "Ryan Gilles",
             "email": "ryan@e-monsite.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "/home/dev/rygilles/openapi-php-client-generator"
-        }
-    ],
+	"minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Emsearch\\Api\\": "generated/"
