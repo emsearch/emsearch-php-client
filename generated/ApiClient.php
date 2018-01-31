@@ -249,8 +249,9 @@ class ApiClient
 	 * @param string $bearerToken Bearer authentication access token
 	 * @param string $apiBaseUrl API base url for requests
 	 * @param string[] $globalHeaders Map of global headers to use with every requests
+	 * @param mixed[] $guzzleClientConfig Additional Guzzle client configuration
 	 */
-	public function __construct($bearerToken, $apiBaseUrl = 'https://www.ems-search.com', $globalHeaders = [])
+	public function __construct($bearerToken, $apiBaseUrl = 'https://www.ems-search.com', $globalHeaders = [], $guzzleClientConfig = [])
 	{
 		$this->apiBaseUrl = $apiBaseUrl;
 		$this->globalHeaders = $globalHeaders;
@@ -271,11 +272,11 @@ class ApiClient
 				return $request->withHeader('Authorization', 'Bearer ' . $this->bearerToken);
 			}
 		}));
+	
+		$guzzleClientConfig['handler'] = $stack;
+		$guzzleClientConfig['base_uri'] = $apiBaseUrl;
 
-		$this->httpClient = new GuzzleClient([
-			'handler' => $stack,
-			'base_uri' => $apiBaseUrl
-		]);
+		$this->httpClient = new GuzzleClient($guzzleClientConfig);
 
 		$this->searchUseCaseManager = new SearchUseCaseManager($this);
 		$this->meManager = new MeManager($this);
