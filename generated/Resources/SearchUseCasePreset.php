@@ -237,7 +237,7 @@ class SearchUseCasePreset
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function getFieldPresets($search = null, $page = null, $limit = null, $order_by = null)
+	public function getPresetFields($search = null, $page = null, $limit = null, $order_by = null)
 	{
 		$routePath = '/api/searchUseCasePreset/{searchUseCasePresetId}/searchUseCasePresetField';
 
