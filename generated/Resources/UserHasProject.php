@@ -176,6 +176,8 @@ class UserHasProject
 								$requestBody['data']['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
 								$requestBody['data']['project']['data']['dataStream']['data']['name'], 
 								$requestBody['data']['project']['data']['dataStream']['data']['feed_url'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['basic_auth_user'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['basic_auth_password'], 
 								$requestBody['data']['project']['data']['dataStream']['data']['created_at'], 
 								$requestBody['data']['project']['data']['dataStream']['data']['updated_at'], 
 								null, 

@@ -192,6 +192,8 @@ class SearchUseCaseField
 										$requestBody['data']['searchUseCase']['data']['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
 										$requestBody['data']['searchUseCase']['data']['project']['data']['dataStream']['data']['name'], 
 										$requestBody['data']['searchUseCase']['data']['project']['data']['dataStream']['data']['feed_url'], 
+										$requestBody['data']['searchUseCase']['data']['project']['data']['dataStream']['data']['basic_auth_user'], 
+										$requestBody['data']['searchUseCase']['data']['project']['data']['dataStream']['data']['basic_auth_password'], 
 										$requestBody['data']['searchUseCase']['data']['project']['data']['dataStream']['data']['created_at'], 
 										$requestBody['data']['searchUseCase']['data']['project']['data']['dataStream']['data']['updated_at'], 
 										null, 
@@ -246,6 +248,8 @@ class SearchUseCaseField
 								$requestBody['data']['dataStreamField']['data']['dataStream']['data']['data_stream_decoder_id'], 
 								$requestBody['data']['dataStreamField']['data']['dataStream']['data']['name'], 
 								$requestBody['data']['dataStreamField']['data']['dataStream']['data']['feed_url'], 
+								$requestBody['data']['dataStreamField']['data']['dataStream']['data']['basic_auth_user'], 
+								$requestBody['data']['dataStreamField']['data']['dataStream']['data']['basic_auth_password'], 
 								$requestBody['data']['dataStreamField']['data']['dataStream']['data']['created_at'], 
 								$requestBody['data']['dataStreamField']['data']['dataStream']['data']['updated_at'], 
 								((isset($requestBody['data']['dataStreamField']['data']['dataStream']['data']['project']) && !is_null($requestBody['data']['dataStreamField']['data']['dataStream']['data']['project'])) ? (new ProjectResponse(

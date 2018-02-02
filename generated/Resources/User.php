@@ -294,6 +294,8 @@ class User
 							$data['dataStream']['data']['data_stream_decoder_id'], 
 							$data['dataStream']['data']['name'], 
 							$data['dataStream']['data']['feed_url'], 
+							$data['dataStream']['data']['basic_auth_user'], 
+							$data['dataStream']['data']['basic_auth_password'], 
 							$data['dataStream']['data']['created_at'], 
 							$data['dataStream']['data']['updated_at'], 
 							((isset($data['dataStream']['data']['project']) && !is_null($data['dataStream']['data']['project'])) ? (new ProjectResponse(

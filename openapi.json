@@ -3716,6 +3716,14 @@
                                     "feed_url": {
                                         "type": "string",
                                         "format": "url"
+                                    },
+                                    "basic_auth_user": {
+                                        "maxLength": 100,
+                                        "type": "string"
+                                    },
+                                    "basic_auth_password": {
+                                        "maxLength": 100,
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -3829,6 +3837,14 @@
                                     "feed_url": {
                                         "type": "string",
                                         "format": "url"
+                                    },
+                                    "basic_auth_user": {
+                                        "maxLength": 100,
+                                        "type": "string"
+                                    },
+                                    "basic_auth_password": {
+                                        "maxLength": 100,
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -3931,6 +3947,14 @@
                                     "feed_url": {
                                         "type": "string",
                                         "format": "url"
+                                    },
+                                    "basic_auth_user": {
+                                        "maxLength": 100,
+                                        "type": "string"
+                                    },
+                                    "basic_auth_password": {
+                                        "maxLength": 100,
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -4464,6 +4488,14 @@
                                     "feed_url": {
                                         "type": "string",
                                         "format": "url"
+                                    },
+                                    "basic_auth_user": {
+                                        "maxLength": 100,
+                                        "type": "string"
+                                    },
+                                    "basic_auth_password": {
+                                        "maxLength": 100,
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -4532,6 +4564,14 @@
                                     "feed_url": {
                                         "type": "string",
                                         "format": "url"
+                                    },
+                                    "basic_auth_user": {
+                                        "maxLength": 100,
+                                        "type": "string"
+                                    },
+                                    "basic_auth_password": {
+                                        "maxLength": 100,
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -4632,6 +4672,14 @@
                                     "feed_url": {
                                         "type": "string",
                                         "format": "url"
+                                    },
+                                    "basic_auth_user": {
+                                        "maxLength": 100,
+                                        "type": "string"
+                                    },
+                                    "basic_auth_password": {
+                                        "maxLength": 100,
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -10054,6 +10102,8 @@
                     "data_stream_decoder_id",
                     "name",
                     "feed_url",
+                    "basic_auth_user",
+                    "basic_auth_password",
                     "created_at",
                     "updated_at"
                 ],
@@ -10070,6 +10120,14 @@
                         "type": "string"
                     },
                     "feed_url": {
+                        "type": "string",
+                        "format": "url"
+                    },
+                    "basic_auth_user": {
+                        "type": "string",
+                        "format": "url"
+                    },
+                    "basic_auth_password": {
                         "type": "string",
                         "format": "url"
                     },
@@ -11543,8 +11601,8 @@
                         "user_group_id": "Developer",
                         "name": "John Doe",
                         "email": "john.doe@domain.tld",
-                        "created_at": "2018-02-01 13:05:45",
-                        "updated_at": "2018-02-01 13:05:45"
+                        "created_at": "2018-02-02 10:21:58",
+                        "updated_at": "2018-02-02 10:21:58"
                     }
                 }
             },
@@ -11614,32 +11672,32 @@
                             "user_group_id": "Developer",
                             "name": "John Doe",
                             "email": "john.doe@domain.tld",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:58",
+                            "updated_at": "2018-02-02 10:21:58"
                         },
                         {
                             "id": "509dd5c0-1389-11e7-93ae-92361f002671",
                             "user_group_id": "Support",
                             "name": "Alan Smithee",
                             "email": "alan.smithee@domain.tld",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:58",
+                            "updated_at": "2018-02-02 10:21:58"
                         },
                         {
                             "id": "605c7610-1389-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "John Smith",
                             "email": "john.smith@domain.tld",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "Mickey Mouse",
                             "email": "mickey.mouse@domain.tld",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -11662,24 +11720,24 @@
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project 1",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": null,
                             "name": "John Smith Sample Project 2",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -11701,8 +11759,8 @@
                         "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                         "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                         "name": "John Smith Sample Project 1",
-                        "created_at": "2018-02-01 13:05:45",
-                        "updated_at": "2018-02-01 13:05:45"
+                        "created_at": "2018-02-02 10:21:59",
+                        "updated_at": "2018-02-02 10:21:59"
                     }
                 }
             },
@@ -11728,11 +11786,25 @@
             },
             "SyncTaskIndexExampleResponse": {
                 "value": {
-                    "data": [],
+                    "data": [
+                        {
+                            "id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                            "sync_task_id": null,
+                            "sync_task_type_id": "Main",
+                            "sync_task_status_id": "Planned",
+                            "created_by_user_id": "605c7610-1389-11e7-93ae-92361f002671",
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "planned_at": "2018-02-02 10:21:59",
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59",
+                            "sync_task_logs_count": 1,
+                            "children_sync_tasks_count": 0
+                        }
+                    ],
                     "meta": {
                         "pagination": {
-                            "total": 0,
-                            "count": 0,
+                            "total": 1,
+                            "count": 1,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -11776,7 +11848,7 @@
                         },
                         {
                             "id": "Main",
-                            "sync_tasks_count": 0,
+                            "sync_tasks_count": 1,
                             "sync_task_type_versions_count": 2
                         }
                     ],
@@ -11799,71 +11871,71 @@
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "en_US",
                             "description": "Comparison and verification of downloaded data.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "fr_FR",
                             "description": "Comparaison et v\u00e9rification des donn\u00e9es t\u00e9l\u00e9charg\u00e9es.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "en_US",
                             "description": "Downloading the provided data feed url of the data stream.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "fr_FR",
                             "description": "T\u00e9l\u00e9chargement des donn\u00e9es fournies par l'url du flux de donn\u00e9es.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "en_US",
                             "description": "Data breakdown for creation, edition or deletion.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "fr_FR",
                             "description": "Ventilation des donn\u00e9es pour la cr\u00e9ation, modification ou suppression.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "en_US",
                             "description": "Deleting records.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "fr_FR",
                             "description": "Suppression d'enregistrements.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "en_US",
                             "description": "Creating new records.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "fr_FR",
                             "description": "Cr\u00e9ation des nouveaux enregistrements.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         }
                     ],
                     "meta": {
@@ -11908,8 +11980,8 @@
                         },
                         {
                             "id": "Planned",
-                            "sync_tasks_count": 0,
-                            "sync_task_logs_count": 0,
+                            "sync_tasks_count": 1,
+                            "sync_task_logs_count": 1,
                             "sync_task_status_versions_count": 2
                         },
                         {
@@ -11938,71 +12010,71 @@
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is complete.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est termin\u00e9e",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is in progress.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est en cours.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "OnError",
                             "i18n_lang_id": "en_US",
                             "description": "An error occurred.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "OnError",
                             "i18n_lang_id": "fr_FR",
                             "description": "Une erreur s'est produite.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is planned.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est plannifi\u00e9e",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "Queued",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is in jobs queue.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         },
                         {
                             "sync_task_status_id": "Queued",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est en file d'attente.",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         }
                     ],
                     "meta": {
@@ -12029,17 +12101,21 @@
                             "id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "John Smith Sample Project Data Stream",
-                            "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "feed_url": "http:\/\/test-blog-emsearch.e-monsitev4.com\/blog\/do\/datastream\/",
+                            "basic_auth_user": "awelty",
+                            "basic_auth_password": "sites",
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "605d712c-1934-11e7-93ae-92361f002671",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "Mickey Mouse Sample Project Data Stream",
                             "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "basic_auth_user": null,
+                            "basic_auth_password": null,
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12065,8 +12141,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145ca730-60af-11e7-907b-a6006ad3dba0",
@@ -12076,8 +12152,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145ca848-60af-11e7-907b-a6006ad3dba0",
@@ -12087,8 +12163,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145ca9ba-60af-11e7-907b-a6006ad3dba0",
@@ -12098,8 +12174,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145cac44-60af-11e7-907b-a6006ad3dba0",
@@ -12109,8 +12185,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145cad20-60af-11e7-907b-a6006ad3dba0",
@@ -12120,8 +12196,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145cade8-60af-11e7-907b-a6006ad3dba0",
@@ -12131,8 +12207,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145caeb0-60af-11e7-907b-a6006ad3dba0",
@@ -12142,8 +12218,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145cb13a-60af-11e7-907b-a6006ad3dba0",
@@ -12153,8 +12229,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "145cb27a-60af-11e7-907b-a6006ad3dba0",
@@ -12164,8 +12240,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12188,14 +12264,14 @@
                         {
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12222,36 +12298,36 @@
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12279,8 +12355,8 @@
                             "name": "Emonsite",
                             "class_name": "EmonsiteDecoder",
                             "file_mime_type": "application\/json",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39"
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57"
                         }
                     ],
                     "meta": {
@@ -12302,8 +12378,8 @@
                             "id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12329,8 +12405,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cb642-5bf3-11e7-907b-a6006ad3dba0",
@@ -12340,8 +12416,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cba20-5bf3-11e7-907b-a6006ad3dba0",
@@ -12351,8 +12427,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cc15a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12362,8 +12438,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cc34e-5bf3-11e7-907b-a6006ad3dba0",
@@ -12373,8 +12449,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cc4ca-5bf3-11e7-907b-a6006ad3dba0",
@@ -12384,8 +12460,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cc650-5bf3-11e7-907b-a6006ad3dba0",
@@ -12395,8 +12471,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cc7c2-5bf3-11e7-907b-a6006ad3dba0",
@@ -12406,8 +12482,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9cc92a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12417,8 +12493,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "eb9ccec0-5bf3-11e7-907b-a6006ad3dba0",
@@ -12428,8 +12504,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12511,24 +12587,24 @@
                             "id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "name": "Elastic Search",
                             "class_name": "ElasticSearchSearchEngine",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45",
+                            "created_at": "2018-02-02 10:21:58",
+                            "updated_at": "2018-02-02 10:21:58",
                             "projects_count": 3
                         },
                         {
                             "id": "9f34afe4-ba3f-11e7-abc4-cec278b6b50a",
                             "name": "Fake",
                             "class_name": "FakeSearchEngine",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45",
+                            "created_at": "2018-02-02 10:21:58",
+                            "updated_at": "2018-02-02 10:21:58",
                             "projects_count": 0
                         },
                         {
                             "id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "name": "Algolia",
                             "class_name": "AlgoliaSearchEngine",
-                            "created_at": "2018-02-01 13:05:39",
-                            "updated_at": "2018-02-01 13:05:39",
+                            "created_at": "2018-02-02 10:21:57",
+                            "updated_at": "2018-02-02 10:21:57",
                             "projects_count": 0
                         }
                     ],
@@ -12551,16 +12627,16 @@
                             "id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project Default Search Use Case",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45",
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59",
                             "search_use_case_fields_count": 3
                         },
                         {
                             "id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project Default Search Use Case",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45",
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59",
                             "search_use_case_fields_count": 3
                         }
                     ],
@@ -12585,8 +12661,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12594,8 +12670,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12603,8 +12679,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12612,8 +12688,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12621,8 +12697,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12630,8 +12706,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12653,16 +12729,16 @@
                             "id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45",
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59",
                             "search_use_case_preset_fields_count": 3
                         },
                         {
                             "id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45",
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59",
                             "search_use_case_preset_fields_count": 2
                         }
                     ],
@@ -12687,8 +12763,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12696,8 +12772,8 @@
                             "name": "tags",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12705,8 +12781,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -12714,17 +12790,17 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_field_id": "eb9cc92a-5bf3-11e7-907b-a6006ad3dba0",
-                            "name": "image_url",
+                            "name": "seo_image_url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12746,15 +12822,15 @@
                             "id": "a2fb4304-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "b070b438-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {
@@ -12776,15 +12852,15 @@
                             "id": "0f85eb82-776a-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         },
                         {
                             "id": "6be0a102-7769-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2018-02-01 13:05:45",
-                            "updated_at": "2018-02-01 13:05:45"
+                            "created_at": "2018-02-02 10:21:59",
+                            "updated_at": "2018-02-02 10:21:59"
                         }
                     ],
                     "meta": {

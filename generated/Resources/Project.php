@@ -204,6 +204,8 @@ class Project
 									$data['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
 									$data['project']['data']['dataStream']['data']['name'], 
 									$data['project']['data']['dataStream']['data']['feed_url'], 
+									$data['project']['data']['dataStream']['data']['basic_auth_user'], 
+									$data['project']['data']['dataStream']['data']['basic_auth_password'], 
 									$data['project']['data']['dataStream']['data']['created_at'], 
 									$data['project']['data']['dataStream']['data']['updated_at'], 
 									null, 
@@ -324,6 +326,8 @@ class Project
 						$requestBody['data']['dataStream']['data']['data_stream_decoder_id'], 
 						$requestBody['data']['dataStream']['data']['name'], 
 						$requestBody['data']['dataStream']['data']['feed_url'], 
+						$requestBody['data']['dataStream']['data']['basic_auth_user'], 
+						$requestBody['data']['dataStream']['data']['basic_auth_password'], 
 						$requestBody['data']['dataStream']['data']['created_at'], 
 						$requestBody['data']['dataStream']['data']['updated_at'], 
 						null, 
@@ -530,6 +534,8 @@ class Project
 									$data['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
 									$data['project']['data']['dataStream']['data']['name'], 
 									$data['project']['data']['dataStream']['data']['feed_url'], 
+									$data['project']['data']['dataStream']['data']['basic_auth_user'], 
+									$data['project']['data']['dataStream']['data']['basic_auth_password'], 
 									$data['project']['data']['dataStream']['data']['created_at'], 
 									$data['project']['data']['dataStream']['data']['updated_at'], 
 									null, 
@@ -636,6 +642,8 @@ class Project
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['feed_url'], 
+				$requestBody['data']['basic_auth_user'], 
+				$requestBody['data']['basic_auth_password'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
@@ -689,12 +697,14 @@ class Project
 	 * @param string $data_stream_decoder_id Format: uuid.
 	 * @param string $name
 	 * @param string $feed_url Format: url.
+	 * @param string $basic_auth_user
+	 * @param string $basic_auth_password
 	 * 
 	 * @return DataStreamResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function updateDataStream($data_stream_decoder_id, $name, $feed_url)
+	public function updateDataStream($data_stream_decoder_id, $name, $feed_url, $basic_auth_user = null, $basic_auth_password = null)
 	{
 		$routePath = '/api/project/{projectId}/dataStream';
 
@@ -708,6 +718,14 @@ class Project
 		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
 		$bodyParameters['name'] = $name;
 		$bodyParameters['feed_url'] = $feed_url;
+
+		if (!is_null($basic_auth_user)) {
+			$bodyParameters['basic_auth_user'] = $basic_auth_user;
+		}
+
+		if (!is_null($basic_auth_password)) {
+			$bodyParameters['basic_auth_password'] = $basic_auth_password;
+		}
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -738,6 +756,8 @@ class Project
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['feed_url'], 
+				$requestBody['data']['basic_auth_user'], 
+				$requestBody['data']['basic_auth_password'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
@@ -793,12 +813,14 @@ class Project
 	 * @param string $data_stream_decoder_id Format: uuid.
 	 * @param string $name
 	 * @param string $feed_url Format: url.
+	 * @param string $basic_auth_user
+	 * @param string $basic_auth_password
 	 * 
 	 * @return DataStreamResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function createDataStream($data_stream_decoder_id, $name, $feed_url)
+	public function createDataStream($data_stream_decoder_id, $name, $feed_url, $basic_auth_user = null, $basic_auth_password = null)
 	{
 		$routePath = '/api/project/{projectId}/dataStream';
 
@@ -812,6 +834,14 @@ class Project
 		$bodyParameters['data_stream_decoder_id'] = $data_stream_decoder_id;
 		$bodyParameters['name'] = $name;
 		$bodyParameters['feed_url'] = $feed_url;
+
+		if (!is_null($basic_auth_user)) {
+			$bodyParameters['basic_auth_user'] = $basic_auth_user;
+		}
+
+		if (!is_null($basic_auth_password)) {
+			$bodyParameters['basic_auth_password'] = $basic_auth_password;
+		}
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -842,6 +872,8 @@ class Project
 				$requestBody['data']['data_stream_decoder_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['feed_url'], 
+				$requestBody['data']['basic_auth_user'], 
+				$requestBody['data']['basic_auth_password'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at'], 
 				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
@@ -1029,6 +1061,8 @@ class Project
 									$data['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
 									$data['project']['data']['dataStream']['data']['name'], 
 									$data['project']['data']['dataStream']['data']['feed_url'], 
+									$data['project']['data']['dataStream']['data']['basic_auth_user'], 
+									$data['project']['data']['dataStream']['data']['basic_auth_password'], 
 									$data['project']['data']['dataStream']['data']['created_at'], 
 									$data['project']['data']['dataStream']['data']['updated_at'], 
 									null, 

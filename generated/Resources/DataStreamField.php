@@ -182,6 +182,8 @@ class DataStreamField
 						$requestBody['data']['dataStream']['data']['data_stream_decoder_id'], 
 						$requestBody['data']['dataStream']['data']['name'], 
 						$requestBody['data']['dataStream']['data']['feed_url'], 
+						$requestBody['data']['dataStream']['data']['basic_auth_user'], 
+						$requestBody['data']['dataStream']['data']['basic_auth_password'], 
 						$requestBody['data']['dataStream']['data']['created_at'], 
 						$requestBody['data']['dataStream']['data']['updated_at'], 
 						((isset($requestBody['data']['dataStream']['data']['project']) && !is_null($requestBody['data']['dataStream']['data']['project'])) ? (new ProjectResponse(
