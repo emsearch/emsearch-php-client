@@ -573,6 +573,7 @@ class SyncTask
 					$data['sync_task_id'], 
 					$data['entry'], 
 					$data['public'], 
+					(isset($data['position']) ? $data['position'] : null), 
 					$data['created_at'], 
 					$data['updated_at']
 				); 

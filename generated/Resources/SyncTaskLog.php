@@ -49,6 +49,13 @@ class SyncTaskLog
 	public $public;
 
 	/**
+	 * Format: int32.
+	 * 
+	 * @var int
+	 */
+	public $position;
+
+	/**
 	 * Format: date-time.
 	 * 
 	 * @var string
@@ -71,10 +78,11 @@ class SyncTaskLog
 	 * @param string $sync_task_id Format: uuid.
 	 * @param string $entry
 	 * @param boolean $public
+	 * @param int $position Format: int32.
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $sync_task_status_id = null, $sync_task_id = null, $entry = null, $public = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $id = null, $sync_task_status_id = null, $sync_task_id = null, $entry = null, $public = null, $position = null, $created_at = null, $updated_at = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;
@@ -82,6 +90,7 @@ class SyncTaskLog
 		$this->sync_task_id = $sync_task_id;
 		$this->entry = $entry;
 		$this->public = $public;
+		$this->position = $position;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
 	}
