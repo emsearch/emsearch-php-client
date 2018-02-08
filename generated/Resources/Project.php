@@ -587,6 +587,129 @@ class Project
 	}
 	
 	/**
+	 * Request a new main sync. task
+	 * 
+	 * Excepted HTTP code : 201
+	 * 
+	 * @return SyncTaskResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function requestSyncTask()
+	{
+		$routePath = '/api/project/{projectId}/syncTask';
+
+		$pathReplacements = [
+			'{projectId}' => $this->id,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('post', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 201) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new SyncTaskResponse(
+			$this->apiClient, 
+			new SyncTask(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				(isset($requestBody['data']['sync_task_id']) ? $requestBody['data']['sync_task_id'] : null), 
+				$requestBody['data']['sync_task_type_id'], 
+				$requestBody['data']['sync_task_status_id'], 
+				$requestBody['data']['created_by_user_id'], 
+				$requestBody['data']['project_id'], 
+				$requestBody['data']['planned_at'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at'], 
+				$requestBody['data']['sync_task_logs_count'], 
+				$requestBody['data']['children_sync_tasks_count'], 
+				((isset($requestBody['data']['createdByUser']) && !is_null($requestBody['data']['createdByUser'])) ? (new UserResponse(
+					$this->apiClient, 
+					new User(
+						$this->apiClient, 
+						$requestBody['data']['createdByUser']['data']['id'], 
+						$requestBody['data']['createdByUser']['data']['user_group_id'], 
+						$requestBody['data']['createdByUser']['data']['name'], 
+						$requestBody['data']['createdByUser']['data']['email'], 
+						$requestBody['data']['createdByUser']['data']['created_at'], 
+						$requestBody['data']['createdByUser']['data']['updated_at']
+					)
+				)) : null), 
+				((isset($requestBody['data']['project']) && !is_null($requestBody['data']['project'])) ? (new ProjectResponse(
+					$this->apiClient, 
+					new Project(
+						$this->apiClient, 
+						$requestBody['data']['project']['data']['id'], 
+						$requestBody['data']['project']['data']['search_engine_id'], 
+						$requestBody['data']['project']['data']['data_stream_id'], 
+						$requestBody['data']['project']['data']['name'], 
+						$requestBody['data']['project']['data']['created_at'], 
+						$requestBody['data']['project']['data']['updated_at'], 
+						((isset($requestBody['data']['project']['data']['dataStream']) && !is_null($requestBody['data']['project']['data']['dataStream'])) ? (new DataStreamResponse(
+							$this->apiClient, 
+							new DataStream(
+								$this->apiClient, 
+								$requestBody['data']['project']['data']['dataStream']['data']['id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['data_stream_decoder_id'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['name'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['feed_url'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['basic_auth_user'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['basic_auth_password'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['created_at'], 
+								$requestBody['data']['project']['data']['dataStream']['data']['updated_at'], 
+								null, 
+								((isset($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']) && !is_null($requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder'])) ? (new DataStreamDecoderResponse(
+									$this->apiClient, 
+									new DataStreamDecoder(
+										$this->apiClient, 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['id'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['class_name'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['file_mime_type'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['created_at'], 
+										$requestBody['data']['project']['data']['dataStream']['data']['dataStreamDecoder']['data']['updated_at']
+									)
+								)) : null)
+							)
+						)) : null), 
+						((isset($requestBody['data']['project']['data']['searchEngine']) && !is_null($requestBody['data']['project']['data']['searchEngine'])) ? (new SearchEngineResponse(
+							$this->apiClient, 
+							new SearchEngine(
+								$this->apiClient, 
+								$requestBody['data']['project']['data']['searchEngine']['data']['id'], 
+								$requestBody['data']['project']['data']['searchEngine']['data']['name'], 
+								$requestBody['data']['project']['data']['searchEngine']['data']['class_name'], 
+								$requestBody['data']['project']['data']['searchEngine']['data']['created_at'], 
+								$requestBody['data']['project']['data']['searchEngine']['data']['updated_at'], 
+								(isset($requestBody['data']['project']['data']['searchEngine']['data']['projects_count']) ? $requestBody['data']['project']['data']['searchEngine']['data']['projects_count'] : null)
+							)
+						)) : null)
+					)
+				)) : null)
+			)
+		);
+
+		return $response;
+	}
+	
+	/**
 	 * Show project data stream
 	 * 
 	 * Excepted HTTP code : 200

@@ -2250,6 +2250,46 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Resource:Project"
+                ],
+                "summary": "Request a new main sync. task",
+                "operationId": "requestSyncTask",
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "description": "Project UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "A SyncTaskResponse",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SyncTaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "\/api\/syncTaskType": {
@@ -11605,8 +11645,8 @@
                         "user_group_id": "Developer",
                         "name": "John Doe",
                         "email": "john.doe@domain.tld",
-                        "created_at": "2018-02-05 13:26:46",
-                        "updated_at": "2018-02-05 13:26:46"
+                        "created_at": "2018-02-08 15:07:31",
+                        "updated_at": "2018-02-08 15:07:31"
                     }
                 }
             },
@@ -11676,32 +11716,32 @@
                             "user_group_id": "Developer",
                             "name": "John Doe",
                             "email": "john.doe@domain.tld",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:31",
+                            "updated_at": "2018-02-08 15:07:31"
                         },
                         {
                             "id": "509dd5c0-1389-11e7-93ae-92361f002671",
                             "user_group_id": "Support",
                             "name": "Alan Smithee",
                             "email": "alan.smithee@domain.tld",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "605c7610-1389-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "John Smith",
                             "email": "john.smith@domain.tld",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "Mickey Mouse",
                             "email": "mickey.mouse@domain.tld",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -11724,24 +11764,24 @@
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project 1",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": null,
                             "name": "John Smith Sample Project 2",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -11763,18 +11803,33 @@
                         "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                         "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                         "name": "John Smith Sample Project 1",
-                        "created_at": "2018-02-05 13:26:46",
-                        "updated_at": "2018-02-05 13:26:46"
+                        "created_at": "2018-02-08 15:07:32",
+                        "updated_at": "2018-02-08 15:07:32"
                     }
                 }
             },
             "SyncItemIndexExampleResponse": {
                 "value": {
-                    "data": [],
+                    "data": [
+                        {
+                            "item_id": "5a71e32dea5bc1f825105cbe",
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "item_signature": "63e8679c0c71c27328436f60eb3f8571",
+                            "created_at": "2018-02-08 15:10:03",
+                            "updated_at": "2018-02-08 15:10:03"
+                        },
+                        {
+                            "item_id": "5a71e32e0360c1f825105644",
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "item_signature": "9640fa1958f26154314fb81d9772bd53",
+                            "created_at": "2018-02-08 15:10:03",
+                            "updated_at": "2018-02-08 15:10:03"
+                        }
+                    ],
                     "meta": {
                         "pagination": {
-                            "total": 0,
-                            "count": 0,
+                            "total": 2,
+                            "count": 2,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -11792,23 +11847,75 @@
                 "value": {
                     "data": [
                         {
+                            "id": "05dffd23-f610-4d2f-832a-2fe6b1e03022",
+                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                            "sync_task_type_id": "DataStreamPrepare",
+                            "sync_task_status_id": "Complete",
+                            "created_by_user_id": null,
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "planned_at": null,
+                            "created_at": "2018-02-08 15:10:00",
+                            "updated_at": "2018-02-08 15:10:01",
+                            "sync_task_logs_count": 10,
+                            "children_sync_tasks_count": 0
+                        },
+                        {
+                            "id": "3bc34f7f-5511-4914-9cb4-aaee66e9e669",
+                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                            "sync_task_type_id": "ItemsInsertion",
+                            "sync_task_status_id": "Complete",
+                            "created_by_user_id": null,
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "planned_at": null,
+                            "created_at": "2018-02-08 15:10:01",
+                            "updated_at": "2018-02-08 15:10:03",
+                            "sync_task_logs_count": 8,
+                            "children_sync_tasks_count": 0
+                        },
+                        {
+                            "id": "40b02388-d603-43ca-bc37-a4b2f33b5e22",
+                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                            "sync_task_type_id": "DataStreamDownload",
+                            "sync_task_status_id": "Complete",
+                            "created_by_user_id": null,
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "planned_at": null,
+                            "created_at": "2018-02-08 15:09:58",
+                            "updated_at": "2018-02-08 15:10:00",
+                            "sync_task_logs_count": 5,
+                            "children_sync_tasks_count": 0
+                        },
+                        {
                             "id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
                             "sync_task_id": null,
                             "sync_task_type_id": "Main",
-                            "sync_task_status_id": "Planned",
+                            "sync_task_status_id": "Complete",
                             "created_by_user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": "2018-02-05 13:26:46",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46",
-                            "sync_task_logs_count": 1,
+                            "planned_at": "2018-02-08 15:07:32",
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:10:03",
+                            "sync_task_logs_count": 5,
+                            "children_sync_tasks_count": 4
+                        },
+                        {
+                            "id": "9ae7baef-e909-4c9e-8295-46276e255be3",
+                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                            "sync_task_type_id": "DataStreamCheck",
+                            "sync_task_status_id": "Complete",
+                            "created_by_user_id": null,
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "planned_at": null,
+                            "created_at": "2018-02-08 15:10:00",
+                            "updated_at": "2018-02-08 15:10:00",
+                            "sync_task_logs_count": 4,
                             "children_sync_tasks_count": 0
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 1,
-                            "count": 1,
+                            "total": 5,
+                            "count": 5,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -11822,17 +11929,17 @@
                     "data": [
                         {
                             "id": "DataStreamCheck",
-                            "sync_tasks_count": 0,
+                            "sync_tasks_count": 1,
                             "sync_task_type_versions_count": 2
                         },
                         {
                             "id": "DataStreamDownload",
-                            "sync_tasks_count": 0,
+                            "sync_tasks_count": 1,
                             "sync_task_type_versions_count": 2
                         },
                         {
                             "id": "DataStreamPrepare",
-                            "sync_tasks_count": 0,
+                            "sync_tasks_count": 1,
                             "sync_task_type_versions_count": 2
                         },
                         {
@@ -11842,7 +11949,7 @@
                         },
                         {
                             "id": "ItemsInsertion",
-                            "sync_tasks_count": 0,
+                            "sync_tasks_count": 1,
                             "sync_task_type_versions_count": 2
                         },
                         {
@@ -11875,71 +11982,71 @@
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "en_US",
                             "description": "Comparison and verification of downloaded data.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "fr_FR",
                             "description": "Comparaison et v\u00e9rification des donn\u00e9es t\u00e9l\u00e9charg\u00e9es.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "en_US",
                             "description": "Downloading the provided data feed url of the data stream.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "fr_FR",
                             "description": "T\u00e9l\u00e9chargement des donn\u00e9es fournies par l'url du flux de donn\u00e9es.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "en_US",
                             "description": "Data breakdown for creation, edition or deletion.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "fr_FR",
                             "description": "Ventilation des donn\u00e9es pour la cr\u00e9ation, modification ou suppression.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "en_US",
                             "description": "Deleting records.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "fr_FR",
                             "description": "Suppression d'enregistrements.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "en_US",
                             "description": "Creating new records.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "fr_FR",
                             "description": "Cr\u00e9ation des nouveaux enregistrements.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         }
                     ],
                     "meta": {
@@ -11966,14 +12073,14 @@
                     "data": [
                         {
                             "id": "Complete",
-                            "sync_tasks_count": 0,
-                            "sync_task_logs_count": 0,
+                            "sync_tasks_count": 5,
+                            "sync_task_logs_count": 5,
                             "sync_task_status_versions_count": 2
                         },
                         {
                             "id": "InProgress",
                             "sync_tasks_count": 0,
-                            "sync_task_logs_count": 0,
+                            "sync_task_logs_count": 22,
                             "sync_task_status_versions_count": 2
                         },
                         {
@@ -11984,14 +12091,14 @@
                         },
                         {
                             "id": "Planned",
-                            "sync_tasks_count": 1,
+                            "sync_tasks_count": 0,
                             "sync_task_logs_count": 1,
                             "sync_task_status_versions_count": 2
                         },
                         {
                             "id": "Queued",
                             "sync_tasks_count": 0,
-                            "sync_task_logs_count": 0,
+                            "sync_task_logs_count": 4,
                             "sync_task_status_versions_count": 2
                         }
                     ],
@@ -12014,71 +12121,71 @@
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is complete.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est termin\u00e9e",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is in progress.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est en cours.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "OnError",
                             "i18n_lang_id": "en_US",
                             "description": "An error occurred.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "OnError",
                             "i18n_lang_id": "fr_FR",
                             "description": "Une erreur s'est produite.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is planned.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est plannifi\u00e9e",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "Queued",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is in jobs queue.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         },
                         {
                             "sync_task_status_id": "Queued",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est en file d'attente.",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         }
                     ],
                     "meta": {
@@ -12108,8 +12215,8 @@
                             "feed_url": "http:\/\/test-blog-emsearch.e-monsitev4.com\/blog\/do\/datastream\/",
                             "basic_auth_user": "awelty",
                             "basic_auth_password": "sites",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "605d712c-1934-11e7-93ae-92361f002671",
@@ -12118,8 +12225,8 @@
                             "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
                             "basic_auth_user": null,
                             "basic_auth_password": null,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12145,8 +12252,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145ca730-60af-11e7-907b-a6006ad3dba0",
@@ -12156,8 +12263,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145ca848-60af-11e7-907b-a6006ad3dba0",
@@ -12167,8 +12274,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145ca9ba-60af-11e7-907b-a6006ad3dba0",
@@ -12178,8 +12285,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145cac44-60af-11e7-907b-a6006ad3dba0",
@@ -12189,8 +12296,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145cad20-60af-11e7-907b-a6006ad3dba0",
@@ -12200,8 +12307,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145cade8-60af-11e7-907b-a6006ad3dba0",
@@ -12211,8 +12318,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145caeb0-60af-11e7-907b-a6006ad3dba0",
@@ -12222,8 +12329,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145cb13a-60af-11e7-907b-a6006ad3dba0",
@@ -12233,8 +12340,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "145cb27a-60af-11e7-907b-a6006ad3dba0",
@@ -12244,8 +12351,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12268,14 +12375,14 @@
                         {
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12302,36 +12409,36 @@
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12359,8 +12466,8 @@
                             "name": "Emonsite",
                             "class_name": "EmonsiteDecoder",
                             "file_mime_type": "application\/json",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45"
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30"
                         }
                     ],
                     "meta": {
@@ -12382,8 +12489,8 @@
                             "id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12409,8 +12516,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cb642-5bf3-11e7-907b-a6006ad3dba0",
@@ -12420,8 +12527,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cba20-5bf3-11e7-907b-a6006ad3dba0",
@@ -12431,8 +12538,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cc15a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12442,8 +12549,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cc34e-5bf3-11e7-907b-a6006ad3dba0",
@@ -12453,8 +12560,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cc4ca-5bf3-11e7-907b-a6006ad3dba0",
@@ -12464,8 +12571,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cc650-5bf3-11e7-907b-a6006ad3dba0",
@@ -12475,8 +12582,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cc7c2-5bf3-11e7-907b-a6006ad3dba0",
@@ -12486,8 +12593,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9cc92a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12497,8 +12604,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "eb9ccec0-5bf3-11e7-907b-a6006ad3dba0",
@@ -12508,8 +12615,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12591,24 +12698,24 @@
                             "id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "name": "Elastic Search",
                             "class_name": "ElasticSearchSearchEngine",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46",
+                            "created_at": "2018-02-08 15:07:31",
+                            "updated_at": "2018-02-08 15:07:31",
                             "projects_count": 3
                         },
                         {
                             "id": "9f34afe4-ba3f-11e7-abc4-cec278b6b50a",
                             "name": "Fake",
                             "class_name": "FakeSearchEngine",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46",
+                            "created_at": "2018-02-08 15:07:31",
+                            "updated_at": "2018-02-08 15:07:31",
                             "projects_count": 0
                         },
                         {
                             "id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "name": "Algolia",
                             "class_name": "AlgoliaSearchEngine",
-                            "created_at": "2018-02-05 13:26:45",
-                            "updated_at": "2018-02-05 13:26:45",
+                            "created_at": "2018-02-08 15:07:30",
+                            "updated_at": "2018-02-08 15:07:30",
                             "projects_count": 0
                         }
                     ],
@@ -12631,16 +12738,16 @@
                             "id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project Default Search Use Case",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46",
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32",
                             "search_use_case_fields_count": 3
                         },
                         {
                             "id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project Default Search Use Case",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46",
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32",
                             "search_use_case_fields_count": 3
                         }
                     ],
@@ -12665,8 +12772,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12674,8 +12781,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12683,8 +12790,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12692,8 +12799,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12701,8 +12808,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12710,8 +12817,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12733,16 +12840,16 @@
                             "id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46",
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32",
                             "search_use_case_preset_fields_count": 4
                         },
                         {
                             "id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46",
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32",
                             "search_use_case_preset_fields_count": 2
                         }
                     ],
@@ -12767,8 +12874,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12776,8 +12883,8 @@
                             "name": "content",
                             "searchable": 1,
                             "to_retrieve": 0,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12785,8 +12892,8 @@
                             "name": "tags",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12794,8 +12901,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -12803,8 +12910,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -12812,8 +12919,8 @@
                             "name": "seo_image_url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12835,15 +12942,15 @@
                             "id": "a2fb4304-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "b070b438-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
@@ -12865,15 +12972,15 @@
                             "id": "0f85eb82-776a-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         },
                         {
                             "id": "6be0a102-7769-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2018-02-05 13:26:46",
-                            "updated_at": "2018-02-05 13:26:46"
+                            "created_at": "2018-02-08 15:07:32",
+                            "updated_at": "2018-02-08 15:07:32"
                         }
                     ],
                     "meta": {
