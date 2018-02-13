@@ -20,6 +20,13 @@ class ErrorResponse
 	protected $apiClient;
 
 	/**
+	 * Application specific error code
+	 * 
+	 * @var int
+	 */
+	public $app_error_code;
+
+	/**
 	 * Error message
 	 * 
 	 * @var string
@@ -51,14 +58,16 @@ class ErrorResponse
 	 * ErrorResponse resource class constructor
 	 * 
 	 * @param ApiClient $apiClient API Client to use for this manager requests
+	 * @param int $app_error_code Application specific error code
 	 * @param string $message Error message
 	 * @param object $errors Fields errors map
 	 * @param int $status_code Error status code
 	 * @param mixed $debug Debug mode extra info
 	 */
-	public function __construct(ApiClient $apiClient, $message = null, $errors = null, $status_code = null, $debug = null)
+	public function __construct(ApiClient $apiClient, $app_error_code = null, $message = null, $errors = null, $status_code = null, $debug = null)
 	{
 		$this->apiClient = $apiClient;
+		$this->app_error_code = $app_error_code;
 		$this->message = $message;
 		$this->errors = $errors;
 		$this->status_code = $status_code;

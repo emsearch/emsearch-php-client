@@ -87,6 +87,7 @@ class SyncTaskType
 
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
+				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
 				$requestBody['message'], 
 				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
 				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
@@ -142,6 +143,7 @@ class SyncTaskType
 
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
+				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
 				$requestBody['message'], 
 				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
 				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
@@ -155,6 +157,7 @@ class SyncTaskType
 
 		$response = new ErrorResponse(
 			$this->apiClient, 
+			(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
 			$requestBody['message'], 
 			(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
 			(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
@@ -216,6 +219,7 @@ class SyncTaskType
 
 			$apiExceptionResponse = new ErrorResponse(
 				$this->apiClient, 
+				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
 				$requestBody['message'], 
 				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
 				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
