@@ -516,7 +516,7 @@ class SyncTaskManager
 	/**
 	 * Update a specified sync task
 	 * 
-	 * Excepted HTTP code : 201
+	 * Excepted HTTP code : 200
 	 * 
 	 * @param string $syncTaskId Sync Task ID
 	 * @param string $sync_task_type_id
@@ -559,7 +559,7 @@ class SyncTaskManager
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
-		if ($request->getStatusCode() != 201) {
+		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
 
 			$apiExceptionResponse = new ErrorResponse(
@@ -571,7 +571,7 @@ class SyncTaskManager
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
 
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);

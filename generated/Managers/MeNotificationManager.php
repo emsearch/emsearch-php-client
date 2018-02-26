@@ -4,19 +4,20 @@ namespace Emsearch\Api\Managers;
 
 use Emsearch\Api\ApiClient;
 use Emsearch\Api\Exceptions\UnexpectedResponseException;
-use Emsearch\Api\Resources\SyncTaskTypeListResponse;
+use Emsearch\Api\Resources\NotificationListResponse;
 use Emsearch\Api\Resources\ErrorResponse;
-use Emsearch\Api\Resources\SyncTaskTypeResponse;
-use Emsearch\Api\Resources\SyncTaskType;
+use Emsearch\Api\Resources\NoContentResponse;
+use Emsearch\Api\Resources\NotificationResponse;
+use Emsearch\Api\Resources\Notification;
 use Emsearch\Api\Resources\Meta;
 use Emsearch\Api\Resources\Pagination;
 
 /**
- * SyncTaskType manager class
+ * MeNotification manager class
  * 
  * @package Emsearch\Api\Managers
  */
-class SyncTaskTypeManager 
+class MeNotificationManager 
 {
 	/**
 	 * API client
@@ -26,7 +27,7 @@ class SyncTaskTypeManager
 	protected $apiClient;
 
 	/**
-	 * SyncTaskType manager class constructor
+	 * MeNotification manager class constructor
 	 *
 	 * @param ApiClient $apiClient API Client to use for this manager requests
 	 */
@@ -46,24 +47,36 @@ class SyncTaskTypeManager
 	}
 
 	/**
-	 * Show sync task type list
+	 * Current user notification list
+	 * 
+	 * You can specify a GET parameter `read_status` to filter results.
 	 * 
 	 * Excepted HTTP code : 200
 	 * 
+	 * @param string $read_status
+	 * @param string $include Include responses : {include1},{include2,{include3}[...]
 	 * @param string $search Search words
 	 * @param int $page Format: int32. Pagination : Page number
 	 * @param int $limit Format: int32. Pagination : Maximum entries per page
 	 * @param string $order_by Order by : {field},[asc|desc]
 	 * 
-	 * @return SyncTaskTypeListResponse
+	 * @return NotificationListResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function all($search = null, $page = null, $limit = null, $order_by = null)
+	public function all($read_status = null, $include = null, $search = null, $page = null, $limit = null, $order_by = null)
 	{
-		$routeUrl = '/api/syncTaskType';
+		$routeUrl = '/api/me/notification';
 
 		$queryParameters = [];
+
+		if (!is_null($read_status)) {
+			$queryParameters['read_status'] = $read_status;
+		}
+
+		if (!is_null($include)) {
+			$queryParameters['include'] = $include;
+		}
 
 		if (!is_null($search)) {
 			$queryParameters['search'] = $search;
@@ -103,14 +116,19 @@ class SyncTaskTypeManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new SyncTaskTypeListResponse(
+		$response = new NotificationListResponse(
 			$this->apiClient, 
 			array_map(function($data) {
-				return new SyncTaskType(
+				return new Notification(
 					$this->apiClient, 
 					$data['id'], 
-					$data['sync_tasks_count'], 
-					$data['sync_task_type_versions_count']
+					$data['type'], 
+					$data['notifiable_id'], 
+					$data['notifiable_type'], 
+					$data['data'], 
+					$data['read_at'], 
+					$data['created_at'], 
+					$data['updated_at']
 				); 
 			}, $requestBody['data']), 
 			new Meta(
@@ -131,200 +149,21 @@ class SyncTaskTypeManager
 	}
 	
 	/**
-	 * Create and store new sync task type
-	 * 
-	 * Excepted HTTP code : 201
-	 * 
-	 * @param string $id
-	 * 
-	 * @return SyncTaskTypeResponse
-	 * 
-	 * @throws UnexpectedResponseException
-	 */
-	public function create($id)
-	{
-		$routeUrl = '/api/syncTaskType';
-
-		$bodyParameters = [];
-		$bodyParameters['id'] = $id;
-
-		$requestOptions = [];
-		$requestOptions['form_params'] = $bodyParameters;
-
-		$request = $this->apiClient->getHttpClient()->request('post', $routeUrl, $requestOptions);
-
-		if ($request->getStatusCode() != 201) {
-			$requestBody = json_decode((string) $request->getBody(), true);
-
-			$apiExceptionResponse = new ErrorResponse(
-				$this->apiClient, 
-				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
-				$requestBody['message'], 
-				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
-				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
-				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
-			);
-
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
-		}
-
-		$requestBody = json_decode((string) $request->getBody(), true);
-
-		$response = new SyncTaskTypeResponse(
-			$this->apiClient, 
-			new SyncTaskType(
-				$this->apiClient, 
-				$requestBody['data']['id'], 
-				$requestBody['data']['sync_tasks_count'], 
-				$requestBody['data']['sync_task_type_versions_count']
-			)
-		);
-
-		return $response;
-	}
-	
-	/**
-	 * Get specified sync task type
-	 * 
-	 * Excepted HTTP code : 200
-	 * 
-	 * @param string $syncTaskTypeId Sync task type ID
-	 * 
-	 * @return SyncTaskTypeResponse
-	 * 
-	 * @throws UnexpectedResponseException
-	 */
-	public function get($syncTaskTypeId)
-	{
-		$routePath = '/api/syncTaskType/{syncTaskTypeId}';
-
-		$pathReplacements = [
-			'{syncTaskTypeId}' => $syncTaskTypeId,
-		];
-
-		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
-
-		$requestOptions = [];
-
-		$request = $this->apiClient->getHttpClient()->request('get', $routeUrl, $requestOptions);
-
-		if ($request->getStatusCode() != 200) {
-			$requestBody = json_decode((string) $request->getBody(), true);
-
-			$apiExceptionResponse = new ErrorResponse(
-				$this->apiClient, 
-				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
-				$requestBody['message'], 
-				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
-				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
-				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
-			);
-
-			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
-		}
-
-		$requestBody = json_decode((string) $request->getBody(), true);
-
-		$response = new SyncTaskTypeResponse(
-			$this->apiClient, 
-			new SyncTaskType(
-				$this->apiClient, 
-				$requestBody['data']['id'], 
-				$requestBody['data']['sync_tasks_count'], 
-				$requestBody['data']['sync_task_type_versions_count']
-			)
-		);
-
-		return $response;
-	}
-	
-	/**
-	 * Update a sync task type
-	 * 
-	 * Excepted HTTP code : 200
-	 * 
-	 * @param string $syncTaskTypeId Sync task type ID
-	 * @param string $id
-	 * 
-	 * @return SyncTaskTypeResponse
-	 * 
-	 * @throws UnexpectedResponseException
-	 */
-	public function update($syncTaskTypeId, $id)
-	{
-		$routePath = '/api/syncTaskType/{syncTaskTypeId}';
-
-		$pathReplacements = [
-			'{syncTaskTypeId}' => $syncTaskTypeId,
-		];
-
-		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
-
-		$bodyParameters = [];
-		$bodyParameters['id'] = $id;
-
-		$requestOptions = [];
-		$requestOptions['form_params'] = $bodyParameters;
-
-		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
-
-		if ($request->getStatusCode() != 200) {
-			$requestBody = json_decode((string) $request->getBody(), true);
-
-			$apiExceptionResponse = new ErrorResponse(
-				$this->apiClient, 
-				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
-				$requestBody['message'], 
-				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
-				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
-				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
-			);
-
-			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
-		}
-
-		$requestBody = json_decode((string) $request->getBody(), true);
-
-		$response = new SyncTaskTypeResponse(
-			$this->apiClient, 
-			new SyncTaskType(
-				$this->apiClient, 
-				$requestBody['data']['id'], 
-				$requestBody['data']['sync_tasks_count'], 
-				$requestBody['data']['sync_task_type_versions_count']
-			)
-		);
-
-		return $response;
-	}
-	
-	/**
-	 * Delete specified sync task type
-	 * 
-	 * The sync task type versions will be automatically deleted too.<br />
-	 * <aside class="warning">Avoid using this feature ! Check foreign keys constraints to remove dependent resources properly before.</aside>
+	 * Mark all user notifications as read
 	 * 
 	 * Excepted HTTP code : 204
 	 * 
-	 * @param string $syncTaskTypeId Sync task type ID
-	 * 
-	 * @return ErrorResponse
+	 * @return NoContentResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function delete($syncTaskTypeId)
+	public function markAllAsRead()
 	{
-		$routePath = '/api/syncTaskType/{syncTaskTypeId}';
-
-		$pathReplacements = [
-			'{syncTaskTypeId}' => $syncTaskTypeId,
-		];
-
-		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+		$routeUrl = '/api/me/notification/all/read';
 
 		$requestOptions = [];
 
-		$request = $this->apiClient->getHttpClient()->request('delete', $routeUrl, $requestOptions);
+		$request = $this->apiClient->getHttpClient()->request('post', $routeUrl, $requestOptions);
 
 		if ($request->getStatusCode() != 204) {
 			$requestBody = json_decode((string) $request->getBody(), true);
@@ -343,13 +182,128 @@ class SyncTaskTypeManager
 
 		$requestBody = json_decode((string) $request->getBody(), true);
 
-		$response = new ErrorResponse(
+		$response = new NoContentResponse(
+			$this->apiClient
+		);
+
+		return $response;
+	}
+	
+	/**
+	 * Mark the specified user notification as read
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param string $notificationId Notification UUID
+	 * 
+	 * @return NotificationResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function markAsRead($notificationId)
+	{
+		$routePath = '/api/me/notification/{notificationId}/read';
+
+		$pathReplacements = [
+			'{notificationId}' => $notificationId,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('post', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new NotificationResponse(
 			$this->apiClient, 
-			(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
-			$requestBody['message'], 
-			(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
-			(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
-			(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			new Notification(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['type'], 
+				$requestBody['data']['notifiable_id'], 
+				$requestBody['data']['notifiable_type'], 
+				$requestBody['data']['data'], 
+				$requestBody['data']['read_at'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			)
+		);
+
+		return $response;
+	}
+	
+	/**
+	 * Mark the specified user notification as unread
+	 * 
+	 * Excepted HTTP code : 200
+	 * 
+	 * @param string $notificationId Notification UUID
+	 * 
+	 * @return NotificationResponse
+	 * 
+	 * @throws UnexpectedResponseException
+	 */
+	public function markAsUnread($notificationId)
+	{
+		$routePath = '/api/me/notification/{notificationId}/unread';
+
+		$pathReplacements = [
+			'{notificationId}' => $notificationId,
+		];
+
+		$routeUrl = str_replace(array_keys($pathReplacements), array_values($pathReplacements), $routePath);
+
+		$requestOptions = [];
+
+		$request = $this->apiClient->getHttpClient()->request('post', $routeUrl, $requestOptions);
+
+		if ($request->getStatusCode() != 200) {
+			$requestBody = json_decode((string) $request->getBody(), true);
+
+			$apiExceptionResponse = new ErrorResponse(
+				$this->apiClient, 
+				(isset($requestBody['app_error_code']) ? $requestBody['app_error_code'] : null), 
+				$requestBody['message'], 
+				(isset($requestBody['errors']) ? $requestBody['errors'] : null), 
+				(isset($requestBody['status_code']) ? $requestBody['status_code'] : null), 
+				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
+			);
+
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
+		}
+
+		$requestBody = json_decode((string) $request->getBody(), true);
+
+		$response = new NotificationResponse(
+			$this->apiClient, 
+			new Notification(
+				$this->apiClient, 
+				$requestBody['data']['id'], 
+				$requestBody['data']['type'], 
+				$requestBody['data']['notifiable_id'], 
+				$requestBody['data']['notifiable_type'], 
+				$requestBody['data']['data'], 
+				$requestBody['data']['read_at'], 
+				$requestBody['data']['created_at'], 
+				$requestBody['data']['updated_at']
+			)
 		);
 
 		return $response;

@@ -189,9 +189,12 @@
         },
         "\/api\/me\/notification": {
             "get": {
+                "tags": [
+                    "Manager:MeNotification"
+                ],
                 "summary": "Current user notification list",
                 "description": "You can specify a GET parameter `read_status` to filter results.",
-                "operationId": "index",
+                "operationId": "all",
                 "parameters": [
                     {
                         "name": "read_status",
@@ -204,13 +207,31 @@
                             ],
                             "type": "string"
                         }
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Include"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/Search"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationPage"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/PaginationLimit"
+                    },
+                    {
+                        "$ref": "#\/components\/parameters\/OrderBy"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "",
+                        "description": "A Notification list",
                         "content": {
                             "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/NotificationListResponse"
+                                },
                                 "example": {
                                     "$ref": "#\/components\/examples\/MeNotificationIndexExampleResponse"
                                 }
@@ -218,15 +239,56 @@
                         }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/me\/notification\/all\/read": {
+            "post": {
+                "tags": [
+                    "Manager:MeNotification"
+                ],
+                "summary": "Mark all user notifications as read",
+                "operationId": "markAllAsRead",
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/NoContentResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/me\/notification\/{notificationId}\/read": {
             "post": {
+                "tags": [
+                    "Manager:MeNotification"
+                ],
                 "summary": "Mark the specified user notification as read",
-                "operationId": "updateRead",
+                "operationId": "markAsRead",
                 "parameters": [
                     {
                         "name": "notificationId",
@@ -239,19 +301,36 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": ""
+                    "200": {
+                        "description": "A Notification",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/NotificationResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "\/api\/me\/notification\/{notificationId}\/unread": {
             "post": {
+                "tags": [
+                    "Manager:MeNotification"
+                ],
                 "summary": "Mark the specified user notification as unread",
-                "operationId": "updateUnread",
+                "operationId": "markAsUnread",
                 "parameters": [
                     {
                         "name": "notificationId",
@@ -264,11 +343,25 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": ""
+                    "200": {
+                        "description": "A Notification",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/NotificationResponse"
+                                }
+                            }
+                        }
                     },
                     "default": {
-                        "description": ""
+                        "description": "",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -574,7 +667,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated User",
                         "content": {
                             "application\/json": {
@@ -687,7 +780,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated User",
                         "content": {
                             "application\/json": {
@@ -1171,7 +1264,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated Project",
                         "content": {
                             "application\/json": {
@@ -1274,7 +1367,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated Project",
                         "content": {
                             "application\/json": {
@@ -1505,7 +1598,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncItem",
                         "content": {
                             "application\/json": {
@@ -1623,7 +1716,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncItem",
                         "content": {
                             "application\/json": {
@@ -1934,7 +2027,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTask",
                         "content": {
                             "application\/json": {
@@ -2049,7 +2142,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTask",
                         "content": {
                             "application\/json": {
@@ -2463,7 +2556,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskType",
                         "content": {
                             "application\/json": {
@@ -2556,7 +2649,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskType",
                         "content": {
                             "application\/json": {
@@ -2789,7 +2882,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskTypeVersion",
                         "content": {
                             "application\/json": {
@@ -2908,7 +3001,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskTypeVersion",
                         "content": {
                             "application\/json": {
@@ -3156,7 +3249,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskStatus",
                         "content": {
                             "application\/json": {
@@ -3249,7 +3342,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskStatus",
                         "content": {
                             "application\/json": {
@@ -3482,7 +3575,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskStatusVersion",
                         "content": {
                             "application\/json": {
@@ -3601,7 +3694,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SyncTaskStatusVersion",
                         "content": {
                             "application\/json": {
@@ -3892,7 +3985,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStream",
                         "content": {
                             "application\/json": {
@@ -4002,7 +4095,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStream",
                         "content": {
                             "application\/json": {
@@ -4250,7 +4343,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamField",
                         "content": {
                             "application\/json": {
@@ -4366,7 +4459,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamField",
                         "content": {
                             "application\/json": {
@@ -4543,7 +4636,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "A DataStreamResponse",
                         "content": {
                             "application\/json": {
@@ -4727,7 +4820,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "A DataStreamResponse",
                         "content": {
                             "application\/json": {
@@ -4960,7 +5053,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamHasI18nLang",
                         "content": {
                             "application\/json": {
@@ -5076,7 +5169,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamHasI18nLang",
                         "content": {
                             "application\/json": {
@@ -5490,7 +5583,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated UserHasProject",
                         "content": {
                             "application\/json": {
@@ -5614,7 +5707,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated UserHasProject",
                         "content": {
                             "application\/json": {
@@ -5832,7 +5925,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamDecoder",
                         "content": {
                             "application\/json": {
@@ -5933,7 +6026,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamDecoder",
                         "content": {
                             "application\/json": {
@@ -6145,7 +6238,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamPreset",
                         "content": {
                             "application\/json": {
@@ -6243,7 +6336,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamPreset",
                         "content": {
                             "application\/json": {
@@ -6548,7 +6641,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamPresetField",
                         "content": {
                             "application\/json": {
@@ -6664,7 +6757,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated DataStreamPresetField",
                         "content": {
                             "application\/json": {
@@ -6867,7 +6960,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated I18nLang",
                         "content": {
                             "application\/json": {
@@ -6959,7 +7052,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated I18nLang",
                         "content": {
                             "application\/json": {
@@ -7269,7 +7362,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchEngine",
                         "content": {
                             "application\/json": {
@@ -7366,7 +7459,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchEngine",
                         "content": {
                             "application\/json": {
@@ -7689,7 +7782,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCase",
                         "content": {
                             "application\/json": {
@@ -7787,7 +7880,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCase",
                         "content": {
                             "application\/json": {
@@ -8043,7 +8136,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCaseField",
                         "content": {
                             "application\/json": {
@@ -8172,7 +8265,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCaseField",
                         "content": {
                             "application\/json": {
@@ -8438,7 +8531,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCasePreset",
                         "content": {
                             "application\/json": {
@@ -8536,7 +8629,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCasePreset",
                         "content": {
                             "application\/json": {
@@ -8792,7 +8885,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCasePresetField",
                         "content": {
                             "application\/json": {
@@ -8921,7 +9014,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated SearchUseCasePresetField",
                         "content": {
                             "application\/json": {
@@ -9187,7 +9280,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated Widget",
                         "content": {
                             "application\/json": {
@@ -9285,7 +9378,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated Widget",
                         "content": {
                             "application\/json": {
@@ -9551,7 +9644,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated WidgetPreset",
                         "content": {
                             "application\/json": {
@@ -9649,7 +9742,7 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "The updated WidgetPreset",
                         "content": {
                             "application\/json": {
@@ -11587,6 +11680,79 @@
                         "$ref": "#\/components\/schemas\/Meta"
                     }
                 }
+            },
+            "Notification": {
+                "required": [
+                    "id",
+                    "type",
+                    "notifiable_id",
+                    "notifiable_type",
+                    "data",
+                    "read_at",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "notifiable_id": {
+                        "type": "string"
+                    },
+                    "notifiable_type": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "read_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "NotificationResponse": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "$ref": "#\/components\/schemas\/Notification"
+                    }
+                }
+            },
+            "NotificationListResponse": {
+                "required": [
+                    "data",
+                    "meta"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/Notification"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#\/components\/schemas\/Meta"
+                    }
+                }
+            },
+            "NoContentResponse": {
+                "description": "No Content"
             }
         },
         "parameters": {
@@ -11649,18 +11815,27 @@
                         "user_group_id": "Developer",
                         "name": "John Doe",
                         "email": "john.doe@domain.tld",
-                        "created_at": "2018-02-13 13:19:01",
-                        "updated_at": "2018-02-13 13:19:01"
+                        "created_at": "2018-02-26 11:19:00",
+                        "updated_at": "2018-02-26 11:19:00"
                     }
                 }
             },
             "MeProjectIndexExampleResponse": {
                 "value": {
-                    "data": [],
+                    "data": [
+                        {
+                            "id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
+                            "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
+                            "name": "John Smith Sample Project 1",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
+                        }
+                    ],
                     "meta": {
                         "pagination": {
-                            "total": 0,
-                            "count": 0,
+                            "total": 1,
+                            "count": 1,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -11671,11 +11846,105 @@
             },
             "MeNotificationIndexExampleResponse": {
                 "value": {
-                    "data": [],
+                    "data": [
+                        {
+                            "id": "1f5f7f09-e9b8-44b6-a7df-f6a1c52a1a7f",
+                            "type": "App\\Notifications\\AdministeredProject",
+                            "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
+                            "notifiable_type": "App\\Models\\User",
+                            "data": {
+                                "user_id": "41abdec2-1389-11e7-93ae-92361f002671",
+                                "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                                "assigned_by_user_id": "41abdec2-1389-11e7-93ae-92361f002671",
+                                "assigned_by_user": {
+                                    "name": "John Doe",
+                                    "email": "john.doe@domain.tld"
+                                },
+                                "project": {
+                                    "name": "John Smith Sample Project 1"
+                                }
+                            },
+                            "read_at": "2018-02-26 11:20:17",
+                            "created_at": "2018-02-26 11:19:40",
+                            "updated_at": "2018-02-26 11:20:17"
+                        },
+                        {
+                            "id": "27cc1da0-ee0c-4a9e-8c87-49110f956db1",
+                            "type": "App\\Notifications\\SyncTaskProgress",
+                            "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
+                            "notifiable_type": "App\\Models\\User",
+                            "data": {
+                                "project": {
+                                    "id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                                    "name": "John Smith Sample Project 1"
+                                },
+                                "data_stream": {
+                                    "id": "56278dc8-1934-11e7-93ae-92361f002671",
+                                    "feed_url": "http:\/\/test-blog-emsearch.e-monsitev4.com\/blog\/do\/datastream\/"
+                                },
+                                "sync_task": {
+                                    "id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                                    "planned_at": "2018-02-26 11:19:00",
+                                    "sync_task_status_id": "Complete",
+                                    "created_by_user": {
+                                        "id": "605c7610-1389-11e7-93ae-92361f002671",
+                                        "name": "John Smith",
+                                        "email": "john.smith@domain.tld"
+                                    }
+                                },
+                                "sync_task_log": {
+                                    "id": "20fe6661-7bfb-41c4-afa0-43dd0967b7ac",
+                                    "sync_task_status_id": "Complete",
+                                    "entry": "Sync. task complete",
+                                    "public": true,
+                                    "position": 5
+                                }
+                            },
+                            "read_at": "2018-02-26 11:20:17",
+                            "created_at": "2018-02-26 11:20:11",
+                            "updated_at": "2018-02-26 11:20:17"
+                        },
+                        {
+                            "id": "a8ca129f-2301-44c5-94d5-88d3264c8820",
+                            "type": "App\\Notifications\\SyncTaskProgress",
+                            "notifiable_id": "41abdec2-1389-11e7-93ae-92361f002671",
+                            "notifiable_type": "App\\Models\\User",
+                            "data": {
+                                "project": {
+                                    "id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                                    "name": "John Smith Sample Project 1"
+                                },
+                                "data_stream": {
+                                    "id": "56278dc8-1934-11e7-93ae-92361f002671",
+                                    "feed_url": "http:\/\/test-blog-emsearch.e-monsitev4.com\/blog\/do\/datastream\/"
+                                },
+                                "sync_task": {
+                                    "id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                                    "planned_at": "2018-02-26 11:19:00",
+                                    "sync_task_status_id": "InProgress",
+                                    "created_by_user": {
+                                        "id": "605c7610-1389-11e7-93ae-92361f002671",
+                                        "name": "John Smith",
+                                        "email": "john.smith@domain.tld"
+                                    }
+                                },
+                                "sync_task_log": {
+                                    "id": "4a3f6837-7117-4b0c-8b56-8a4f728abb50",
+                                    "sync_task_status_id": "InProgress",
+                                    "entry": "Sync. task started",
+                                    "public": true,
+                                    "position": 2
+                                }
+                            },
+                            "read_at": "2018-02-26 11:20:17",
+                            "created_at": "2018-02-26 11:20:02",
+                            "updated_at": "2018-02-26 11:20:17"
+                        }
+                    ],
                     "meta": {
                         "pagination": {
-                            "total": 0,
-                            "count": 0,
+                            "total": 3,
+                            "count": 3,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -11720,32 +11989,32 @@
                             "user_group_id": "Developer",
                             "name": "John Doe",
                             "email": "john.doe@domain.tld",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "509dd5c0-1389-11e7-93ae-92361f002671",
                             "user_group_id": "Support",
                             "name": "Alan Smithee",
                             "email": "alan.smithee@domain.tld",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "605c7610-1389-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "John Smith",
                             "email": "john.smith@domain.tld",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "user_group_id": "End-User",
                             "name": "Mickey Mouse",
                             "email": "mickey.mouse@domain.tld",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -11768,24 +12037,24 @@
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project 1",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": null,
                             "name": "John Smith Sample Project 2",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -11807,8 +12076,8 @@
                         "search_engine_id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                         "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                         "name": "John Smith Sample Project 1",
-                        "created_at": "2018-02-13 13:19:01",
-                        "updated_at": "2018-02-13 13:19:01"
+                        "created_at": "2018-02-26 11:19:00",
+                        "updated_at": "2018-02-26 11:19:00"
                     }
                 }
             },
@@ -11819,15 +12088,15 @@
                             "item_id": "5a71e32dea5bc1f825105cbe",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "item_signature": "63e8679c0c71c27328436f60eb3f8571",
-                            "created_at": "2018-02-13 13:20:23",
-                            "updated_at": "2018-02-13 13:20:23"
+                            "created_at": "2018-02-26 11:20:11",
+                            "updated_at": "2018-02-26 11:20:11"
                         },
                         {
                             "item_id": "5a71e32e0360c1f825105644",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "item_signature": "9640fa1958f26154314fb81d9772bd53",
-                            "created_at": "2018-02-13 13:20:23",
-                            "updated_at": "2018-02-13 13:20:23"
+                            "created_at": "2018-02-26 11:20:11",
+                            "updated_at": "2018-02-26 11:20:11"
                         }
                     ],
                     "meta": {
@@ -11851,55 +12120,16 @@
                 "value": {
                     "data": [
                         {
-                            "id": "2deb0399-1636-45da-b40f-cb086056adde",
+                            "id": "49d82e70-8577-4ce1-b1f6-de4a12986e94",
                             "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
                             "sync_task_type_id": "DataStreamDownload",
                             "sync_task_status_id": "Complete",
                             "created_by_user_id": null,
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "planned_at": null,
-                            "created_at": "2018-02-13 13:20:02",
-                            "updated_at": "2018-02-13 13:20:17",
+                            "created_at": "2018-02-26 11:20:02",
+                            "updated_at": "2018-02-26 11:20:03",
                             "sync_task_logs_count": 5,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "56f0d6c2-e25e-4f73-8387-0fef01fb50af",
-                            "sync_task_id": null,
-                            "sync_task_type_id": "Main",
-                            "sync_task_status_id": "Planned",
-                            "created_by_user_id": "41abdec2-1389-11e7-93ae-92361f002671",
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": "2018-02-13 13:35:55",
-                            "created_at": "2018-02-13 13:20:55",
-                            "updated_at": "2018-02-13 13:20:55",
-                            "sync_task_logs_count": 1,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "86691421-1090-419b-bc2f-0a1d903141df",
-                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
-                            "sync_task_type_id": "DataStreamPrepare",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2018-02-13 13:20:20",
-                            "updated_at": "2018-02-13 13:20:22",
-                            "sync_task_logs_count": 10,
-                            "children_sync_tasks_count": 0
-                        },
-                        {
-                            "id": "8ce2eab7-4e53-455f-b01d-227284843b56",
-                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
-                            "sync_task_type_id": "DataStreamCheck",
-                            "sync_task_status_id": "Complete",
-                            "created_by_user_id": null,
-                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": null,
-                            "created_at": "2018-02-13 13:20:17",
-                            "updated_at": "2018-02-13 13:20:20",
-                            "sync_task_logs_count": 4,
                             "children_sync_tasks_count": 0
                         },
                         {
@@ -11909,30 +12139,56 @@
                             "sync_task_status_id": "Complete",
                             "created_by_user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
-                            "planned_at": "2018-02-13 13:19:02",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:20:23",
+                            "planned_at": "2018-02-26 11:19:00",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:20:11",
                             "sync_task_logs_count": 5,
                             "children_sync_tasks_count": 4
                         },
                         {
-                            "id": "b952fbe2-8722-471a-a943-00019adca55b",
+                            "id": "aaa34fbe-6034-48af-80ce-a411121af6ed",
+                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                            "sync_task_type_id": "DataStreamCheck",
+                            "sync_task_status_id": "Complete",
+                            "created_by_user_id": null,
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "planned_at": null,
+                            "created_at": "2018-02-26 11:20:03",
+                            "updated_at": "2018-02-26 11:20:06",
+                            "sync_task_logs_count": 4,
+                            "children_sync_tasks_count": 0
+                        },
+                        {
+                            "id": "dbd3ca45-f3f5-441b-9451-23962117d180",
+                            "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
+                            "sync_task_type_id": "DataStreamPrepare",
+                            "sync_task_status_id": "Complete",
+                            "created_by_user_id": null,
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "planned_at": null,
+                            "created_at": "2018-02-26 11:20:06",
+                            "updated_at": "2018-02-26 11:20:09",
+                            "sync_task_logs_count": 10,
+                            "children_sync_tasks_count": 0
+                        },
+                        {
+                            "id": "f0ef68e5-c592-4fcd-b2c5-1bfa0c1bb60d",
                             "sync_task_id": "8dbfd6e6-2055-11e7-93ae-92361f002671",
                             "sync_task_type_id": "ItemsInsertion",
                             "sync_task_status_id": "Complete",
                             "created_by_user_id": null,
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "planned_at": null,
-                            "created_at": "2018-02-13 13:20:22",
-                            "updated_at": "2018-02-13 13:20:23",
-                            "sync_task_logs_count": 8,
+                            "created_at": "2018-02-26 11:20:09",
+                            "updated_at": "2018-02-26 11:20:11",
+                            "sync_task_logs_count": 10,
                             "children_sync_tasks_count": 0
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 6,
-                            "count": 6,
+                            "total": 5,
+                            "count": 5,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -11976,7 +12232,7 @@
                         },
                         {
                             "id": "Main",
-                            "sync_tasks_count": 2,
+                            "sync_tasks_count": 1,
                             "sync_task_type_versions_count": 2
                         }
                     ],
@@ -11999,71 +12255,71 @@
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "en_US",
                             "description": "Comparison and verification of downloaded data.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamCheck",
                             "i18n_lang_id": "fr_FR",
                             "description": "Comparaison et v\u00e9rification des donn\u00e9es t\u00e9l\u00e9charg\u00e9es.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "en_US",
                             "description": "Downloading the provided data feed url of the data stream.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamDownload",
                             "i18n_lang_id": "fr_FR",
                             "description": "T\u00e9l\u00e9chargement des donn\u00e9es fournies par l'url du flux de donn\u00e9es.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "en_US",
                             "description": "Data breakdown for creation, edition or deletion.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "DataStreamPrepare",
                             "i18n_lang_id": "fr_FR",
                             "description": "Ventilation des donn\u00e9es pour la cr\u00e9ation, modification ou suppression.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "en_US",
                             "description": "Deleting records.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "ItemsDelete",
                             "i18n_lang_id": "fr_FR",
                             "description": "Suppression d'enregistrements.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "en_US",
                             "description": "Creating new records.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_type_id": "ItemsInsertion",
                             "i18n_lang_id": "fr_FR",
                             "description": "Cr\u00e9ation des nouveaux enregistrements.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         }
                     ],
                     "meta": {
@@ -12101,6 +12357,12 @@
                             "sync_task_status_versions_count": 2
                         },
                         {
+                            "id": "Making",
+                            "sync_tasks_count": 0,
+                            "sync_task_logs_count": 1,
+                            "sync_task_status_versions_count": 2
+                        },
+                        {
                             "id": "OnError",
                             "sync_tasks_count": 0,
                             "sync_task_logs_count": 0,
@@ -12108,7 +12370,7 @@
                         },
                         {
                             "id": "Planned",
-                            "sync_tasks_count": 1,
+                            "sync_tasks_count": 0,
                             "sync_task_logs_count": 2,
                             "sync_task_status_versions_count": 2
                         },
@@ -12121,8 +12383,8 @@
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 5,
-                            "count": 5,
+                            "total": 6,
+                            "count": 6,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -12138,81 +12400,83 @@
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is complete.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_status_id": "Complete",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est termin\u00e9e",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is in progress.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_status_id": "InProgress",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est en cours.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
+                        },
+                        {
+                            "sync_task_status_id": "Making",
+                            "i18n_lang_id": "en_US",
+                            "description": "Making synchronization task.",
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
+                        },
+                        {
+                            "sync_task_status_id": "Making",
+                            "i18n_lang_id": "fr_FR",
+                            "description": "La t\u00e2che de synchronisation est en cours de cr\u00e9ation.",
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_status_id": "OnError",
                             "i18n_lang_id": "en_US",
                             "description": "An error occurred.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_status_id": "OnError",
                             "i18n_lang_id": "fr_FR",
                             "description": "Une erreur s'est produite.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "en_US",
                             "description": "Items synchronization is planned.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         },
                         {
                             "sync_task_status_id": "Planned",
                             "i18n_lang_id": "fr_FR",
                             "description": "La synchronisation des items est plannifi\u00e9e",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
-                        },
-                        {
-                            "sync_task_status_id": "Queued",
-                            "i18n_lang_id": "en_US",
-                            "description": "Items synchronization is in jobs queue.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
-                        },
-                        {
-                            "sync_task_status_id": "Queued",
-                            "i18n_lang_id": "fr_FR",
-                            "description": "La synchronisation des items est en file d'attente.",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 10,
+                            "total": 12,
                             "count": 10,
                             "per_page": 10,
                             "current_page": 1,
-                            "total_pages": 1,
-                            "links": []
+                            "total_pages": 2,
+                            "links": {
+                                "next": "https:\/\/emsearch.ryan.ems-dev.net\/api\/syncTaskStatusVersion?page=2"
+                            }
                         }
                     }
                 }
@@ -12232,8 +12496,8 @@
                             "feed_url": "http:\/\/test-blog-emsearch.e-monsitev4.com\/blog\/do\/datastream\/",
                             "basic_auth_user": "awelty",
                             "basic_auth_password": "sites",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "605d712c-1934-11e7-93ae-92361f002671",
@@ -12242,8 +12506,8 @@
                             "feed_url": "https:\/\/www.e-monsite.com\/blog\/do\/datastream\/",
                             "basic_auth_user": null,
                             "basic_auth_password": null,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12269,8 +12533,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145ca730-60af-11e7-907b-a6006ad3dba0",
@@ -12280,8 +12544,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145ca848-60af-11e7-907b-a6006ad3dba0",
@@ -12291,8 +12555,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145ca9ba-60af-11e7-907b-a6006ad3dba0",
@@ -12302,8 +12566,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145cac44-60af-11e7-907b-a6006ad3dba0",
@@ -12313,8 +12577,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145cad20-60af-11e7-907b-a6006ad3dba0",
@@ -12324,8 +12588,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145cade8-60af-11e7-907b-a6006ad3dba0",
@@ -12335,8 +12599,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145caeb0-60af-11e7-907b-a6006ad3dba0",
@@ -12346,8 +12610,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145cb13a-60af-11e7-907b-a6006ad3dba0",
@@ -12357,8 +12621,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "145cb27a-60af-11e7-907b-a6006ad3dba0",
@@ -12368,8 +12632,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12392,14 +12656,14 @@
                         {
                             "data_stream_id": "56278dc8-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "data_stream_id": "605d712c-1934-11e7-93ae-92361f002671",
                             "i18n_lang_id": "fr",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12423,45 +12687,52 @@
                 "value": {
                     "data": [
                         {
+                            "user_id": "41abdec2-1389-11e7-93ae-92361f002671",
+                            "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
+                            "user_role_id": "Administrator",
+                            "created_at": "2018-02-26 11:19:40",
+                            "updated_at": "2018-02-26 11:19:40"
+                        },
+                        {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "b6860dd2-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "user_id": "605c7610-1389-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Administrator",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "user_id": "82b5da82-138c-11e7-93ae-92361f002671",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "user_role_id": "Owner",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
                         "pagination": {
-                            "total": 5,
-                            "count": 5,
+                            "total": 6,
+                            "count": 6,
                             "per_page": 10,
                             "current_page": 1,
                             "total_pages": 1,
@@ -12483,8 +12754,8 @@
                             "name": "Emonsite",
                             "class_name": "EmonsiteDecoder",
                             "file_mime_type": "application\/json",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59"
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57"
                         }
                     ],
                     "meta": {
@@ -12506,8 +12777,8 @@
                             "id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "data_stream_decoder_id": "53fd5290-5a4c-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12533,8 +12804,8 @@
                             "versioned": false,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cb642-5bf3-11e7-907b-a6006ad3dba0",
@@ -12544,8 +12815,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cba20-5bf3-11e7-907b-a6006ad3dba0",
@@ -12555,8 +12826,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cc15a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12566,8 +12837,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cc34e-5bf3-11e7-907b-a6006ad3dba0",
@@ -12577,8 +12848,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cc4ca-5bf3-11e7-907b-a6006ad3dba0",
@@ -12588,8 +12859,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cc650-5bf3-11e7-907b-a6006ad3dba0",
@@ -12599,8 +12870,8 @@
                             "versioned": true,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cc7c2-5bf3-11e7-907b-a6006ad3dba0",
@@ -12610,8 +12881,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9cc92a-5bf3-11e7-907b-a6006ad3dba0",
@@ -12621,8 +12892,8 @@
                             "versioned": true,
                             "searchable": false,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "eb9ccec0-5bf3-11e7-907b-a6006ad3dba0",
@@ -12632,8 +12903,8 @@
                             "versioned": false,
                             "searchable": true,
                             "to_retrieve": true,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12715,24 +12986,24 @@
                             "id": "6a81459e-baff-11e7-abc4-cec278b6b50a",
                             "name": "Elastic Search",
                             "class_name": "ElasticSearchSearchEngine",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00",
                             "projects_count": 3
                         },
                         {
                             "id": "9f34afe4-ba3f-11e7-abc4-cec278b6b50a",
                             "name": "Fake",
                             "class_name": "FakeSearchEngine",
-                            "created_at": "2018-02-13 13:19:01",
-                            "updated_at": "2018-02-13 13:19:01",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00",
                             "projects_count": 0
                         },
                         {
                             "id": "ee87e3b2-1388-11e7-93ae-92361f002671",
                             "name": "Algolia",
                             "class_name": "AlgoliaSearchEngine",
-                            "created_at": "2018-02-13 13:18:59",
-                            "updated_at": "2018-02-13 13:18:59",
+                            "created_at": "2018-02-26 11:18:57",
+                            "updated_at": "2018-02-26 11:18:57",
                             "projects_count": 0
                         }
                     ],
@@ -12755,16 +13026,16 @@
                             "id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "project_id": "1bcc7efc-138c-11e7-93ae-92361f002671",
                             "name": "John Smith Sample Project Default Search Use Case",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00",
                             "search_use_case_fields_count": 3
                         },
                         {
                             "id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "project_id": "c4b5d93c-138c-11e7-93ae-92361f002671",
                             "name": "Mickey Mouse Sample Project Default Search Use Case",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00",
                             "search_use_case_fields_count": 3
                         }
                     ],
@@ -12789,8 +13060,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12798,8 +13069,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
@@ -12807,8 +13078,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12816,8 +13087,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12825,8 +13096,8 @@
                             "name": "content",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
@@ -12834,8 +13105,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12857,16 +13128,16 @@
                             "id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00",
                             "search_use_case_preset_fields_count": 4
                         },
                         {
                             "id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "data_stream_preset_id": "737441b0-57ea-11e7-907b-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02",
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00",
                             "search_use_case_preset_fields_count": 2
                         }
                     ],
@@ -12891,8 +13162,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12900,8 +13171,8 @@
                             "name": "content",
                             "searchable": 1,
                             "to_retrieve": 0,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12909,8 +13180,8 @@
                             "name": "tags",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
@@ -12918,8 +13189,8 @@
                             "name": "url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -12927,8 +13198,8 @@
                             "name": "title",
                             "searchable": 1,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
@@ -12936,8 +13207,8 @@
                             "name": "seo_image_url",
                             "searchable": 0,
                             "to_retrieve": 1,
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12959,15 +13230,15 @@
                             "id": "a2fb4304-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "37f79df8-707c-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "b070b438-781d-11e7-b5a5-be2e44b06b34",
                             "search_use_case_id": "dc5bfd4c-711e-11e7-8cf7-a6006ad3dba0",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {
@@ -12989,15 +13260,15 @@
                             "id": "0f85eb82-776a-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "d3c73a6c-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Photo Widget",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         },
                         {
                             "id": "6be0a102-7769-11e7-b5a5-be2e44b06b34",
                             "search_use_case_preset_id": "516f0252-7767-11e7-b5a5-be2e44b06b34",
                             "name": "E-monsite | Blog - Summary Widget",
-                            "created_at": "2018-02-13 13:19:02",
-                            "updated_at": "2018-02-13 13:19:02"
+                            "created_at": "2018-02-26 11:19:00",
+                            "updated_at": "2018-02-26 11:19:00"
                         }
                     ],
                     "meta": {

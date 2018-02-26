@@ -83,7 +83,7 @@ class User
 	/**
 	 * Update a specified user
 	 * 
-	 * Excepted HTTP code : 201
+	 * Excepted HTTP code : 200
 	 * 
 	 * @param string $user_group_id
 	 * @param string $name
@@ -115,7 +115,7 @@ class User
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
-		if ($request->getStatusCode() != 201) {
+		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
 
 			$apiExceptionResponse = new ErrorResponse(
@@ -127,7 +127,7 @@ class User
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
 
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);

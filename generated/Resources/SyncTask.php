@@ -140,7 +140,7 @@ class SyncTask
 	/**
 	 * Update a specified sync task
 	 * 
-	 * Excepted HTTP code : 201
+	 * Excepted HTTP code : 200
 	 * 
 	 * @param string $sync_task_type_id
 	 * @param string $sync_task_status_id
@@ -182,7 +182,7 @@ class SyncTask
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
-		if ($request->getStatusCode() != 201) {
+		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
 
 			$apiExceptionResponse = new ErrorResponse(
@@ -194,7 +194,7 @@ class SyncTask
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
 
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);

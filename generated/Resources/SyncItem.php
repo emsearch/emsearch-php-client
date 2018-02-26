@@ -81,7 +81,7 @@ class SyncItem
 	/**
 	 * Update a specified sync item
 	 * 
-	 * Excepted HTTP code : 201
+	 * Excepted HTTP code : 200
 	 * 
 	 * @param string $item_id
 	 * @param string $project_id Format: uuid.
@@ -115,7 +115,7 @@ class SyncItem
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
-		if ($request->getStatusCode() != 201) {
+		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
 
 			$apiExceptionResponse = new ErrorResponse(
@@ -127,7 +127,7 @@ class SyncItem
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
 
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);

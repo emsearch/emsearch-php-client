@@ -9,6 +9,7 @@ use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Middleware;
 use Emsearch\Api\Managers\SearchUseCaseManager;
 use Emsearch\Api\Managers\MeManager;
+use Emsearch\Api\Managers\MeNotificationManager;
 use Emsearch\Api\Managers\UserGroupManager;
 use Emsearch\Api\Managers\UserManager;
 use Emsearch\Api\Managers\ProjectManager;
@@ -81,6 +82,13 @@ class ApiClient
 	 * @var MeManager
 	 */
 	protected $meManager;
+
+	/**
+	 * MeNotification manager
+	 *
+	 * @var MeNotificationManager
+	 */
+	protected $meNotificationManager;
 
 	/**
 	 * UserGroup manager
@@ -280,6 +288,7 @@ class ApiClient
 
 		$this->searchUseCaseManager = new SearchUseCaseManager($this);
 		$this->meManager = new MeManager($this);
+		$this->meNotificationManager = new MeNotificationManager($this);
 		$this->userGroupManager = new UserGroupManager($this);
 		$this->userManager = new UserManager($this);
 		$this->projectManager = new ProjectManager($this);
@@ -353,6 +362,16 @@ class ApiClient
 	public function MeManager()
 	{
 		return $this->meManager;
+	}
+	
+	/**
+	 * Return the MeNotification manager
+	 *
+	 * @return MeNotificationManager
+	 */
+	public function MeNotificationManager()
+	{
+		return $this->meNotificationManager;
 	}
 	
 	/**

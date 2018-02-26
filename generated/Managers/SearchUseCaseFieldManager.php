@@ -675,7 +675,7 @@ class SearchUseCaseFieldManager
 	/**
 	 * Update a specified search use case field
 	 * 
-	 * Excepted HTTP code : 201
+	 * Excepted HTTP code : 200
 	 * 
 	 * @param string $searchUseCaseId Search use case UUID
 	 * @param string $dataStreamFieldId Data stream field UUID
@@ -712,7 +712,7 @@ class SearchUseCaseFieldManager
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
-		if ($request->getStatusCode() != 201) {
+		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
 
 			$apiExceptionResponse = new ErrorResponse(
@@ -724,7 +724,7 @@ class SearchUseCaseFieldManager
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
 
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);

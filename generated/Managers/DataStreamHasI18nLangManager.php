@@ -265,7 +265,7 @@ class DataStreamHasI18nLangManager
 	 * 
 	 * <aside class="notice">Only one relationship per data stream/i18n lang is allowed.</aside>
 	 * 
-	 * Excepted HTTP code : 201
+	 * Excepted HTTP code : 200
 	 * 
 	 * @param string $dataStreamId Data Stream UUID
 	 * @param string $i18nLangId I18n Land Id
@@ -296,7 +296,7 @@ class DataStreamHasI18nLangManager
 
 		$request = $this->apiClient->getHttpClient()->request('patch', $routeUrl, $requestOptions);
 
-		if ($request->getStatusCode() != 201) {
+		if ($request->getStatusCode() != 200) {
 			$requestBody = json_decode((string) $request->getBody(), true);
 
 			$apiExceptionResponse = new ErrorResponse(
@@ -308,7 +308,7 @@ class DataStreamHasI18nLangManager
 				(isset($requestBody['debug']) ? $requestBody['debug'] : null)
 			);
 
-			throw new UnexpectedResponseException($request->getStatusCode(), 201, $request, $apiExceptionResponse);
+			throw new UnexpectedResponseException($request->getStatusCode(), 200, $request, $apiExceptionResponse);
 		}
 
 		$requestBody = json_decode((string) $request->getBody(), true);
