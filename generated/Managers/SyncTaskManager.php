@@ -165,6 +165,8 @@ class SyncTaskManager
 							$data['createdByUser']['data']['user_group_id'], 
 							$data['createdByUser']['data']['name'], 
 							$data['createdByUser']['data']['email'], 
+							(isset($data['createdByUser']['data']['password']) ? $data['password'] : null), 
+							$data['createdByUser']['data']['preferred_language'], 
 							$data['createdByUser']['data']['created_at'], 
 							$data['createdByUser']['data']['updated_at']
 						)
@@ -318,6 +320,8 @@ class SyncTaskManager
 						$requestBody['data']['createdByUser']['data']['user_group_id'], 
 						$requestBody['data']['createdByUser']['data']['name'], 
 						$requestBody['data']['createdByUser']['data']['email'], 
+						(isset($requestBody['data']['createdByUser']['data']['password']) ? $requestBody['data']['createdByUser']['data']['password'] : null), 
+						$requestBody['data']['createdByUser']['data']['preferred_language'], 
 						$requestBody['data']['createdByUser']['data']['created_at'], 
 						$requestBody['data']['createdByUser']['data']['updated_at']
 					)
@@ -452,6 +456,8 @@ class SyncTaskManager
 						$requestBody['data']['createdByUser']['data']['user_group_id'], 
 						$requestBody['data']['createdByUser']['data']['name'], 
 						$requestBody['data']['createdByUser']['data']['email'], 
+						(isset($requestBody['data']['createdByUser']['data']['password']) ? $requestBody['data']['createdByUser']['data']['password'] : null), 
+						$requestBody['data']['createdByUser']['data']['preferred_language'], 
 						$requestBody['data']['createdByUser']['data']['created_at'], 
 						$requestBody['data']['createdByUser']['data']['updated_at']
 					)
@@ -599,6 +605,8 @@ class SyncTaskManager
 						$requestBody['data']['createdByUser']['data']['user_group_id'], 
 						$requestBody['data']['createdByUser']['data']['name'], 
 						$requestBody['data']['createdByUser']['data']['email'], 
+						(isset($requestBody['data']['createdByUser']['data']['password']) ? $requestBody['data']['createdByUser']['data']['password'] : null), 
+						$requestBody['data']['createdByUser']['data']['preferred_language'], 
 						$requestBody['data']['createdByUser']['data']['created_at'], 
 						$requestBody['data']['createdByUser']['data']['updated_at']
 					)

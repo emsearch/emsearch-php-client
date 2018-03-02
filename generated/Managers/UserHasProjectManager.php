@@ -136,6 +136,8 @@ class UserHasProjectManager
 							$data['user']['data']['user_group_id'], 
 							$data['user']['data']['name'], 
 							$data['user']['data']['email'], 
+							(isset($data['user']['data']['password']) ? $data['password'] : null), 
+							$data['user']['data']['preferred_language'], 
 							$data['user']['data']['created_at'], 
 							$data['user']['data']['updated_at']
 						)
@@ -273,6 +275,8 @@ class UserHasProjectManager
 						$requestBody['data']['user']['data']['user_group_id'], 
 						$requestBody['data']['user']['data']['name'], 
 						$requestBody['data']['user']['data']['email'], 
+						(isset($requestBody['data']['user']['data']['password']) ? $requestBody['data']['user']['data']['password'] : null), 
+						$requestBody['data']['user']['data']['preferred_language'], 
 						$requestBody['data']['user']['data']['created_at'], 
 						$requestBody['data']['user']['data']['updated_at']
 					)
@@ -403,6 +407,8 @@ class UserHasProjectManager
 						$requestBody['data']['user']['data']['user_group_id'], 
 						$requestBody['data']['user']['data']['name'], 
 						$requestBody['data']['user']['data']['email'], 
+						(isset($requestBody['data']['user']['data']['password']) ? $requestBody['data']['user']['data']['password'] : null), 
+						$requestBody['data']['user']['data']['preferred_language'], 
 						$requestBody['data']['user']['data']['created_at'], 
 						$requestBody['data']['user']['data']['updated_at']
 					)
@@ -536,6 +542,8 @@ class UserHasProjectManager
 						$requestBody['data']['user']['data']['user_group_id'], 
 						$requestBody['data']['user']['data']['name'], 
 						$requestBody['data']['user']['data']['email'], 
+						(isset($requestBody['data']['user']['data']['password']) ? $requestBody['data']['user']['data']['password'] : null), 
+						$requestBody['data']['user']['data']['preferred_language'], 
 						$requestBody['data']['user']['data']['created_at'], 
 						$requestBody['data']['user']['data']['updated_at']
 					)

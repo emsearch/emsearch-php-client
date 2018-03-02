@@ -112,6 +112,8 @@ class UserManager
 					$data['user_group_id'], 
 					$data['name'], 
 					$data['email'], 
+					(isset($data['password']) ? $data['password'] : null), 
+					$data['preferred_language'], 
 					$data['created_at'], 
 					$data['updated_at']
 				); 
@@ -142,12 +144,13 @@ class UserManager
 	 * @param string $name
 	 * @param string $email Format: email.
 	 * @param string $password Format: password.
+	 * @param string $preferred_language
 	 * 
 	 * @return UserResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function create($user_group_id, $name, $email, $password)
+	public function create($user_group_id, $name, $email, $password, $preferred_language = null)
 	{
 		$routeUrl = '/api/user';
 
@@ -156,6 +159,10 @@ class UserManager
 		$bodyParameters['name'] = $name;
 		$bodyParameters['email'] = $email;
 		$bodyParameters['password'] = $password;
+
+		if (!is_null($preferred_language)) {
+			$bodyParameters['preferred_language'] = $preferred_language;
+		}
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -187,6 +194,8 @@ class UserManager
 				$requestBody['data']['user_group_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['email'], 
+				(isset($requestBody['data']['password']) ? $requestBody['data']['password'] : null), 
+				$requestBody['data']['preferred_language'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -245,6 +254,8 @@ class UserManager
 				$requestBody['data']['user_group_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['email'], 
+				(isset($requestBody['data']['password']) ? $requestBody['data']['password'] : null), 
+				$requestBody['data']['preferred_language'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)
@@ -263,12 +274,13 @@ class UserManager
 	 * @param string $name
 	 * @param string $email Format: email.
 	 * @param string $password Format: password.
+	 * @param string $preferred_language
 	 * 
 	 * @return UserResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($userId, $user_group_id, $name, $email, $password)
+	public function update($userId, $user_group_id, $name, $email, $password, $preferred_language = null)
 	{
 		$routePath = '/api/user/{userId}';
 
@@ -283,6 +295,10 @@ class UserManager
 		$bodyParameters['name'] = $name;
 		$bodyParameters['email'] = $email;
 		$bodyParameters['password'] = $password;
+
+		if (!is_null($preferred_language)) {
+			$bodyParameters['preferred_language'] = $preferred_language;
+		}
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -314,6 +330,8 @@ class UserManager
 				$requestBody['data']['user_group_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['email'], 
+				(isset($requestBody['data']['password']) ? $requestBody['data']['password'] : null), 
+				$requestBody['data']['preferred_language'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)

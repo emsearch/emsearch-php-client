@@ -95,6 +95,8 @@ class MeManager
 				$requestBody['data']['user_group_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['email'], 
+				(isset($requestBody['data']['password']) ? $requestBody['data']['password'] : null), 
+				$requestBody['data']['preferred_language'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)

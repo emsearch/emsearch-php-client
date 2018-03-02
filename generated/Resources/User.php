@@ -46,6 +46,18 @@ class User
 	public $email;
 
 	/**
+	 * Format: password.
+	 * 
+	 * @var string
+	 */
+	public $password;
+
+	/**
+	 * @var string
+	 */
+	public $preferred_language;
+
+	/**
 	 * Format: date-time.
 	 * 
 	 * @var string
@@ -67,16 +79,20 @@ class User
 	 * @param string $user_group_id Format: uuid.
 	 * @param string $name
 	 * @param string $email Format: email.
+	 * @param string $password Format: password.
+	 * @param string $preferred_language
 	 * @param string $created_at Format: date-time.
 	 * @param string $updated_at Format: date-time.
 	 */
-	public function __construct(ApiClient $apiClient, $id = null, $user_group_id = null, $name = null, $email = null, $created_at = null, $updated_at = null)
+	public function __construct(ApiClient $apiClient, $id = null, $user_group_id = null, $name = null, $email = null, $password = null, $preferred_language = null, $created_at = null, $updated_at = null)
 	{
 		$this->apiClient = $apiClient;
 		$this->id = $id;
 		$this->user_group_id = $user_group_id;
 		$this->name = $name;
 		$this->email = $email;
+		$this->password = $password;
+		$this->preferred_language = $preferred_language;
 		$this->created_at = $created_at;
 		$this->updated_at = $updated_at;
 	}
@@ -89,12 +105,13 @@ class User
 	 * @param string $name
 	 * @param string $email Format: email.
 	 * @param string $password Format: password.
+	 * @param string $preferred_language
 	 * 
 	 * @return UserResponse
 	 * 
 	 * @throws UnexpectedResponseException
 	 */
-	public function update($user_group_id, $name, $email, $password)
+	public function update($user_group_id, $name, $email, $password, $preferred_language = null)
 	{
 		$routePath = '/api/user/{userId}';
 
@@ -109,6 +126,10 @@ class User
 		$bodyParameters['name'] = $name;
 		$bodyParameters['email'] = $email;
 		$bodyParameters['password'] = $password;
+
+		if (!is_null($preferred_language)) {
+			$bodyParameters['preferred_language'] = $preferred_language;
+		}
 
 		$requestOptions = [];
 		$requestOptions['form_params'] = $bodyParameters;
@@ -140,6 +161,8 @@ class User
 				$requestBody['data']['user_group_id'], 
 				$requestBody['data']['name'], 
 				$requestBody['data']['email'], 
+				(isset($requestBody['data']['password']) ? $requestBody['data']['password'] : null), 
+				$requestBody['data']['preferred_language'], 
 				$requestBody['data']['created_at'], 
 				$requestBody['data']['updated_at']
 			)

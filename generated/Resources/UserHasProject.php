@@ -155,6 +155,8 @@ class UserHasProject
 						$requestBody['data']['user']['data']['user_group_id'], 
 						$requestBody['data']['user']['data']['name'], 
 						$requestBody['data']['user']['data']['email'], 
+						(isset($requestBody['data']['user']['data']['password']) ? $requestBody['data']['user']['data']['password'] : null), 
+						$requestBody['data']['user']['data']['preferred_language'], 
 						$requestBody['data']['user']['data']['created_at'], 
 						$requestBody['data']['user']['data']['updated_at']
 					)

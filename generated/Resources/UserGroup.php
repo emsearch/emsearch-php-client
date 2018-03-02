@@ -117,6 +117,8 @@ class UserGroup
 					$data['user_group_id'], 
 					$data['name'], 
 					$data['email'], 
+					(isset($data['password']) ? $data['password'] : null), 
+					$data['preferred_language'], 
 					$data['created_at'], 
 					$data['updated_at']
 				); 
